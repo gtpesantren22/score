@@ -265,4 +265,65 @@ class Dewan extends CI_Controller
             echo json_encode(array('status' => 'error', 'message' => 'Gagal menghapus data.'));
         }
     }
+
+    public function selesaikan($id_tanding)
+    {
+        $data = ['status' => 'selesai', 'aktif' => 'N', 'babak' => 0];
+
+        $this->model->ubah('tanding', 'id_tanding', $id_tanding, $data);
+        if ($this->db->affected_rows() > 0) {
+            redirect('dewan/winner/' . $id_tanding);
+        } else {
+            $this->session->set_flashdata('error', 'Update pertandingan gagal');
+        }
+    }
+
+    public function winner($id)
+    {
+        $data['tanding'] = $this->model->getBy('tanding', 'id_tanding', $id)->row();
+        $data['partai'] = $this->model->getBy('partai', 'id_partai', $data['tanding']->id_partai)->row();
+        $merah = $data['partai']->merah;
+        $biru = $data['partai']->biru;
+
+        $data['merah'] = $this->model->getBy('peserta', 'id_peserta', $merah)->row();
+        $data['biru'] = $this->model->getBy('peserta', 'id_peserta', $biru)->row();
+
+        $pointJuriMerah = $this->db->query("SELECT SUM(skor) AS point FROM nilai_fix WHERE id_tanding = '$id' AND id_peserta = '$merah' ")->row();
+        $pointMerah = $this->db->query("SELECT SUM(skor) AS point FROM hukuman WHERE id_tanding = '$id' AND id_peserta = '$merah' ")->row();
+
+        $pointJuriBiru = $this->db->query("SELECT SUM(skor) AS point FROM nilai_fix WHERE id_tanding = '$id' AND id_peserta = '$biru' ")->row();
+        $pointBiru = $this->db->query("SELECT SUM(skor) AS point FROM hukuman WHERE id_tanding = '$id' AND id_peserta = '$biru' ")->row();
+
+        $data['skorMerah'] = $pointJuriMerah->point + $pointMerah->point;
+        $data['skorBiru'] = $pointJuriBiru->point + $pointBiru->point;
+
+        $this->load->view('dewan/winner', $data);
+    }
+
+    public function saveWin()
+    {
+        $id_tanding = $this->input->post('id_tanding', true);
+        $id_peserta = $this->input->post('id_peserta', true);
+
+        $cek = $this->model->getBy2('winner', 'id_tanding', $id_tanding, 'id_peserta', $id_peserta)->row();
+
+        if ($cek) {
+            redirect('dewan/tanding');
+        } else {
+            $data = [
+                'id_winner' => $this->uuid->v4(),
+                'id_tanding' => $id_tanding,
+                'id_peserta' => $id_peserta,
+            ];
+
+            $this->model->simpan('winner', $data);
+            if ($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata('ok', 'Pertandingan Selesai');
+                redirect('dewan/tanding');
+            } else {
+                $this->session->set_flashdata('error', 'Update pertandingan gagal');
+                redirect('dewan/tanding');
+            }
+        }
+    }
 }
