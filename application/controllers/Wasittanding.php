@@ -209,6 +209,8 @@ FROM nilai WHERE id_tanding = '$idTanding' AND id_wasit = '$id_wasit' AND babak 
 
     public function logout()
     {
+        $this->session->unset_userdata('tandingID');
+        $this->session->unset_userdata('wasitID');
         $this->session->sess_destroy();
         redirect('wasit');
     }

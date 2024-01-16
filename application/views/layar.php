@@ -102,27 +102,29 @@
                                             <th style="font-weight: bolder; font-size: xx-large; background-color: skyblue;"><?= $merah->kelas . ' - ' . $merah->kategori ?></th>
                                         </tr>
                                     </table>
-                                    <hr>
+                                    <!-- <hr> -->
+                                    <br>
                                     <div class="row">
                                         <div class="col-md-1 text-center">
                                             <img src="<?= base_url('assets/images/' . $imgMerah) ?>" width="50px">
                                         </div>
                                         <div class="col-md-5">
-                                            <h4 style="color: red;"><?= $merah->nama ?></h4>
-                                            <h5 style="color: red;"><?= $merah->kontingen ?></h5>
+                                            <h1 style="color: red;"><?= $merah->nama ?></h1>
+                                            <h4 style="color: red;"><?= $merah->kontingen ?></h4>
                                         </div>
                                         <div class="col-md-1 text-center">
                                             <img src="<?= base_url('assets/images/' . $imgBiru) ?>" width="50px">
                                         </div>
                                         <div class="col-md-5">
-                                            <h4 style="color: blue;"><?= $biru->nama ?></h4>
-                                            <h5 style="color: blue;"><?= $biru->kontingen ?></h5>
+                                            <h1 style="color: blue;"><?= $biru->nama ?></h1>
+                                            <h4 style="color: blue;"><?= $biru->kontingen ?></h4>
                                         </div>
                                         <div class="col-md-12">
                                             <table class="table table-bordered text-center">
                                                 <tr>
-                                                    <th>B1</th>
-                                                    <th>B2</th>
+                                                    <!-- <th style="background: linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)"><img src="<?= base_url('assets/images/binaan1.png') ?>"></th> -->
+                                                    <th><img src="<?= base_url('assets/images/binaan1.png') ?>"></th>
+                                                    <th><img src="<?= base_url('assets/images/binaan2.png') ?>"></th>
                                                     <th rowspan="3"></th>
                                                     <th rowspan="3" class="bg-red" style="font-size: 200px; color: white;" id="pointMerah">0</th>
                                                     <th rowspan="3"></th>
@@ -130,17 +132,16 @@
                                                     <th rowspan="3"></th>
                                                     <th rowspan="3" class="bg-blue" style="font-size: 200px; color: white;" id="pointBiru">0</th>
                                                     <th rowspan="3"></th>
-                                                    <th>B1</th>
-                                                    <th>B2</th>
+                                                    <th><img src="<?= base_url('assets/images/binaan1.png') ?>"></th>
+                                                    <th><img src="<?= base_url('assets/images/binaan2.png') ?>"></th>
                                                 </tr>
                                                 <tr>
-                                                    <th>T1</th>
-                                                    <th>T2</th>
-
+                                                    <th><img src="<?= base_url('assets/images/teguran1.png') ?>"></th>
+                                                    <th><img src="<?= base_url('assets/images/teguran2.png') ?>"></th>
                                                     <th id="babak2">BABAK 2</th>
 
-                                                    <th>T1</th>
-                                                    <th>T2</th>
+                                                    <th><img src="<?= base_url('assets/images/teguran1.png') ?>"></th>
+                                                    <th><img src="<?= base_url('assets/images/teguran2.png') ?>"></th>
                                                 </tr>
                                                 <tr>
                                                     <th>P1</th>
@@ -158,7 +159,7 @@
                                                     <th>JURI 1</th>
                                                     <th>JURI 2</th>
                                                     <th>JURI 3</th>
-                                                    <th>PUKULAN</th>
+                                                    <th><img src="<?= base_url() ?>assets/images/pukulan.png"></th>
                                                     <th>JURI 1</th>
                                                     <th>JURI 2</th>
                                                     <th>JURI 3</th>
@@ -167,7 +168,7 @@
                                                     <th>JURI 1</th>
                                                     <th>JURI 2</th>
                                                     <th>JURI 3</th>
-                                                    <th>TENDANGAN</th>
+                                                    <th><img src="<?= base_url() ?>assets/images/tendangan.png"></th>
                                                     <th>JURI 1</th>
                                                     <th>JURI 2</th>
                                                     <th>JURI 3</th>

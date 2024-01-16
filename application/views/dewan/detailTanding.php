@@ -269,144 +269,146 @@
                                     </div>
                                 </div>
                                 <hr>
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <div class="table-responsive">
-                                            <table class="table table-borderless table-sm">
-                                                <tr>
-                                                    <td>
-                                                        <form id="formJatuhanMerah">
-                                                            <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
-                                                            <input type="hidden" name="id_user" value="<?= $user->id_user ?>">
-                                                            <input type="hidden" name="id_peserta" value="<?= $partai->merah ?>">
-                                                            <input type="hidden" name="babak" value="<?= $tanding->babak ?>">
-                                                            <input type="hidden" name="skor" value="3">
-                                                            <input type="hidden" name="ket" value="jatuhan">
-                                                            <input type="hidden" name="sudut" value="merah">
-                                                            <button type="button" class="btn btn-danger btn-block btn-lg">JATUHAN</button>
-                                                        </form>
-                                                    </td>
-                                                    <td><button class="btn btn-dark btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->merah) ?>','merah')">HAPUS JATUHAN</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <form id="formBinaanMerah">
-                                                            <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
-                                                            <input type="hidden" name="id_user" value="<?= $user->id_user ?>">
-                                                            <input type="hidden" name="id_peserta" value="<?= $partai->merah ?>">
-                                                            <input type="hidden" name="babak" value="<?= $tanding->babak ?>">
-                                                            <input type="hidden" name="skor" value="0">
-                                                            <input type="hidden" name="ket" value="binaan">
-                                                            <input type="hidden" name="sudut" value="merah">
-                                                            <button type="button" class="btn btn-danger btn-block btn-lg">BINAAN</button>
-                                                        </form>
-                                                    </td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <form id="formTeguranMerah">
-                                                            <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
-                                                            <input type="hidden" name="id_user" value="<?= $user->id_user ?>">
-                                                            <input type="hidden" name="id_peserta" value="<?= $partai->merah ?>">
-                                                            <input type="hidden" name="babak" value="<?= $tanding->babak ?>">
-                                                            <input type="hidden" name="skor" value="0">
-                                                            <input type="hidden" name="ket" value="teguran">
-                                                            <input type="hidden" name="sudut" value="merah">
-                                                            <button type="button" class="btn btn-danger btn-block btn-lg">TEGURAN</button>
-                                                        </form>
-                                                    </td>
-                                                    <td><button class="btn btn-dark btn-block btn-lg">HAPUS HUKUMAN</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <form id="formPeringatanMerah">
-                                                            <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
-                                                            <input type="hidden" name="id_user" value="<?= $user->id_user ?>">
-                                                            <input type="hidden" name="id_peserta" value="<?= $partai->merah ?>">
-                                                            <input type="hidden" name="babak" value="<?= $tanding->babak ?>">
-                                                            <input type="hidden" name="skor" value="0">
-                                                            <input type="hidden" name="ket" value="peringatan">
-                                                            <input type="hidden" name="sudut" value="merah">
-                                                            <button type="button" class="btn btn-danger btn-block btn-lg">PERINGATAN</button>
-                                                        </form>
-                                                    </td>
-                                                    <td></td>
-                                                </tr>
-                                            </table>
+                                <?php if ($tanding->babak != 0) : ?>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="table-responsive">
+                                                <table class="table table-borderless table-sm">
+                                                    <tr>
+                                                        <td>
+                                                            <form id="formJatuhanMerah">
+                                                                <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
+                                                                <input type="hidden" name="id_user" value="<?= $user->id_user ?>">
+                                                                <input type="hidden" name="id_peserta" value="<?= $partai->merah ?>">
+                                                                <input type="hidden" name="babak" value="<?= $tanding->babak ?>">
+                                                                <input type="hidden" name="skor" value="3">
+                                                                <input type="hidden" name="ket" value="jatuhan">
+                                                                <input type="hidden" name="sudut" value="merah">
+                                                                <button type="button" class="btn btn-danger btn-block btn-lg">JATUHAN</button>
+                                                            </form>
+                                                        </td>
+                                                        <td><button class="btn btn-dark btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->merah) ?>','merah')">HAPUS JATUHAN</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <form id="formBinaanMerah">
+                                                                <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
+                                                                <input type="hidden" name="id_user" value="<?= $user->id_user ?>">
+                                                                <input type="hidden" name="id_peserta" value="<?= $partai->merah ?>">
+                                                                <input type="hidden" name="babak" value="<?= $tanding->babak ?>">
+                                                                <input type="hidden" name="skor" value="0">
+                                                                <input type="hidden" name="ket" value="binaan">
+                                                                <input type="hidden" name="sudut" value="merah">
+                                                                <button type="button" class="btn btn-danger btn-block btn-lg">BINAAN</button>
+                                                            </form>
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <form id="formTeguranMerah">
+                                                                <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
+                                                                <input type="hidden" name="id_user" value="<?= $user->id_user ?>">
+                                                                <input type="hidden" name="id_peserta" value="<?= $partai->merah ?>">
+                                                                <input type="hidden" name="babak" value="<?= $tanding->babak ?>">
+                                                                <input type="hidden" name="skor" value="0">
+                                                                <input type="hidden" name="ket" value="teguran">
+                                                                <input type="hidden" name="sudut" value="merah">
+                                                                <button type="button" class="btn btn-danger btn-block btn-lg">TEGURAN</button>
+                                                            </form>
+                                                        </td>
+                                                        <td><button class="btn btn-dark btn-block btn-lg">HAPUS HUKUMAN</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <form id="formPeringatanMerah">
+                                                                <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
+                                                                <input type="hidden" name="id_user" value="<?= $user->id_user ?>">
+                                                                <input type="hidden" name="id_peserta" value="<?= $partai->merah ?>">
+                                                                <input type="hidden" name="babak" value="<?= $tanding->babak ?>">
+                                                                <input type="hidden" name="skor" value="0">
+                                                                <input type="hidden" name="ket" value="peringatan">
+                                                                <input type="hidden" name="sudut" value="merah">
+                                                                <button type="button" class="btn btn-danger btn-block btn-lg">PERINGATAN</button>
+                                                            </form>
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-danger btn-block btn-lg">REQUEST ?</button>
+                                            <button type="button" class="btn btn-primary btn-block btn-lg">REQUEST ?</button>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="table-responsive">
+                                                <table class="table table-borderless table-sm">
+                                                    <tr>
+                                                        <td><button class="btn btn-secondary btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->biru) ?>','biru')">HAPUS JATUHAN</button></td>
+                                                        <td>
+                                                            <form id="formJatuhanBiru">
+                                                                <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
+                                                                <input type="hidden" name="id_user" value="<?= $user->id_user ?>">
+                                                                <input type="hidden" name="id_peserta" value="<?= $partai->biru ?>">
+                                                                <input type="hidden" name="babak" value="<?= $tanding->babak ?>">
+                                                                <input type="hidden" name="skor" value="3">
+                                                                <input type="hidden" name="ket" value="jatuhan">
+                                                                <input type="hidden" name="sudut" value="biru">
+                                                                <button type="button" class="btn btn-primary btn-block btn-lg">JATUHAN</button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>
+                                                            <form id="formBinaanBiru">
+                                                                <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
+                                                                <input type="hidden" name="id_user" value="<?= $user->id_user ?>">
+                                                                <input type="hidden" name="id_peserta" value="<?= $partai->biru ?>">
+                                                                <input type="hidden" name="babak" value="<?= $tanding->babak ?>">
+                                                                <input type="hidden" name="skor" value="0">
+                                                                <input type="hidden" name="ket" value="binaan">
+                                                                <input type="hidden" name="sudut" value="biru">
+                                                                <button type="button" class="btn btn-primary btn-block btn-lg">BINAAN</button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><button class="btn btn-secondary btn-block btn-lg">HAPUS HUKUMAN</button></td>
+                                                        <td>
+                                                            <form id="formTeguranBiru">
+                                                                <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
+                                                                <input type="hidden" name="id_user" value="<?= $user->id_user ?>">
+                                                                <input type="hidden" name="id_peserta" value="<?= $partai->biru ?>">
+                                                                <input type="hidden" name="babak" value="<?= $tanding->babak ?>">
+                                                                <input type="hidden" name="skor" value="0">
+                                                                <input type="hidden" name="ket" value="teguran">
+                                                                <input type="hidden" name="sudut" value="biru">
+                                                                <button type="button" class="btn btn-primary btn-block btn-lg">TEGURAN</button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>
+                                                            <form id="formPeringatanBiru">
+                                                                <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
+                                                                <input type="hidden" name="id_user" value="<?= $user->id_user ?>">
+                                                                <input type="hidden" name="id_peserta" value="<?= $partai->biru ?>">
+                                                                <input type="hidden" name="babak" value="<?= $tanding->babak ?>">
+                                                                <input type="hidden" name="skor" value="0">
+                                                                <input type="hidden" name="ket" value="peringatan">
+                                                                <input type="hidden" name="sudut" value="biru">
+                                                                <button type="button" class="btn btn-primary btn-block btn-lg">PERINGATAN</button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <button type="button" class="btn btn-danger btn-block btn-lg">REQUEST ?</button>
-                                        <button type="button" class="btn btn-primary btn-block btn-lg">REQUEST ?</button>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div class="table-responsive">
-                                            <table class="table table-borderless table-sm">
-                                                <tr>
-                                                    <td><button class="btn btn-secondary btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->biru) ?>','biru')">HAPUS JATUHAN</button></td>
-                                                    <td>
-                                                        <form id="formJatuhanBiru">
-                                                            <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
-                                                            <input type="hidden" name="id_user" value="<?= $user->id_user ?>">
-                                                            <input type="hidden" name="id_peserta" value="<?= $partai->biru ?>">
-                                                            <input type="hidden" name="babak" value="<?= $tanding->babak ?>">
-                                                            <input type="hidden" name="skor" value="3">
-                                                            <input type="hidden" name="ket" value="jatuhan">
-                                                            <input type="hidden" name="sudut" value="biru">
-                                                            <button type="button" class="btn btn-primary btn-block btn-lg">JATUHAN</button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>
-                                                        <form id="formBinaanBiru">
-                                                            <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
-                                                            <input type="hidden" name="id_user" value="<?= $user->id_user ?>">
-                                                            <input type="hidden" name="id_peserta" value="<?= $partai->biru ?>">
-                                                            <input type="hidden" name="babak" value="<?= $tanding->babak ?>">
-                                                            <input type="hidden" name="skor" value="0">
-                                                            <input type="hidden" name="ket" value="binaan">
-                                                            <input type="hidden" name="sudut" value="biru">
-                                                            <button type="button" class="btn btn-primary btn-block btn-lg">BINAAN</button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><button class="btn btn-secondary btn-block btn-lg">HAPUS HUKUMAN</button></td>
-                                                    <td>
-                                                        <form id="formTeguranBiru">
-                                                            <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
-                                                            <input type="hidden" name="id_user" value="<?= $user->id_user ?>">
-                                                            <input type="hidden" name="id_peserta" value="<?= $partai->biru ?>">
-                                                            <input type="hidden" name="babak" value="<?= $tanding->babak ?>">
-                                                            <input type="hidden" name="skor" value="0">
-                                                            <input type="hidden" name="ket" value="teguran">
-                                                            <input type="hidden" name="sudut" value="biru">
-                                                            <button type="button" class="btn btn-primary btn-block btn-lg">TEGURAN</button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>
-                                                        <form id="formPeringatanBiru">
-                                                            <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
-                                                            <input type="hidden" name="id_user" value="<?= $user->id_user ?>">
-                                                            <input type="hidden" name="id_peserta" value="<?= $partai->biru ?>">
-                                                            <input type="hidden" name="babak" value="<?= $tanding->babak ?>">
-                                                            <input type="hidden" name="skor" value="0">
-                                                            <input type="hidden" name="ket" value="peringatan">
-                                                            <input type="hidden" name="sudut" value="biru">
-                                                            <button type="button" class="btn btn-primary btn-block btn-lg">PERINGATAN</button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php endif ?>
                             </div>
                         </div>
                     </div>

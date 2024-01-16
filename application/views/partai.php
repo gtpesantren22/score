@@ -93,6 +93,7 @@
                         <select name="babak" id="" class="form-control form-control-sm" required>
                             <option value=""> -pilih jenis-</option>
                             <option value="Penyisihan">Penyisihan</option>
+                            <option value="1/4 Final">1/4 Final</option>
                             <option value="Semi Final">Semi Final</option>
                             <option value="Final">Final</option>
                         </select>

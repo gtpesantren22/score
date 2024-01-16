@@ -68,7 +68,7 @@
                     </div>
                     <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
                         <button class="btn btn-sm btn-info" onclick="window.location='<?= base_url('wasittanding') ?>'"><span class="mdi mdi-refresh"></span> Refresh Halaman</button>
-                        <button class="btn btn-sm btn-danger"><span class="mdi mdi-logout-variant"></span> LogOut</button>
+                        <button class="btn btn-sm btn-danger" onclick="window.location='<?= base_url('wasittanding/logout') ?>' "><span class="mdi mdi-logout-variant"></span> LogOut</button>
                     </div>
                 </div>
             </nav>

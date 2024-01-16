@@ -186,7 +186,8 @@ function jenkel($jkl)
 
 function random($panjang)
 {
-    $karakter = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    // $karakter = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $karakter = '0123456789';
     $string = '';
     for ($i = 0; $i < $panjang; $i++) {
         $pos = rand(0, strlen($karakter) - 1);
