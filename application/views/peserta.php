@@ -79,6 +79,8 @@
                                     <option value=""> -pilih kategori-</option>
                                     <option value="USIA DINI">USIA DINI</option>
                                     <option value="PRA REMAJA">PRA REMAJA</option>
+                                    <option value="REMAJA">REMAJA</option>
+                                    <option value="DEWASA">DEWASA</option>
                                 </select>
                             </div>
                             <div class="form-group">
