@@ -25,7 +25,7 @@ class Dewan extends CI_Controller
 
     public function tanding()
     {
-        $data['tanding'] = $this->db->query("SELECT urut, nama, status, aktif, id_tanding, gel FROM tanding JOIN partai ON tanding.id_partai=partai.id_partai JOIN wasit ON tanding.wasit=wasit.id_wasit")->result();
+        $data['tanding'] = $this->db->query("SELECT urut, nama, tanding.status AS status, aktif, id_tanding, gel FROM tanding JOIN partai ON tanding.id_partai=partai.id_partai JOIN wasit ON tanding.wasit=wasit.id_wasit")->result();
         $data['partai'] = $this->model->getAll('partai')->result();
         $data['wasit'] = $this->model->getAll('wasit')->result();
 
