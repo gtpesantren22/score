@@ -27,7 +27,7 @@ class Partai extends CI_Controller
 
     public function partaiAdd()
     {
-        $jml = $this->db->query("SELECT MAX(urut) AS urut FROM partai")->num_rows();
+        $jml = $this->db->query("SELECT MAX(urut) AS urut FROM partai")->row();
         $merah = $this->input->post('merah', true);
         $biru = $this->input->post('biru', true);
         $babak = $this->input->post('babak', true);

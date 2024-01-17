@@ -24,13 +24,13 @@ class Wasit extends CI_Controller
 
         $cek = $this->model->getBy('wasit', 'id_wasit', $id_wasit)->row();
         if ($cek) {
-            if ($cek->aktif === 'N') {
+            if ($cek->status === 'N') {
                 $session_data = array(
                     'tandingID' => $id,
                     'wasitID' => $cek->id_wasit
                 );
 
-                $this->model->ubah('wasit', 'id_wasit', $cek->id_wasit, ['aktif' => 'Y']);
+                $this->model->ubah('wasit', 'id_wasit', $cek->id_wasit, ['status' => 'Y']);
                 $this->session->set_userdata($session_data);
                 redirect('Wasittanding');
             } else {
@@ -46,7 +46,7 @@ class Wasit extends CI_Controller
     public function logout()
     {
         $id = $this->session->userdata('wasitID');
-        $this->model->ubah('wasit', 'id_wasit', $id, ['aktif' => 'N']);
+        $this->model->ubah('wasit', 'id_wasit', $id, ['status' => 'N']);
 
         $this->session->unset_userdata('tandingID');
         $this->session->unset_userdata('wasitID');
