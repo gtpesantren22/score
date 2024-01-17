@@ -114,7 +114,7 @@ class Dewan extends CI_Controller
 
     public function aktifkan($id)
     {
-        $data = ['aktif' => 'Y', 'status' => 'berjalan'];
+        $data = ['aktif' => 'Y', 'status' => 'berjalan', 'babak' => 1];
         $tanding = $this->model->getBy('tanding', 'id_tanding', $id)->row();
         $cek = $this->model->getBy2('tanding', 'aktif', 'Y', 'gel', $tanding->gel)->row();
         if ($cek) {

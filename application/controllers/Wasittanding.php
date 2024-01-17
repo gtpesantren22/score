@@ -9,7 +9,7 @@ class Wasittanding extends CI_Controller
         $this->load->model('Modeldata', 'model');
 
         if (!$this->session->userdata('tandingID') && !$this->session->userdata('wasitID')) {
-            redirect('wasittanding/logout');
+            redirect('wasit/logout');
         }
 
         $this->idTanding = $this->session->userdata('tandingID');
@@ -88,11 +88,12 @@ FROM nilai WHERE id_tanding = '$idTanding' AND id_wasit = '$id_wasit' AND babak 
     {
         $id_tanding = $this->input->post('id_tanding', true);
         $id_wasit = $this->input->post('id_wasit', true);
-        $tandng = $this->db->query("SELECT merah, biru FROM tanding JOIN partai ON tanding.id_partai=partai.id_partai WHERE tanding.id_tanding = '$id_tanding' ")->row();
+        $tandng = $this->db->query("SELECT merah, biru, tanding.babak AS babak FROM tanding JOIN partai ON tanding.id_partai=partai.id_partai WHERE tanding.id_tanding = '$id_tanding' ")->row();
 
         $id_nilai = $this->uuid->v4();
         $id_peserta = $this->input->post('id_peserta', true);
-        $babak = $this->input->post('babak', true);
+        // $babak = $this->input->post('babak', true);
+        $babak = $tandng->babak;
         $skor = $this->input->post('skor', true);
         $timer = microtime(true) * 1000;
 
@@ -204,14 +205,5 @@ FROM nilai WHERE id_tanding = '$idTanding' AND id_wasit = '$id_wasit' AND babak 
         } else {
             echo json_encode(array('status' => 'error'));
         }
-    }
-
-
-    public function logout()
-    {
-        $this->session->unset_userdata('tandingID');
-        $this->session->unset_userdata('wasitID');
-        $this->session->sess_destroy();
-        redirect('wasit');
     }
 }

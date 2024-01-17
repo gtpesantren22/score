@@ -68,7 +68,7 @@
                     </div>
                     <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
                         <button class="btn btn-sm btn-info" onclick="window.location='<?= base_url('wasittanding') ?>'"><span class="mdi mdi-refresh"></span> Refresh Halaman</button>
-                        <button class="btn btn-sm btn-danger" onclick="window.location='<?= base_url('wasittanding/logout') ?>' "><span class="mdi mdi-logout-variant"></span> LogOut</button>
+                        <button class="btn btn-sm btn-danger" onclick="window.location='<?= base_url('wasit/logout') ?>' "><span class="mdi mdi-logout-variant"></span> LogOut</button>
                     </div>
                 </div>
             </nav>
@@ -243,7 +243,7 @@
                                                     <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
                                                     <input type="hidden" name="id_wasit" value="<?= $wasit->id_wasit ?>">
                                                     <input type="hidden" name="id_peserta" value="<?= $partai->merah ?>">
-                                                    <input type="hidden" name="babak" value="<?= $tanding->babak ?>">
+                                                    <!-- <input type="hidden" name="babak" value="<?= $tanding->babak ?>"> -->
                                                     <input type="hidden" name="skor" value="1">
                                                     <input type="hidden" name="ket" value="Pukulan">
                                                     <br>
@@ -253,7 +253,7 @@
                                                     <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
                                                     <input type="hidden" name="id_wasit" value="<?= $wasit->id_wasit ?>">
                                                     <input type="hidden" name="id_peserta" value="<?= $partai->merah ?>">
-                                                    <input type="hidden" name="babak" value="<?= $tanding->babak ?>">
+                                                    <!-- <input type="hidden" name="babak" value="<?= $tanding->babak ?>"> -->
                                                     <input type="hidden" name="skor" value="2">
                                                     <input type="hidden" name="ket" value="Tendangan">
                                                     <br>
@@ -270,7 +270,7 @@
                                                     <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
                                                     <input type="hidden" name="id_wasit" value="<?= $wasit->id_wasit ?>">
                                                     <input type="hidden" name="id_peserta" value="<?= $partai->biru ?>">
-                                                    <input type="hidden" name="babak" value="<?= $tanding->babak ?>">
+                                                    <!-- <input type="hidden" name="babak" value="<?= $tanding->babak ?>"> -->
                                                     <input type="hidden" name="skor" value="1">
                                                     <input type="hidden" name="ket" value="Pukulan">
                                                     <br>
@@ -280,7 +280,7 @@
                                                     <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
                                                     <input type="hidden" name="id_wasit" value="<?= $wasit->id_wasit ?>">
                                                     <input type="hidden" name="id_peserta" value="<?= $partai->biru ?>">
-                                                    <input type="hidden" name="babak" value="<?= $tanding->babak ?>">
+                                                    <!-- <input type="hidden" name="babak" value="<?= $tanding->babak ?>"> -->
                                                     <input type="hidden" name="skor" value="2">
                                                     <input type="hidden" name="ket" value="Tendangan">
                                                     <br>

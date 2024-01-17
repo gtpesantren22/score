@@ -76,39 +76,49 @@
                 <!-- ISI  -->
                 <div class="content-wrapper d-flex align-items-center auth">
                     <div class="row flex-grow">
-                        <?php foreach ($jadwal as $jdwl) :
-                            $juri1 = $this->db->query("SELECT * FROM wasit WHERE  id_wasit='$jdwl->juri1' ")->row();
-                            $juri2 = $this->db->query("SELECT * FROM wasit WHERE  id_wasit='$jdwl->juri2' ")->row();
-                            $juri3 = $this->db->query("SELECT * FROM wasit WHERE  id_wasit='$jdwl->juri3' ")->row();
-                            $juri4 = $this->db->query("SELECT * FROM wasit WHERE  id_wasit='$jdwl->juri4' ")->row();
-                            $juri5 = $this->db->query("SELECT * FROM wasit WHERE  id_wasit='$jdwl->juri5' ")->row();
+                        <?php
+                        if ($jadwal) {
+                            foreach ($jadwal as $jdwl) :
+                                $juri1 = $this->db->query("SELECT * FROM wasit WHERE  id_wasit='$jdwl->juri1' ")->row();
+                                $juri2 = $this->db->query("SELECT * FROM wasit WHERE  id_wasit='$jdwl->juri2' ")->row();
+                                $juri3 = $this->db->query("SELECT * FROM wasit WHERE  id_wasit='$jdwl->juri3' ")->row();
+                                $juri4 = $this->db->query("SELECT * FROM wasit WHERE  id_wasit='$jdwl->juri4' ")->row();
+                                $juri5 = $this->db->query("SELECT * FROM wasit WHERE  id_wasit='$jdwl->juri5' ")->row();
                         ?>
-                            <div class="col-lg-6 mx-auto">
-                                <div class="auth-form-light text-left p-5">
-                                    <h4>Gelanggang <?= $jdwl->gel ?></h4>
-                                    <h6 class="font-weight-light">Login halaman wasit pertandingan</h6>
-                                    <form class="pt-3" method="post" action="<?= base_url('wasit/gogogo') ?>">
-                                        <input type="hidden" name="id" value="<?= $jdwl->id_tanding ?>">
-                                        <div class="form-group">
-                                            <select name="id_wasit" id="" class="form-control" required>
-                                                <option value=""> -pilih wasit- </option>
-                                                <option value="<?= $juri1 ? $juri1->id_wasit : '' ?>">Juri 1 - <?= $juri1 ? $juri1->nama : '' ?></option>
-                                                <option value="<?= $juri2 ? $juri2->id_wasit : '' ?>">Juri 2 - <?= $juri2 ? $juri2->nama : '' ?></option>
-                                                <option value="<?= $juri3 ? $juri3->id_wasit : '' ?>">Juri 3 - <?= $juri3 ? $juri3->nama : '' ?></option>
-                                                <option value="<?= $juri4 ? $juri4->id_wasit : '' ?>">Juri 4 - <?= $juri4 ? $juri4->nama : '' ?></option>
-                                                <option value="<?= $juri5 ? $juri5->id_wasit : '' ?>">Juri 5 - <?= $juri5 ? $juri5->nama : '' ?></option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
+                                <div class="col-lg-6 mx-auto">
+                                    <div class="auth-form-light text-left p-5">
+                                        <h4>Gelanggang <?= $jdwl->gel ?></h4>
+                                        <h6 class="font-weight-light">Login halaman wasit pertandingan</h6>
+                                        <form class="pt-3" method="post" action="<?= base_url('wasit/gogogo') ?>">
+                                            <input type="hidden" name="id" value="<?= $jdwl->id_tanding ?>">
+                                            <div class="form-group">
+                                                <select name="id_wasit" id="" class="form-control" required>
+                                                    <option value=""> -pilih wasit- </option>
+                                                    <option value="<?= $juri1 ? $juri1->id_wasit : '' ?>">Juri 1 - <?= $juri1 ? $juri1->nama : '' ?></option>
+                                                    <option value="<?= $juri2 ? $juri2->id_wasit : '' ?>">Juri 2 - <?= $juri2 ? $juri2->nama : '' ?></option>
+                                                    <option value="<?= $juri3 ? $juri3->id_wasit : '' ?>">Juri 3 - <?= $juri3 ? $juri3->nama : '' ?></option>
+                                                    <option value="<?= $juri4 ? $juri4->id_wasit : '' ?>">Juri 4 - <?= $juri4 ? $juri4->nama : '' ?></option>
+                                                    <option value="<?= $juri5 ? $juri5->id_wasit : '' ?>">Juri 5 - <?= $juri5 ? $juri5->nama : '' ?></option>
+                                                </select>
+                                            </div>
+                                            <!-- <div class="form-group">
                                             <input type="password" name="pin" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="PIN Wasit">
-                                        </div>
-                                        <div class="mt-3">
-                                            <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-semibold auth-form-btn">SIGN IN</button>
-                                        </div>
-                                    </form>
+                                        </div> -->
+                                            <div class="mt-3">
+                                                <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-semibold auth-form-btn">SIGN IN</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
+                            <?php
+                            endforeach;
+                        } else { ?>
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4 text-center">
+                                <button class="btn btn-primary" onclick="window.location='<?= base_url('wasit') ?>'">REFRESH HALAMAN</button>
                             </div>
-                        <?php endforeach ?>
+                            <div class="col-md-4"></div>
+                        <?php } ?>
                     </div>
                 </div>
 
