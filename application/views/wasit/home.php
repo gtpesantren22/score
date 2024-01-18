@@ -115,6 +115,7 @@
                         } else { ?>
                             <div class="col-md-4"></div>
                             <div class="col-md-4 text-center">
+                                <p>Tekan tombol dibawah jika tidak ada pertandingan yang muncul</p>
                                 <button class="btn btn-primary" onclick="window.location='<?= base_url('wasit') ?>'">REFRESH HALAMAN</button>
                             </div>
                             <div class="col-md-4"></div>

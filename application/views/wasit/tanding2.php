@@ -327,6 +327,23 @@
 
         setInterval(mainLoad, 1000);
 
+        setInterval(function() {
+            $.ajax({
+                type: 'GET',
+                url: '<?= base_url('wasittanding/cekSesi/' . $wasit->id_wasit); ?>',
+                dataType: 'json',
+                success: function(response) {
+                    if (response == 'N') {
+                        window.location = '<?= base_url('wasit/logout') ?>';
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('Gagal menyimpan data. Kesalahan: ' + status + ' - ' + error);
+                    // console.error('AJAX error:', status, error);
+                }
+            });
+        }, 15000);
+
         $(document).ready(function() {
             mainLoad();
         });

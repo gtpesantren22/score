@@ -206,4 +206,11 @@ FROM nilai WHERE id_tanding = '$idTanding' AND id_wasit = '$id_wasit' AND babak 
             echo json_encode(array('status' => 'error'));
         }
     }
+
+    public function cekSesi($id)
+    {
+        $cek = $this->model->getBy('wasit', 'id_wasit', $id)->row();
+
+        echo json_encode($cek->status);
+    }
 }

@@ -25,7 +25,7 @@ class Dewan extends CI_Controller
 
     public function tanding()
     {
-        $data['tanding'] = $this->db->query("SELECT urut, nama, tanding.status AS status, aktif, id_tanding, gel FROM tanding JOIN partai ON tanding.id_partai=partai.id_partai JOIN wasit ON tanding.wasit=wasit.id_wasit")->result();
+        $data['tanding'] = $this->db->query("SELECT urut, nama, tanding.status AS status, aktif, id_tanding, gel FROM tanding JOIN partai ON tanding.id_partai=partai.id_partai JOIN wasit ON tanding.wasit=wasit.id_wasit ORDER BY partai.urut DESC")->result();
         $data['partai'] = $this->model->getAll('partai')->result();
         $data['wasit'] = $this->model->getAll('wasit')->result();
 
@@ -269,6 +269,11 @@ class Dewan extends CI_Controller
     public function selesaikan($id_tanding)
     {
         $data = ['status' => 'selesai', 'aktif' => 'N', 'babak' => 0];
+        $cek2 = $this->model->getBy('tanding', 'id_tanding', $id_tanding)->row();
+
+        $this->model->ubah('wasit', 'id_wasit', $cek2->juri1, ['status' => 'N']);
+        $this->model->ubah('wasit', 'id_wasit', $cek2->juri2, ['status' => 'N']);
+        $this->model->ubah('wasit', 'id_wasit', $cek2->juri3, ['status' => 'N']);
 
         $this->model->ubah('tanding', 'id_tanding', $id_tanding, $data);
         if ($this->db->affected_rows() > 0) {
@@ -305,7 +310,7 @@ class Dewan extends CI_Controller
         $id_tanding = $this->input->post('id_tanding', true);
         $id_peserta = $this->input->post('id_peserta', true);
 
-        $cek = $this->model->getBy2('winner', 'id_tanding', $id_tanding, 'id_peserta', $id_peserta)->row();
+        $cek = $this->model->getBy2('winner', 'id_tanding', $id_tanding, 'id_peserta',  $id_peserta)->row();
 
         if ($cek) {
             redirect('dewan/tanding');
@@ -317,6 +322,7 @@ class Dewan extends CI_Controller
             ];
 
             $this->model->simpan('winner', $data);
+
             if ($this->db->affected_rows() > 0) {
                 $this->session->set_flashdata('ok', 'Pertandingan Selesai');
                 redirect('dewan/tanding');

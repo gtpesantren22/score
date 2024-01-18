@@ -123,8 +123,8 @@
                                             <table class="table table-bordered text-center">
                                                 <tr>
                                                     <!-- <th style="background: linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)"><img src="<?= base_url('assets/images/binaan1.png') ?>"></th> -->
-                                                    <th><img src="<?= base_url('assets/images/binaan1.png') ?>"></th>
-                                                    <th><img src="<?= base_url('assets/images/binaan2.png') ?>"></th>
+                                                    <th id="binaan1Merah"><img src="<?= base_url('assets/images/binaan1.png') ?>"></th>
+                                                    <th id="binaan2Merah"><img src="<?= base_url('assets/images/binaan2.png') ?>"></th>
                                                     <th rowspan="3"></th>
                                                     <th rowspan="3" class="bg-red" style="font-size: 200px; color: white;" id="pointMerah">0</th>
                                                     <th rowspan="3"></th>
@@ -132,46 +132,46 @@
                                                     <th rowspan="3"></th>
                                                     <th rowspan="3" class="bg-blue" style="font-size: 200px; color: white;" id="pointBiru">0</th>
                                                     <th rowspan="3"></th>
-                                                    <th><img src="<?= base_url('assets/images/binaan1.png') ?>"></th>
-                                                    <th><img src="<?= base_url('assets/images/binaan2.png') ?>"></th>
+                                                    <th id="binaan1Biru"><img src="<?= base_url('assets/images/binaan1.png') ?>"></th>
+                                                    <th id="binaan2Biru"><img src="<?= base_url('assets/images/binaan2.png') ?>"></th>
                                                 </tr>
                                                 <tr>
-                                                    <th><img src="<?= base_url('assets/images/teguran1.png') ?>"></th>
-                                                    <th><img src="<?= base_url('assets/images/teguran2.png') ?>"></th>
+                                                    <th id="teguran1Merah"><img src="<?= base_url('assets/images/teguran1.png') ?>"></th>
+                                                    <th id="teguran2Merah"><img src="<?= base_url('assets/images/teguran2.png') ?>"></th>
                                                     <th id="babak2">BABAK 2</th>
 
-                                                    <th><img src="<?= base_url('assets/images/teguran1.png') ?>"></th>
-                                                    <th><img src="<?= base_url('assets/images/teguran2.png') ?>"></th>
+                                                    <th id="teguran1Biru"><img src="<?= base_url('assets/images/teguran1.png') ?>"></th>
+                                                    <th id="teguran2Biru"><img src="<?= base_url('assets/images/teguran2.png') ?>"></th>
                                                 </tr>
                                                 <tr>
-                                                    <th>P1</th>
-                                                    <th>P2</th>
+                                                    <th id="peringatan1Merah">P1</th>
+                                                    <th id="peringatan2Merah">P2</th>
 
                                                     <th id="babak3">BABAK 3</th>
 
-                                                    <th>P1</th>
-                                                    <th>P2</th>
+                                                    <th id="peringatan1Biru">P1</th>
+                                                    <th id="peringatan2Biru">P2</th>
                                                 </tr>
                                             </table>
                                             <br>
                                             <table class="table table-bordered text-center">
                                                 <tr>
-                                                    <th>JURI 1</th>
-                                                    <th>JURI 2</th>
-                                                    <th>JURI 3</th>
+                                                    <th id="j1MerahPukul">JURI 1</th>
+                                                    <th id="j2MerahPukul">JURI 2</th>
+                                                    <th id="j3MerahPukul">JURI 3</th>
                                                     <th><img src="<?= base_url() ?>assets/images/pukulan.png"></th>
-                                                    <th>JURI 1</th>
-                                                    <th>JURI 2</th>
-                                                    <th>JURI 3</th>
+                                                    <th id="j1BiruPukul">JURI 1</th>
+                                                    <th id="j2BiruPukul">JURI 2</th>
+                                                    <th id="j3BiruPukul">JURI 3</th>
                                                 </tr>
                                                 <tr>
-                                                    <th>JURI 1</th>
-                                                    <th>JURI 2</th>
-                                                    <th>JURI 3</th>
+                                                    <th id="j1MerahTendang">JURI 1</th>
+                                                    <th id="j2MerahTendang">JURI 2</th>
+                                                    <th id="j3MerahTendang">JURI 3</th>
                                                     <th><img src="<?= base_url() ?>assets/images/tendangan.png"></th>
-                                                    <th>JURI 1</th>
-                                                    <th>JURI 2</th>
-                                                    <th>JURI 3</th>
+                                                    <th id="j1BiruTendang">JURI 1</th>
+                                                    <th id="j2BiruTendang">JURI 2</th>
+                                                    <th id="j3BiruTendang">JURI 3</th>
                                                 </tr>
                                             </table>
                                         </div>
@@ -208,12 +208,16 @@
     <!-- End custom js for this page -->
 
     <script>
+        setInterval(cekInputan, 500);
         setInterval(mainFunction, 1000);
 
         function mainFunction() {
             babakAktif();
             pointMerah();
             pointBiru();
+            cekBinaan();
+            cekTeguran();
+            // cekInputan();
         };
 
         function pointMerah() {
@@ -293,6 +297,189 @@
                     } else {
                         bgBabak3.style.backgroundColor = 'white';
                         bgBabak3.style.color = 'black';
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // alert('Gagal menyimpan data. Kesalahan: ' + status + ' - ' + error);
+                    console.error('AJAX error:', status, error);
+                }
+            });
+        }
+
+        function cekBinaan() {
+            $.ajax({
+                type: 'GET',
+                url: '<?= base_url('tampil/cekBinaan/' . $tanding->id_tanding); ?>',
+                dataType: 'json',
+                success: function(response) {
+
+                    binaan1Merah = document.getElementById('binaan1Merah');
+                    binaan2Merah = document.getElementById('binaan2Merah');
+                    binaan1Biru = document.getElementById('binaan1Biru');
+                    binaan2Biru = document.getElementById('binaan2Biru');
+
+                    if (response.datamerah == 1) {
+                        binaan1Merah.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        binaan2Merah.style.background = 'white';
+                    } else if (response.datamerah == 2) {
+                        binaan1Merah.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        binaan2Merah.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                    } else if (response.datamerah == 0) {
+                        binaan1Merah.style.background = 'white';
+                        binaan2Merah.style.background = 'white';
+                    }
+
+                    if (response.databiru == 1) {
+                        binaan1Biru.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        binaan2Biru.style.background = 'white';
+                    } else if (response.databiru == 2) {
+                        binaan1Biru.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        binaan2Biru.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                    } else if (response.databiru == 0) {
+                        binaan1Biru.style.background = 'white';
+                        binaan2Biru.style.background = 'white';
+                    }
+
+                    // console.log(response.datamerah)
+                    // console.log(response.databiru)
+
+
+                },
+                error: function(xhr, status, error) {
+                    // alert('Gagal menyimpan data. Kesalahan: ' + status + ' - ' + error);
+                    console.error('AJAX error:', status, error);
+                }
+            });
+        }
+
+        function cekTeguran() {
+            $.ajax({
+                type: 'GET',
+                url: '<?= base_url('tampil/cekTeguran/' . $tanding->id_tanding); ?>',
+                dataType: 'json',
+                success: function(response) {
+
+                    teguran1Merah = document.getElementById('teguran1Merah');
+                    teguran2Merah = document.getElementById('teguran2Merah');
+                    teguran1Biru = document.getElementById('teguran1Biru');
+                    teguran2Biru = document.getElementById('teguran2Biru');
+
+                    if (response.datamerah == 1) {
+                        teguran1Merah.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        teguran2Merah.style.background = 'white';
+                    } else if (response.datamerah == 2) {
+                        teguran1Merah.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        teguran2Merah.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                    } else if (response.datamerah == 0) {
+                        teguran1Merah.style.background = 'white';
+                        teguran2Merah.style.background = 'white';
+                    }
+
+                    if (response.databiru == 1) {
+                        teguran1Biru.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        teguran2Biru.style.background = 'white';
+                    } else if (response.databiru == 2) {
+                        teguran1Biru.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        teguran2Biru.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                    } else if (response.databiru == 0) {
+                        teguran1Biru.style.background = 'white';
+                        teguran2Biru.style.background = 'white';
+                    }
+
+                    // console.log(response.datamerah)
+                    // console.log(response.databiru)
+
+
+                },
+                error: function(xhr, status, error) {
+                    // alert('Gagal menyimpan data. Kesalahan: ' + status + ' - ' + error);
+                    console.error('AJAX error:', status, error);
+                }
+            });
+        }
+
+        function cekInputan() {
+            $.ajax({
+                type: 'GET',
+                url: '<?= base_url('tampil/cekInputan/' . $tanding->id_tanding); ?>',
+                dataType: 'json',
+                success: function(response) {
+
+                    if (response.j1MerahPukul == 1) {
+                        document.getElementById('j1MerahPukul').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        setTimeout(function() {
+                            document.getElementById('j1MerahPukul').style.background = 'white';
+                        }, 1000);
+                    }
+                    if (response.j2MerahPukul == 1) {
+                        document.getElementById('j2MerahPukul').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        setTimeout(function() {
+                            document.getElementById('j2MerahPukul').style.background = 'white';
+                        }, 1000);
+                    }
+                    if (response.j3MerahPukul == 1) {
+                        document.getElementById('j3MerahPukul').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        setTimeout(function() {
+                            document.getElementById('j3MerahPukul').style.background = 'white';
+                        }, 1000);
+                    }
+
+                    if (response.j1BiruPukul == 1) {
+                        document.getElementById('j1BiruPukul').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        setTimeout(function() {
+                            document.getElementById('j1BiruPukul').style.background = 'white';
+                        }, 1000);
+                    }
+                    if (response.j2BiruPukul == 1) {
+                        document.getElementById('j2BiruPukul').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        setTimeout(function() {
+                            document.getElementById('j2BiruPukul').style.background = 'white';
+                        }, 1000);
+                    }
+                    if (response.j3BiruPukul == 1) {
+                        document.getElementById('j3BiruPukul').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        setTimeout(function() {
+                            document.getElementById('j3BiruPukul').style.background = 'white';
+                        }, 1000);
+                    }
+
+                    // Tendangan
+                    if (response.j1MerahTendang == 1) {
+                        document.getElementById('j1MerahTendang').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        setTimeout(function() {
+                            document.getElementById('j1MerahTendang').style.background = 'white';
+                        }, 1000);
+                    }
+                    if (response.j2MerahTendang == 1) {
+                        document.getElementById('j2MerahTendang').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        setTimeout(function() {
+                            document.getElementById('j2MerahTendang').style.background = 'white';
+                        }, 1000);
+                    }
+                    if (response.j3MerahTendang == 1) {
+                        document.getElementById('j3MerahTendang').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        setTimeout(function() {
+                            document.getElementById('j3MerahTendang').style.background = 'white';
+                        }, 1000);
+                    }
+
+                    if (response.j1BiruTendang == 1) {
+                        document.getElementById('j1BiruTendang').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        setTimeout(function() {
+                            document.getElementById('j1BiruTendang').style.background = 'white';
+                        }, 1000);
+                    }
+                    if (response.j2BiruTendang == 1) {
+                        document.getElementById('j2BiruTendang').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        setTimeout(function() {
+                            document.getElementById('j2BiruTendang').style.background = 'white';
+                        }, 1000);
+                    }
+                    if (response.j3BiruTendang == 1) {
+                        document.getElementById('j3BiruTendang').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        setTimeout(function() {
+                            document.getElementById('j3BiruTendang').style.background = 'white';
+                        }, 1000);
                     }
                 },
                 error: function(xhr, status, error) {
