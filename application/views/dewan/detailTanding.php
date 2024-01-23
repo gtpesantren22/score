@@ -287,7 +287,7 @@
                                                                 <button type="button" class="btn btn-danger btn-block btn-lg">JATUHAN</button>
                                                             </form>
                                                         </td>
-                                                        <td><button class="btn btn-dark btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->merah) ?>','merah')">HAPUS JATUHAN</button></td>
+                                                        <td><button class="btn btn-dark btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->merah) ?>','merah','jatuhan')">DEL JATUHAN</button></td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -302,7 +302,9 @@
                                                                 <button type="button" class="btn btn-danger btn-block btn-lg">BINAAN</button>
                                                             </form>
                                                         </td>
-                                                        <td></td>
+                                                        <td>
+                                                            <button class="btn btn-dark btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->merah) ?>','merah','binaan')">DEL BINAAN</button>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -317,7 +319,7 @@
                                                                 <button type="button" class="btn btn-danger btn-block btn-lg">TEGURAN</button>
                                                             </form>
                                                         </td>
-                                                        <td><button class="btn btn-dark btn-block btn-lg">HAPUS HUKUMAN</button></td>
+                                                        <td><button class="btn btn-dark btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->merah) ?>','merah','teguran')">DEL TEGURAN</button></td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -332,20 +334,22 @@
                                                                 <button type="button" class="btn btn-danger btn-block btn-lg">PERINGATAN</button>
                                                             </form>
                                                         </td>
-                                                        <td></td>
+                                                        <td>
+                                                            <button class="btn btn-dark btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->merah) ?>','merah','peringatan')">DEL PERINGATAN</button>
+                                                        </td>
                                                     </tr>
                                                 </table>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-danger btn-block btn-lg">REQUEST ?</button>
-                                            <button type="button" class="btn btn-primary btn-block btn-lg">REQUEST ?</button>
+                                            <button type="button" class="btn btn-warning btn-block btn-lg">REQUEST ?</button>
+                                            <!-- <button type="button" class="btn btn-primary btn-block btn-lg">REQUEST ?</button> -->
                                         </div>
                                         <div class="col-md-5">
                                             <div class="table-responsive">
                                                 <table class="table table-borderless table-sm">
                                                     <tr>
-                                                        <td><button class="btn btn-secondary btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->biru) ?>','biru')">HAPUS JATUHAN</button></td>
+                                                        <td><button class="btn btn-secondary btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->biru) ?>','biru','jatuhan')">DEL JATUHAN</button></td>
                                                         <td>
                                                             <form id="formJatuhanBiru">
                                                                 <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
@@ -360,7 +364,9 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td></td>
+                                                        <td>
+                                                            <button class="btn btn-secondary btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->biru) ?>','biru','binaan')">DEL BINAAN</button>
+                                                        </td>
                                                         <td>
                                                             <form id="formBinaanBiru">
                                                                 <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
@@ -375,7 +381,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td><button class="btn btn-secondary btn-block btn-lg">HAPUS HUKUMAN</button></td>
+                                                        <td><button class="btn btn-secondary btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->biru) ?>','biru','teguran')">DEL TEGURAN</button></td>
                                                         <td>
                                                             <form id="formTeguranBiru">
                                                                 <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
@@ -390,7 +396,9 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td></td>
+                                                        <td>
+                                                            <button class="btn btn-secondary btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->biru) ?>','biru','peringatan')">DEL PERINGATAN</button>
+                                                        </td>
                                                         <td>
                                                             <form id="formPeringatanBiru">
                                                                 <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
@@ -524,17 +532,6 @@
         });
     })
 </script>
-<!-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var button = document.getElementById('myButton');
-
-        // Simulasi proses yang memerlukan waktu
-        setTimeout(function() {
-            // Hentikan loading setelah proses selesai
-            button.classList.remove('loading');
-        }, 1000); // Contoh: loading selama 3 detik
-    });
-</script> -->
 
 <script>
     $(document).ready(function() {
@@ -700,7 +697,7 @@
         });
     }
 
-    function deletejatuhan(idTanding, idPeserta, sudut) {
+    function deletejatuhan(idTanding, idPeserta, sudut, ket) {
         $.ajax({
             type: 'POST',
             url: '<?= base_url('dewan/delNilai'); ?>',
@@ -708,6 +705,7 @@
                 idTanding: idTanding,
                 idPeserta: idPeserta,
                 sudut: sudut,
+                ket: ket,
             },
             dataType: 'json',
             success: function(response) {
@@ -719,7 +717,7 @@
                 }
             },
             error: function(xhr, status, error) {
-                alert('Gagal menghapus data. Kesalahan: ' + status + ' - ' + error);
+                alert('Gagal mengDEL data. Kesalahan: ' + status + ' - ' + error);
             }
         });
     }

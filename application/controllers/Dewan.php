@@ -254,8 +254,9 @@ class Dewan extends CI_Controller
         $idTanding = $this->input->post('idTanding', true);
         $idPeserta = $this->input->post('idPeserta', true);
         $sudut = $this->input->post('sudut', true);
+        $ket = $this->input->post('ket', true);
 
-        $kukum = $this->db->query("SELECT * FROM hukuman WHERE id_tanding = '$idTanding' AND id_peserta = '$idPeserta' ORDER BY waktu DESC LIMIT 1 ")->row();
+        $kukum = $this->db->query("SELECT * FROM hukuman WHERE id_tanding = '$idTanding' AND id_peserta = '$idPeserta' AND ket = '$ket' ORDER BY waktu DESC LIMIT 1 ")->row();
 
         $this->model->hapus('hukuman', 'id_hukuman', $kukum->id_hukuman);
 
