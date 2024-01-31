@@ -40,92 +40,10 @@
                     <p class="m-0">Daftar Wasit Juri</p>
                 </a>
             </div> -->
-            <button class="btn btn-warning mt-2 mt-sm-0 btn-icon-text" onclick="window.location='<?= base_url('dewan') ?>' "><i class="mdi mdi-arrow-left"></i> Kembali</button>
+            <button class="btn btn-warning mt-2 mt-sm-0 btn-icon-text" onclick="window.location='<?= base_url('dewan/tanding') ?>' "><i class="mdi mdi-arrow-left"></i> Kembali</button>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <!-- <h4 class="card-title">Data Peserta Lomba</h4>
-                    <p class="card-description"> Add class <code>.table</code></p> -->
-                    <div class="row">
-                        <div class="col-md-5">
-                            <!-- <div class="card-title mb-2"></div> -->
-                            <h3 class="mb-3"><?= $partai->babak ?> | Partai Ke - <?= $partai->urut ?></h3>
-                            <span class="badge badge-dark"><?= 'Kelas ' . $merah->kelas . ' - ' . $merah->kategori ?></span>
-                            <span class="badge badge-warning"><?= $merah->jkl == 'Laki-laki' ? 'Putra' : 'Putri' ?></span>
-                            <hr>
-                            <div class="d-flex border-bottom mb-4 pb-2">
-                                <div class="hexagon">
-                                    <div class="hex-mid hexagon-danger">
-                                        <i class="mdi mdi-account-outline"></i>
-                                    </div>
-                                </div>
-                                <div class="pl-4">
-                                    <h4 class="font-weight-bold text-danger mb-0"><?= $merah->nama ?></h4>
-                                    <h6 class="text-muted"><?= $merah->kontingen ?></h6>
-                                </div>
-                            </div>
-                            <div class="d-flex border-bottom mb-4 pb-2">
-                                <div class="d-flex">
-                                    <div class="hexagon">
-                                        <div class="hex-mid hexagon-primary">
-                                            <i class="mdi mdi-timer-sand"></i>
-                                        </div>
-                                    </div>
-                                    <div class="pl-4">
-                                        <h4 class="font-weight-bold text-primary mb-0"> <?= $biru->nama ?></h4>
-                                        <h6 class="text-muted mb-0"><?= $biru->kontingen ?></h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="card-title mb-2">Wasit Pertandingan</div>
-                            <span class="badge badge-dark"><?= $ketua->nama ?></span>
-                            <button class="btn btn-warning btn-sm btn-rounded" data-toggle="modal" data-target="#wasitTanding">Edit Wasit</button>
-                            <button class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="#juriTanding">Edit Juri</button>
-                            <hr>
-                            <table class="table table-striped table-sm">
-                                <thead>
-                                    <tr>
-                                        <th>Juri 1 : <?= $juri1 ? $juri1->nama : '-' ?></th>
-                                    </tr>
-                                    <tr>
-                                        <th>Juri 2 : <?= $juri2 ? $juri2->nama : '-' ?></th>
-                                    </tr>
-                                    <tr>
-                                        <th>Juri 3 : <?= $juri3 ? $juri3->nama : '-' ?></th>
-                                    </tr>
-                                    <tr>
-                                        <th>Juri 4 : <?= $juri4 ? $juri4->nama : '-' ?></th>
-                                    </tr>
-                                    <tr>
-                                        <th>Juri 5 : <?= $juri5 ? $juri5->nama : '-' ?></th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="card-title mb-2">Status Pertandingan</div>
-                            <?php if ($tanding->aktif == 'N') { ?>
-                                <span class="badge badge-danger">Belum Aktif</span>
-                                <a href="<?= base_url('dewan/aktifkan/' . $tanding->id_tanding) ?>" class="btn btn-success btn-sm btn-rounded tbl-confirm" value="Pertandingan ini akan diaktifkan">Aktifkan</a>
-                                <hr>
-                                <div class="card-title mb-2">Proses Pertandingan</div>
-                                <span class="badge badge-danger"><?= $tanding->status ?></span>
-                            <?php } else { ?>
-                                <span class="badge badge-success">Aktif</span>
-                                <a href="<?= base_url('dewan/selesaikan/' . $tanding->id_tanding) ?>" class="btn btn-primary btn-sm btn-rounded tbl-confirm" value="Pertandingan ini akan diselesaikan">Selesaikan</a>
-                                <hr>
-                                <div class="card-title mb-2">Proses Pertandingan</div>
-                            <?php } ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <?php if ($tanding->aktif == 'Y') : ?>
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
@@ -151,26 +69,7 @@
                                     <b><?= $partai->babak ?> | Partai Ke - <?= $partai->urut ?> | Gel : <?= $tanding->gel ?></b><br>
                                     <span class="badge badge-dark"><?= 'Kelas ' . $merah->kelas . ' - ' . $merah->kategori ?></span>
                                     <span class="badge badge-warning"><?= $merah->jkl == 'Laki-laki' ? 'Putra' : 'Putri' ?></span><br>
-
-                                    <!-- BABAK 1 -->
-                                    <?php if ($tanding->babak == 1) { ?>
-                                        <button class="btn btn-success btn-rounded"> <span class="mdi mdi-loading mdi-spin"></span> BABAK 1</button>
-                                    <?php } else {  ?>
-                                        <a href="<?= base_url('dewan/pindahBabak/' . $tanding->id_tanding . '/1') ?>" class="btn btn-primary btn-rounded tbl-confirm" value="Mulai Babak ke 1">BABAK 1</a>
-                                    <?php }  ?>
-                                    <!-- BABAK 2 -->
-                                    <?php if ($tanding->babak == 2) { ?>
-                                        <button class="btn btn-success btn-rounded"> <span class="mdi mdi-loading mdi-spin"></span> BABAK 2</button>
-                                    <?php } else {  ?>
-                                        <a href="<?= base_url('dewan/pindahBabak/' . $tanding->id_tanding . '/2') ?>" class="btn btn-primary btn-rounded tbl-confirm" value="Mulai Babak ke 2">BABAK 2</a>
-                                    <?php }  ?>
-                                    <!-- BABAK 3 -->
-                                    <?php if ($tanding->babak == 3) { ?>
-                                        <button class="btn btn-success btn-rounded"> <span class="mdi mdi-loading mdi-spin"></span> BABAK 3</button>
-                                    <?php } else {  ?>
-                                        <a href="<?= base_url('dewan/pindahBabak/' . $tanding->id_tanding . '/3') ?>" class="btn btn-primary btn-rounded tbl-confirm" value="Mulai Babak ke 3">BABAK 3</a>
-                                    <?php }  ?>
-
+                                    <div id="babakShow"></div>
                                 </center>
                             </div>
                             <div class="col-md-4">
@@ -191,7 +90,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">
-                                    <!-- BABAK 1 -->
+                                    <!-- Skor Merah -->
                                     <div class="col-md-6">
                                         <div class="table-responsive">
                                             <table class="table text-center table-bordered table-sm table-striped">
@@ -229,7 +128,8 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <!-- BABAK 3 -->
+                                    <!-- <div class="col-md-2"></div> -->
+                                    <!-- Skor Biru -->
                                     <div class="col-md-6">
                                         <div class="table-responsive">
                                             <table class="table text-center table-bordered table-sm table-striped">
@@ -303,7 +203,7 @@
                                                             </form>
                                                         </td>
                                                         <td>
-                                                            <button class="btn btn-dark btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->merah) ?>','merah','binaan')">DEL BINAAN</button>
+                                                            <!-- <button class="btn btn-dark btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->merah) ?>','merah','binaan')">DEL BINAAN</button> -->
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -319,7 +219,9 @@
                                                                 <button type="button" class="btn btn-danger btn-block btn-lg">TEGURAN</button>
                                                             </form>
                                                         </td>
-                                                        <td><button class="btn btn-dark btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->merah) ?>','merah','teguran')">DEL TEGURAN</button></td>
+                                                        <td>
+                                                            <button class="btn btn-dark btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->merah) ?>','merah','hukum')">DEL HUKUMAN</button>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -335,14 +237,14 @@
                                                             </form>
                                                         </td>
                                                         <td>
-                                                            <button class="btn btn-dark btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->merah) ?>','merah','peringatan')">DEL PERINGATAN</button>
+                                                            <!-- <button class="btn btn-dark btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->merah) ?>','merah','peringatan')">DEL PERINGATAN</button> -->
                                                         </td>
                                                     </tr>
                                                 </table>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-warning btn-block btn-lg">REQUEST ?</button>
+                                            <a href="<?= base_url('dewan/addVerf/' . $tanding->id_tanding) ?>" type="button" class="btn btn-warning btn-block btn-lg">REQUEST ?</a>
                                             <!-- <button type="button" class="btn btn-primary btn-block btn-lg">REQUEST ?</button> -->
                                         </div>
                                         <div class="col-md-5">
@@ -365,7 +267,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <button class="btn btn-secondary btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->biru) ?>','biru','binaan')">DEL BINAAN</button>
+                                                            <!-- <button class="btn btn-secondary btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->biru) ?>','biru','binaan')">DEL BINAAN</button> -->
                                                         </td>
                                                         <td>
                                                             <form id="formBinaanBiru">
@@ -381,7 +283,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td><button class="btn btn-secondary btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->biru) ?>','biru','teguran')">DEL TEGURAN</button></td>
+                                                        <td><button class="btn btn-secondary btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->biru) ?>','biru','hukum')">DEL HUKUMAN</button></td>
                                                         <td>
                                                             <form id="formTeguranBiru">
                                                                 <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
@@ -397,7 +299,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <button class="btn btn-secondary btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->biru) ?>','biru','peringatan')">DEL PERINGATAN</button>
+                                                            <!-- <button class="btn btn-secondary btn-block btn-lg" onclick="deletejatuhan('<?= htmlspecialchars($tanding->id_tanding) ?>','<?= htmlspecialchars($partai->biru) ?>','biru','peringatan')">DEL PERINGATAN</button> -->
                                                         </td>
                                                         <td>
                                                             <form id="formPeringatanBiru">
@@ -521,6 +423,28 @@
     </div>
 </div>
 
+<div class="modal fade" id="upModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Verifikasi Wasit Juri</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="hasilVote"></div>
+            </div>
+            <div class="modal-footer">
+                <form action="<?= base_url('dewan/selesaiVer') ?>" method="post">
+                    <input type="hidden" id="idVr" name="id_verifikasi">
+                    <button type="submit" class="btn btn-primary">Selesai</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- content-wrapper ends -->
 <?php $this->load->view('dewan/foot'); ?>
 <script src="<?= base_url('assets/vendors/select2/select2.min.js') ?>"></script>
@@ -541,7 +465,41 @@
     function mainFunction() {
         skorHukumMerah();
         skorHukumBiru();
+        cekVerifikasi();
     };
+
+    setInterval(babakAktif, 2000);
+    setInterval(cekVerifikasi, 1000);
+
+    function babakAktif() {
+        $.ajax({
+            type: 'GET',
+            url: '<?= base_url('tampil/cekTanding/' . $tanding->id_tanding); ?>',
+            dataType: 'json',
+            success: function(response) {
+
+                if (response == 1) {
+                    $('#babakShow').empty();
+                    $('#babakShow').append("<button class='btn btn-primary'> <span class='mdi mdi-loading mdi-spin'></span> BABAK 1</button><button class='btn btn-outline-dark'>BABAK 2</button><button class='btn btn-outline-dark'>BABAK 3</button>");
+                }
+
+                if (response == 2) {
+                    $('#babakShow').empty();
+                    $('#babakShow').append("<button class='btn btn-outline-dark'>BABAK 1</button><button class='btn btn-primary'> <span class='mdi mdi-loading mdi-spin'></span> BABAK 2</button><button class='btn btn-outline-dark'>BABAK 3</button>");
+                }
+
+                if (response == 3) {
+                    $('#babakShow').empty();
+                    $('#babakShow').append("<button class='btn btn-outline-dark'>BABAK 1</button><button class='btn btn-outline-dark'>BABAK 2</button><button class='btn btn-primary'> <span class='mdi mdi-loading mdi-spin'></span> BABAK 3</button>");
+                }
+            },
+            error: function(xhr, status, error) {
+                // alert('Gagal menyimpan data. Kesalahan: ' + status + ' - ' + error);
+                console.error('AJAX error:', status, error);
+            }
+        });
+    }
+
 
     function skorHukumMerah() {
         $.ajax({
@@ -714,6 +672,37 @@
                     skorHukumMerah();
                 } else if (response.status === 'success' && response.sudut == 'biru') {
                     skorHukumBiru();
+                }
+            },
+            error: function(xhr, status, error) {
+                alert('Gagal mengDEL data. Kesalahan: ' + status + ' - ' + error);
+            }
+        });
+    }
+
+    function cekVerifikasi() {
+        $.ajax({
+            type: 'GET',
+            url: '<?= base_url('dewan/cekVerifikasi/' . $tanding->id_tanding); ?>',
+            dataType: 'json',
+            success: function(response) {
+                if (response.status == 'benar') {
+                    $("#upModal").modal('show');
+                    $('#hasilVote').empty();
+                    $('#idVr').val(response.idVr);
+
+                    $.each(response.data, function(index, row) {
+                        if (row.pilihan == 'merah') {
+                            var newRow = "<button class='btn btn-danger btn-lg btn-block'>Pesilat Sudut Merah</button>";
+                        } else if (row.pilihan == 'biru') {
+                            var newRow = "<button class='btn btn-primary btn-lg btn-block'>Pesilat Sudut Biru</button>";
+                        } else if (row.pilihan == 'netral') {
+                            var newRow = "<button class='btn btn-warning btn-lg btn-block'>Pesilat Sudut NETRAL</button>";
+                        }
+                        $('#hasilVote').append(newRow);
+                    });
+                } else {
+                    $("#upModal").modal('hide');
                 }
             },
             error: function(xhr, status, error) {

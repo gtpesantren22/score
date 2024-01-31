@@ -64,6 +64,17 @@ class Tampil extends CI_Controller
         echo json_encode(array('datamerah' => $datamerah, 'databiru' => $databiru));
     }
 
+    public function cekPeringatan($id_tanding)
+    {
+        $tanding = $this->model->getBy('tanding', 'id_tanding', $id_tanding)->row();
+        $partai = $this->model->getBy('partai', 'id_partai', $tanding->id_partai)->row();
+
+        $datamerah = $this->model->getBy4('hukuman', 'ket', 'peringatan', 'id_tanding', $id_tanding, 'id_peserta', $partai->merah, 'babak', $tanding->babak)->num_rows();
+        $databiru = $this->model->getBy4('hukuman', 'ket', 'peringatan', 'id_tanding', $id_tanding, 'id_peserta', $partai->biru, 'babak', $tanding->babak)->num_rows();
+
+        echo json_encode(array('datamerah' => $datamerah, 'databiru' => $databiru));
+    }
+
     public function cekInputan($id_tanding)
     {
         $tanding = $this->model->getBy('tanding', 'id_tanding', $id_tanding)->row();
@@ -102,5 +113,17 @@ class Tampil extends CI_Controller
             'j2BiruTendang' => $j2BiruTendang,
             'j3BiruTendang' => $j3BiruTendang,
         ));
+    }
+
+    public function cekVerifikasi($id)
+    {
+        $cek = $this->model->getBy2('verifikasi', 'id_tanding', $id, 'status', 'proses');
+
+        if ($cek->num_rows() == 1) {
+            $data = $this->model->getBy('verifikasi_detail', 'id_verifikasi', $cek->row('id_verifikasi'))->result();
+            echo json_encode(array('status' => $cek->num_rows(), 'data' => $data));
+        } else {
+            echo json_encode(['status' => 0]);
+        }
     }
 }

@@ -13660,7 +13660,8 @@ dl {
     .table td img {
       width: 36px;
       height: 36px;
-      border-radius: 100%; }
+      /* border-radius: 100%;  */
+    }
     .table th .badge,
     .table td .badge {
       margin-bottom: 0; }
@@ -13698,7 +13699,8 @@ dl {
   .custom-table td img {
     width: 23px;
     height: 23px;
-    border-radius: 0; }
+    /* border-radius: 0;  */
+  }
 
 .custom-table td:first-child {
   padding-left: 28px; }

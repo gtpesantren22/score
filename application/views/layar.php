@@ -30,6 +30,34 @@
         .bg-blue {
             background: linear-gradient(to bottom, #0000b3, #56c7ff);
         }
+
+        .table-fixed {
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        .table-fixed th,
+        .table-fixed td {
+            overflow: hidden;
+        }
+
+        .button-red {
+            background-color: red;
+            color: white;
+            border: 1px solid #000000;
+        }
+
+        .button-blue {
+            background-color: blue;
+            color: white;
+            border: 1px solid #000000;
+        }
+
+        .button-netral {
+            background-color: yellow;
+            color: black;
+            border: 1px solid #000000;
+        }
     </style>
 </head>
 
@@ -120,37 +148,37 @@
                                             <h4 style="color: blue;"><?= $biru->kontingen ?></h4>
                                         </div>
                                         <div class="col-md-12">
-                                            <table class="table table-bordered text-center">
+                                            <table class="table table-bordered text-center table-fixed">
                                                 <tr>
                                                     <!-- <th style="background: linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)"><img src="<?= base_url('assets/images/binaan1.png') ?>"></th> -->
                                                     <th id="binaan1Merah"><img src="<?= base_url('assets/images/binaan1.png') ?>"></th>
                                                     <th id="binaan2Merah"><img src="<?= base_url('assets/images/binaan2.png') ?>"></th>
-                                                    <th rowspan="3"></th>
-                                                    <th rowspan="3" class="bg-red" style="font-size: 200px; color: white;" id="pointMerah">0</th>
-                                                    <th rowspan="3"></th>
-                                                    <th id="babak1">BABAK 1</th>
-                                                    <th rowspan="3"></th>
-                                                    <th rowspan="3" class="bg-blue" style="font-size: 200px; color: white;" id="pointBiru">0</th>
-                                                    <th rowspan="3"></th>
+                                                    <th style="width: 1px;" rowspan="3"></th>
+                                                    <th rowspan="3" class="bg-red" style="font-size: 200px; color: white; width: 300px;" id="pointMerah">0</th>
+                                                    <th style="width: 1px;" rowspan="3"></th>
+                                                    <th style="width: 90px;" id="babak1">BABAK 1</th>
+                                                    <th style="width: 1px;" rowspan="3"></th>
+                                                    <th rowspan="3" class="bg-blue" style="font-size: 200px; color: white; width: 300px;" id="pointBiru">0</th>
+                                                    <th style="width: 1px;" rowspan="3"></th>
                                                     <th id="binaan1Biru"><img src="<?= base_url('assets/images/binaan1.png') ?>"></th>
                                                     <th id="binaan2Biru"><img src="<?= base_url('assets/images/binaan2.png') ?>"></th>
                                                 </tr>
                                                 <tr>
                                                     <th id="teguran1Merah"><img src="<?= base_url('assets/images/teguran1.png') ?>"></th>
                                                     <th id="teguran2Merah"><img src="<?= base_url('assets/images/teguran2.png') ?>"></th>
-                                                    <th id="babak2">BABAK 2</th>
+                                                    <th style="width: 90px;" id="babak2">BABAK 2</th>
 
                                                     <th id="teguran1Biru"><img src="<?= base_url('assets/images/teguran1.png') ?>"></th>
                                                     <th id="teguran2Biru"><img src="<?= base_url('assets/images/teguran2.png') ?>"></th>
                                                 </tr>
                                                 <tr>
-                                                    <th id="peringatan1Merah">P1</th>
-                                                    <th id="peringatan2Merah">P2</th>
+                                                    <th id="peringatan1Merah"><img src="<?= base_url('assets/images/P11.png') ?>"></th>
+                                                    <th id="peringatan2Merah"><img src="<?= base_url('assets/images/P22.png') ?>"></th>
 
-                                                    <th id="babak3">BABAK 3</th>
+                                                    <th style="width: 90px;" id="babak3">BABAK 3</th>
 
-                                                    <th id="peringatan1Biru">P1</th>
-                                                    <th id="peringatan2Biru">P2</th>
+                                                    <th id="peringatan1Biru"><img src="<?= base_url('assets/images/P11.png') ?>"></th>
+                                                    <th id="peringatan2Biru"><img src="<?= base_url('assets/images/P22.png') ?>"></th>
                                                 </tr>
                                             </table>
                                             <br>
@@ -189,6 +217,21 @@
         <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
+    <div class="modal fade" id="upModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Verifikasi Wasit Juri</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="hasilVote"></div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- plugins:js -->
     <script src="<?= base_url() ?>assets/vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->
@@ -217,7 +260,9 @@
             pointBiru();
             cekBinaan();
             cekTeguran();
+            cekPeringatan();
             // cekInputan();
+            cekVerifikasi();
         };
 
         function pointMerah() {
@@ -394,6 +439,82 @@
                 error: function(xhr, status, error) {
                     // alert('Gagal menyimpan data. Kesalahan: ' + status + ' - ' + error);
                     console.error('AJAX error:', status, error);
+                }
+            });
+        }
+
+        function cekPeringatan() {
+            $.ajax({
+                type: 'GET',
+                url: '<?= base_url('tampil/cekPeringatan/' . $tanding->id_tanding); ?>',
+                dataType: 'json',
+                success: function(response) {
+
+                    peringatan1Merah = document.getElementById('peringatan1Merah');
+                    peringatan2Merah = document.getElementById('peringatan2Merah');
+                    peringatan1Biru = document.getElementById('peringatan1Biru');
+                    peringatan2Biru = document.getElementById('peringatan2Biru');
+
+                    if (response.datamerah == 1) {
+                        peringatan1Merah.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        peringatan2Merah.style.background = 'white';
+                    } else if (response.datamerah == 2) {
+                        peringatan1Merah.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        peringatan2Merah.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                    } else if (response.datamerah == 0) {
+                        peringatan1Merah.style.background = 'white';
+                        peringatan2Merah.style.background = 'white';
+                    }
+
+                    if (response.databiru == 1) {
+                        peringatan1Biru.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        peringatan2Biru.style.background = 'white';
+                    } else if (response.databiru == 2) {
+                        peringatan1Biru.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                        peringatan2Biru.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
+                    } else if (response.databiru == 0) {
+                        peringatan1Biru.style.background = 'white';
+                        peringatan2Biru.style.background = 'white';
+                    }
+
+                    // console.log(response.datamerah)
+                    // console.log(response.databiru)
+
+
+                },
+                error: function(xhr, status, error) {
+                    // alert('Gagal menyimpan data. Kesalahan: ' + status + ' - ' + error);
+                    console.error('AJAX error:', status, error);
+                }
+            });
+        }
+
+        function cekVerifikasi() {
+            $.ajax({
+                type: 'GET',
+                url: '<?= base_url('tampil/cekVerifikasi/' . $tanding->id_tanding); ?>',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status == 1) {
+                        $("#upModal").modal('show');
+                        $('#hasilVote').empty();
+
+                        $.each(response.data, function(index, row) {
+                            if (row.pilihan == 'merah') {
+                                var newRow = "<button class='btn button-red btn-lg btn-block'>Pesilat Sudut Merah</button>";
+                            } else if (row.pilihan == 'biru') {
+                                var newRow = "<button class='btn button-blue btn-lg btn-block'>Pesilat Sudut Biru</button>";
+                            } else if (row.pilihan == 'netral') {
+                                var newRow = "<button class='btn button-netral btn-lg btn-block'>Pesilat Sudut NETRAL</button>";
+                            }
+                            $('#hasilVote').append(newRow);
+                        });
+                    } else {
+                        $("#upModal").modal('hide');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('Gagal mengDEL data. Kesalahan: ' + status + ' - ' + error);
                 }
             });
         }

@@ -19,7 +19,7 @@ class Tanding extends CI_Controller
     {
         $data['user'] = $this->Auth_model->current_user();
 
-        $data['tanding'] = $this->db->query("SELECT urut, nama, tanding.status AS status, aktif, id_tanding, gel FROM tanding JOIN partai ON tanding.id_partai=partai.id_partai JOIN wasit ON tanding.wasit=wasit.id_wasit")->result();
+        $data['tanding'] = $this->db->query("SELECT urut, nama, tanding.status AS status, aktif, id_tanding, gel FROM tanding JOIN partai ON tanding.id_partai=partai.id_partai JOIN wasit ON tanding.wasit=wasit.id_wasit ORDER BY urut DESC")->result();
         $data['partai'] = $this->model->getAll('partai')->result();
         $data['wasit'] = $this->model->getAll('wasit')->result();
 
@@ -120,17 +120,24 @@ class Tanding extends CI_Controller
             redirect('tanding/detail/' . $id);
         }
     }
+
     public function aktifkan($id)
     {
-        $data = ['aktif' => 'Y', 'status' => 'berjalan'];
-        $cek = $this->model->getBy2('tanding', 'aktif', 'Y',);
-        $this->model->ubah('tanding', 'id_tanding', $id, $data);
-        if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('ok', 'Data tanding berhasil diaktifkan');
+        $data = ['aktif' => 'Y', 'status' => 'berjalan', 'babak' => 1];
+        $tanding = $this->model->getBy('tanding', 'id_tanding', $id)->row();
+        $cek = $this->model->getBy2('tanding', 'aktif', 'Y', 'gel', $tanding->gel)->row();
+        if ($cek) {
+            $this->session->set_flashdata('error', 'Ada pertandingan aktif di gelanggang ini');
             redirect('tanding/detail/' . $id);
         } else {
-            $this->session->set_flashdata('error', 'Data gagal berhasil diaktifkan');
-            redirect('tanding/detail/' . $id);
+            $this->model->ubah('tanding', 'id_tanding', $id, $data);
+            if ($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata('ok', 'Data tanding berhasil diaktifkan');
+                redirect('tanding/detail/' . $id);
+            } else {
+                $this->session->set_flashdata('error', 'Data gagal berhasil diaktifkan');
+                redirect('tanding/detail/' . $id);
+            }
         }
     }
 
@@ -165,5 +172,73 @@ class Tanding extends CI_Controller
         $data['babak'] = $babk;
 
         $this->load->view('skorTanding', $data);
+    }
+
+    public function selesaikan($id_tanding)
+    {
+        $data = ['status' => 'selesai', 'aktif' => 'N', 'babak' => 0];
+        $cek2 = $this->model->getBy('tanding', 'id_tanding', $id_tanding)->row();
+
+        $this->model->ubah('wasit', 'id_wasit', $cek2->juri1, ['status' => 'N']);
+        $this->model->ubah('wasit', 'id_wasit', $cek2->juri2, ['status' => 'N']);
+        $this->model->ubah('wasit', 'id_wasit', $cek2->juri3, ['status' => 'N']);
+
+        $this->model->ubah('tanding', 'id_tanding', $id_tanding, $data);
+        if ($this->db->affected_rows() > 0) {
+            redirect('tanding/winner/' . $id_tanding);
+        } else {
+            $this->session->set_flashdata('error', 'Update pertandingan gagal');
+        }
+    }
+
+    public function winner($id)
+    {
+        $data['user'] = $this->Auth_model->current_user();
+        $data['tanding'] = $this->model->getBy('tanding', 'id_tanding', $id)->row();
+        $data['partai'] = $this->model->getBy('partai', 'id_partai', $data['tanding']->id_partai)->row();
+        $merah = $data['partai']->merah;
+        $biru = $data['partai']->biru;
+
+        $data['merah'] = $this->model->getBy('peserta', 'id_peserta', $merah)->row();
+        $data['biru'] = $this->model->getBy('peserta', 'id_peserta', $biru)->row();
+
+        $pointJuriMerah = $this->db->query("SELECT SUM(skor) AS point FROM nilai_fix WHERE id_tanding = '$id' AND id_peserta = '$merah' ")->row();
+        $pointMerah = $this->db->query("SELECT SUM(skor) AS point FROM hukuman WHERE id_tanding = '$id' AND id_peserta = '$merah' ")->row();
+
+        $pointJuriBiru = $this->db->query("SELECT SUM(skor) AS point FROM nilai_fix WHERE id_tanding = '$id' AND id_peserta = '$biru' ")->row();
+        $pointBiru = $this->db->query("SELECT SUM(skor) AS point FROM hukuman WHERE id_tanding = '$id' AND id_peserta = '$biru' ")->row();
+
+        $data['skorMerah'] = $pointJuriMerah->point + $pointMerah->point;
+        $data['skorBiru'] = $pointJuriBiru->point + $pointBiru->point;
+
+        $this->load->view('tanding/winner', $data);
+    }
+
+    public function saveWin()
+    {
+        $id_tanding = $this->input->post('id_tanding', true);
+        $id_peserta = $this->input->post('id_peserta', true);
+
+        $cek = $this->model->getBy2('winner', 'id_tanding', $id_tanding, 'id_peserta',  $id_peserta)->row();
+
+        if ($cek) {
+            redirect('tanding');
+        } else {
+            $data = [
+                'id_winner' => $this->uuid->v4(),
+                'id_tanding' => $id_tanding,
+                'id_peserta' => $id_peserta,
+            ];
+
+            $this->model->simpan('winner', $data);
+
+            if ($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata('ok', 'Pertandingan Selesai');
+                redirect('tanding');
+            } else {
+                $this->session->set_flashdata('error', 'Update pertandingan gagal');
+                redirect('tanding');
+            }
+        }
     }
 }

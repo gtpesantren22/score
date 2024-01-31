@@ -64,7 +64,8 @@ class Wasittanding extends CI_Controller
         $tandng = $this->db->query("SELECT merah, biru FROM tanding JOIN partai ON tanding.id_partai=partai.id_partai WHERE tanding.id_tanding = '$idTanding' ")->row();
         $idPeserta = $pslt == 'merah' ? $tandng->merah : $tandng->biru;
 
-        $nilai = $this->db->query("SELECT * FROM nilai WHERE id_tanding = '$idTanding' AND id_wasit = '$id_wasit' AND id_peserta = '$idPeserta' AND status != 'proses' AND babak = $babak ORDER BY timer ASC ")->result();
+        // $nilai = $this->db->query("SELECT * FROM nilai WHERE id_tanding = '$idTanding' AND id_wasit = '$id_wasit' AND id_peserta = '$idPeserta' AND status != 'proses' AND babak = $babak ORDER BY timer ASC ")->result();
+        $nilai = $this->db->query("SELECT * FROM nilai WHERE id_tanding = '$idTanding' AND id_wasit = '$id_wasit' AND id_peserta = '$idPeserta' AND babak = $babak ORDER BY timer ASC ")->result();
         // $nilai = $this->db->query("SELECT * FROM nilai WHERE id_tanding = '$idTanding' AND id_wasit = '$id_wasit' AND id_peserta = '$idPeserta' ")->result();
         // $total = $nilai ? $nilai->total : 0;
         echo json_encode($nilai);
@@ -135,9 +136,10 @@ FROM nilai WHERE id_tanding = '$idTanding' AND id_wasit = '$id_wasit' AND babak 
             $this->model->simpan('nilai_fix', $data2);
 
             if ($this->db->affected_rows() > 0) {
-                $new_data = $this->db->query("SELECT * FROM nilai WHERE id_tanding = '$id_tanding' AND id_wasit = '$id_wasit' AND id_peserta = '$tandng->merah' AND status = 'proses' ORDER BY timer DESC LIMIT 4 ")->result();
-                $new_data2 = $this->db->query("SELECT * FROM nilai WHERE id_tanding = '$id_tanding' AND id_wasit = '$id_wasit' AND id_peserta = '$tandng->biru' AND status = 'proses' ORDER BY timer DESC LIMIT 4 ")->result();
-                echo json_encode(array('status' => 'success', 'message' => 'Data berhasil disimpan', 'new_data' => $new_data, 'new_data2' => $new_data2, 'id_nilai' => $id_nilai));
+                // $new_data = $this->db->query("SELECT * FROM nilai WHERE id_tanding = '$id_tanding' AND id_wasit = '$id_wasit' AND id_peserta = '$tandng->merah' AND status = 'proses' ORDER BY timer DESC LIMIT 4 ")->result();
+                // $new_data2 = $this->db->query("SELECT * FROM nilai WHERE id_tanding = '$id_tanding' AND id_wasit = '$id_wasit' AND id_peserta = '$tandng->biru' AND status = 'proses' ORDER BY timer DESC LIMIT 4 ")->result();
+                // echo json_encode(array('status' => 'success', 'message' => 'Data berhasil disimpan', 'new_data' => $new_data, 'new_data2' => $new_data2, 'id_nilai' => $id_nilai));
+                echo json_encode(array('status' => 'success', 'message' => 'Data berhasil disimpan', 'id_nilai' => $id_nilai));
             } else {
                 echo json_encode(array('status' => 'error', 'message' => 'Gagal menyimpan data'));
             }
@@ -157,9 +159,10 @@ FROM nilai WHERE id_tanding = '$idTanding' AND id_wasit = '$id_wasit' AND babak 
             $this->model->simpan('nilai', $data);
 
             if ($this->db->affected_rows() > 0) {
-                $new_data = $this->db->query("SELECT * FROM nilai WHERE id_tanding = '$id_tanding' AND id_wasit = '$id_wasit' AND id_peserta = '$tandng->merah' AND status = 'proses' ORDER BY timer DESC LIMIT 4 ")->result();
-                $new_data2 = $this->db->query("SELECT * FROM nilai WHERE id_tanding = '$id_tanding' AND id_wasit = '$id_wasit' AND id_peserta = '$tandng->biru' AND status = 'proses' ORDER BY timer DESC LIMIT 4 ")->result();
-                echo json_encode(array('status' => 'success', 'message' => 'Data berhasil disimpan', 'new_data' => $new_data, 'new_data2' => $new_data2, 'id_nilai' => $id_nilai));
+                // $new_data = $this->db->query("SELECT * FROM nilai WHERE id_tanding = '$id_tanding' AND id_wasit = '$id_wasit' AND id_peserta = '$tandng->merah' AND status = 'proses' ORDER BY timer DESC LIMIT 4 ")->result();
+                // $new_data2 = $this->db->query("SELECT * FROM nilai WHERE id_tanding = '$id_tanding' AND id_wasit = '$id_wasit' AND id_peserta = '$tandng->biru' AND status = 'proses' ORDER BY timer DESC LIMIT 4 ")->result();
+                // echo json_encode(array('status' => 'success', 'message' => 'Data berhasil disimpan', 'new_data' => $new_data, 'new_data2' => $new_data2, 'id_nilai' => $id_nilai));
+                echo json_encode(array('status' => 'success', 'message' => 'Data berhasil disimpan', 'id_nilai' => $id_nilai));
             } else {
                 echo json_encode(array('status' => 'error', 'message' => 'Gagal menyimpan data'));
             }
@@ -170,18 +173,22 @@ FROM nilai WHERE id_tanding = '$idTanding' AND id_wasit = '$id_wasit' AND babak 
     {
         $idTanding = $this->input->post('idTanding', true);
         $idWasit = $this->input->post('idWasit', true);
-        $idNilai = $this->input->post('idNilai', true);
-        $tandng = $this->db->query("SELECT merah, biru FROM tanding JOIN partai ON tanding.id_partai=partai.id_partai WHERE tanding.id_tanding = '$idTanding' ")->row();
+        $idPeserta = $this->input->post('idPeserta', true);
+        $cek = $this->db->query("SELECT * FROM nilai WHERE id_tanding = '$idTanding' AND id_wasit = '$idWasit' AND id_peserta = '$idPeserta' AND status = 'proses' ORDER BY timer DESC LIMIT 1 ")->row();
 
-        $this->model->hapus('nilai', 'id_nilai', $idNilai);
-
-        if ($this->db->affected_rows() > 0) {
-            $new_data = $this->db->query("SELECT * FROM nilai WHERE id_tanding = '$idTanding' AND id_wasit = '$idWasit' AND id_peserta = '$tandng->merah' AND status = 'proses' ORDER BY timer DESC LIMIT 4 ")->result();
-            $new_data2 = $this->db->query("SELECT * FROM nilai WHERE id_tanding = '$idTanding' AND id_wasit = '$idWasit' AND id_peserta = '$tandng->biru' AND status = 'proses' ORDER BY timer DESC LIMIT 4 ")->result();
-            echo json_encode(array('status' => 'success', 'message' => 'Data berhasil dihapus.', 'new_data' => $new_data, 'new_data2' => $new_data2));
-            // echo json_encode($idNilai);
+        if ($cek) {
+            $this->model->hapus('nilai', 'id_nilai', $cek->id_nilai);
+            if ($this->db->affected_rows() > 0) {
+                // $new_data = $this->db->query("SELECT * FROM nilai WHERE id_tanding = '$idTanding' AND id_wasit = '$idWasit' AND id_peserta = '$tandng->merah' AND status = 'proses' ORDER BY timer DESC LIMIT 4 ")->result();
+                // $new_data2 = $this->db->query("SELECT * FROM nilai WHERE id_tanding = '$idTanding' AND id_wasit = '$idWasit' AND id_peserta = '$tandng->biru' AND status = 'proses' ORDER BY timer DESC LIMIT 4 ")->result();
+                // echo json_encode(array('status' => 'success', 'message' => 'Data berhasil dihapus.', 'new_data' => $new_data, 'new_data2' => $new_data2));
+                // echo json_encode($idNilai);
+                echo json_encode(array('status' => 'success', 'message' => 'Data berhasil dihapus.'));
+            } else {
+                echo json_encode(array('status' => 'error', 'message' => 'Gagal menghapus data.'));
+            }
         } else {
-            echo json_encode(array('status' => 'error', 'message' => 'Gagal menghapus data.'));
+            echo json_encode(array('status' => 'success', 'message' => 'Data berhasil dihapus.'));
         }
     }
 
@@ -199,9 +206,9 @@ FROM nilai WHERE id_tanding = '$idTanding' AND id_wasit = '$id_wasit' AND babak 
         $this->model->ubah('nilai', 'id_nilai', $id_nilai, $data);
         if ($this->db->affected_rows() > 0) {
             $tandng = $this->db->query("SELECT merah, biru FROM tanding JOIN partai ON tanding.id_partai=partai.id_partai WHERE tanding.id_tanding = '$tandng->id_tanding' ")->row();
-            $new_data = $this->db->query("SELECT * FROM nilai WHERE id_tanding = '$tandng->id_tanding' AND id_wasit = '$tandng->id_wasit' AND id_peserta = '$tandng->merah' AND status = 'proses' ORDER BY timer DESC LIMIT 4 ")->result();
-            $new_data2 = $this->db->query("SELECT * FROM nilai WHERE id_tanding = '$tandng->id_tanding' AND id_wasit = '$tandng->id_wasit' AND id_peserta = '$tandng->biru' AND status = 'proses' ORDER BY timer DESC LIMIT 4 ")->result();
-            echo json_encode(array('status' => 'success', 'new_data' => $new_data));
+            // $new_data = $this->db->query("SELECT * FROM nilai WHERE id_tanding = '$tandng->id_tanding' AND id_wasit = '$tandng->id_wasit' AND id_peserta = '$tandng->merah' AND status = 'proses' ORDER BY timer DESC LIMIT 4 ")->result();
+            // $new_data2 = $this->db->query("SELECT * FROM nilai WHERE id_tanding = '$tandng->id_tanding' AND id_wasit = '$tandng->id_wasit' AND id_peserta = '$tandng->biru' AND status = 'proses' ORDER BY timer DESC LIMIT 4 ")->result();
+            echo json_encode(array('status' => 'success'));
         } else {
             echo json_encode(array('status' => 'error'));
         }
@@ -212,5 +219,40 @@ FROM nilai WHERE id_tanding = '$idTanding' AND id_wasit = '$id_wasit' AND babak 
         $cek = $this->model->getBy('wasit', 'id_wasit', $id)->row();
 
         echo json_encode($cek->status);
+    }
+
+    public function cekVerifikasi($idTanding)
+    {
+        $cek = $this->model->getBy2('verifikasi', 'id_tanding', $idTanding, 'status', 'proses')->row();
+
+        if ($cek) {
+            $cek2 = $this->model->getBy2('verifikasi_detail', 'id_verifikasi', $cek->id_verifikasi, 'id_wasit', $this->idWasit)->row();
+            if (!$cek2) {
+                echo json_encode(array('status' => 'benar', 'idVr' => $cek->id_verifikasi));
+            } else {
+                echo json_encode(array('status' => 'salah'));
+            }
+        } else {
+            echo json_encode(array('status' => 'salah'));
+        }
+    }
+
+    public function addVerf()
+    {
+        $id_verifikasi = $this->input->post('id_verifikasi', true);
+        $id_wasit = $this->input->post('id_wasit', true);
+        $pilihan = $this->input->post('pilihan', true);
+
+        $data = [
+            'id_vd' => $this->uuid->v4(),
+            'id_verifikasi' => $id_verifikasi,
+            'id_wasit' => $id_wasit,
+            'pilihan' => $pilihan,
+        ];
+
+        $this->model->simpan('verifikasi_detail', $data);
+        if ($this->db->affected_rows() > 0) {
+            redirect('wasittanding');
+        }
     }
 }

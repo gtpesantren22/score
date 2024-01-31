@@ -25,7 +25,7 @@ class Dewan extends CI_Controller
 
     public function tanding()
     {
-        $data['tanding'] = $this->db->query("SELECT urut, nama, tanding.status AS status, aktif, id_tanding, gel FROM tanding JOIN partai ON tanding.id_partai=partai.id_partai JOIN wasit ON tanding.wasit=wasit.id_wasit ORDER BY partai.urut DESC")->result();
+        $data['tanding'] = $this->db->query("SELECT urut, nama, tanding.status AS status, aktif, id_tanding, gel FROM tanding JOIN partai ON tanding.id_partai=partai.id_partai JOIN wasit ON tanding.wasit=wasit.id_wasit WHERE tanding.aktif = 'Y' ORDER BY partai.urut DESC")->result();
         $data['partai'] = $this->model->getAll('partai')->result();
         $data['wasit'] = $this->model->getAll('wasit')->result();
 
@@ -256,8 +256,11 @@ class Dewan extends CI_Controller
         $sudut = $this->input->post('sudut', true);
         $ket = $this->input->post('ket', true);
 
-        $kukum = $this->db->query("SELECT * FROM hukuman WHERE id_tanding = '$idTanding' AND id_peserta = '$idPeserta' AND ket = '$ket' ORDER BY waktu DESC LIMIT 1 ")->row();
-
+        if ($ket == 'jatuhan') {
+            $kukum = $this->db->query("SELECT * FROM hukuman WHERE id_tanding = '$idTanding' AND id_peserta = '$idPeserta' AND ket = 'jatuhan' ORDER BY waktu DESC LIMIT 1 ")->row();
+        } else {
+            $kukum = $this->db->query("SELECT * FROM hukuman WHERE id_tanding = '$idTanding' AND id_peserta = '$idPeserta' AND ket != 'jatuhan' ORDER BY waktu DESC LIMIT 1 ")->row();
+        }
         $this->model->hapus('hukuman', 'id_hukuman', $kukum->id_hukuman);
 
         if ($this->db->affected_rows() > 0) {
@@ -331,6 +334,58 @@ class Dewan extends CI_Controller
                 $this->session->set_flashdata('error', 'Update pertandingan gagal');
                 redirect('dewan/tanding');
             }
+        }
+    }
+
+    public function cekTanding($id)
+    {
+        $data = $this->model->getBy('tanding', 'id_tanding', $id)->row();
+        $data2 = $this->model->getBy('tanding', 'id_tanding', $id)->row();
+
+        echo json_encode($data->babak);
+    }
+
+    public function addVerf($idTanding)
+    {
+        $id_verifikasi = $this->uuid->v4();
+        $data = [
+            'id_verifikasi' => $id_verifikasi,
+            'id_tanding' => $idTanding,
+            'status' => 'proses',
+        ];
+
+        $this->model->simpan('verifikasi', $data);
+        if ($this->db->affected_rows() > 0) {
+            redirect('dewan/detail/' . $idTanding);
+        } else {
+            $this->session->set_flashdata('error', 'Buat verifikas gagal');
+            redirect('dewan/detail/' . $idTanding);
+        }
+    }
+
+    public function cekVerifikasi($id)
+    {
+        $cek = $this->model->getBy2('verifikasi', 'id_tanding', $id, 'status', 'proses');
+
+        if ($cek->num_rows() > 0) {
+            $data = $this->model->getBy('verifikasi_detail', 'id_verifikasi', $cek->row('id_verifikasi'))->result();
+            echo json_encode(array('status' => 'benar', 'data' => $data, 'idVr' => $cek->row('id_verifikasi')));
+        } else {
+            echo json_encode(['status' => 'salah']);
+        }
+    }
+
+    public function selesaiVer()
+    {
+        $id_verifikasi = $this->input->post('id_verifikasi', true);
+        $data = $this->model->getBy('verifikasi', 'id_verifikasi', $id_verifikasi)->row();
+
+        $this->model->ubah('verifikasi', 'id_verifikasi', $id_verifikasi, ['status' => 'selesai']);
+        if ($this->db->affected_rows() > 0) {
+            redirect('dewan/detail/' . $data->id_tanding);
+        } else {
+            $this->session->set_flashdata('error', 'Buat verifikas gagal');
+            redirect('dewan/detail/' . $data->id_tanding);
         }
     }
 }

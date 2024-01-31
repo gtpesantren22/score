@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="<?= base_url() ?>assets/vendors/css/vendor.bundle.base.css">
     <!-- endinject -->
     <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="<?= base_url() ?>assets/DataTables/datatables.min.css" />
+    <link rel="stylesheet" href="<?= base_url() ?>assets/iziToast/dist/css/iziToast.min.css" />
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <!-- endinject -->
@@ -19,8 +21,6 @@
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/demo_2/style.css" />
     <!-- End layout styles -->
     <link rel="shortcut icon" href="<?= base_url() ?>assets/images/favicon.png" />
-    <link rel="stylesheet" href="<?= base_url() ?>assets/DataTables/datatables.min.css" />
-    <link rel="stylesheet" href="<?= base_url() ?>assets/iziToast/dist/css/iziToast.min.css" />
 
     <style>
         br {
@@ -46,7 +46,7 @@
         }
 
         .col-md-5 .colData {
-            height: 230px;
+            height: 170px;
             /* Ganti nilai sesuai kebutuhan */
         }
     </style>
@@ -131,7 +131,8 @@
                                             <div class="col-md-5">
                                                 <div class="colData">
                                                     <div class="table-responsive">
-                                                        <table class="table text-center table-bordered table-sm table-striped" id="dataMerah">
+                                                        <!-- <table class="table text-center table-bordered table-sm table-striped" id="dataMerah"> -->
+                                                        <table class="table text-center table-bordered table-sm table-striped" id="">
                                                             <thead>
                                                                 <tr>
                                                                     <th style="background-color: red; color: white;"><b>BABAK</b></th>
@@ -149,20 +150,20 @@
                                                                     <th><b style="font-size: large;">3</b></th>
                                                                     <th colspan="4" style="font-size: medium; font-weight: bold; color: red;" id="hasilMerah3"></th>
                                                                 </tr>
-                                                                <tr>
+                                                                <!-- <tr>
                                                                     <th></th>
-                                                                </tr>
-                                                                <tr style="background-color: red; color: white;">
+                                                                </tr> -->
+                                                                <!-- <tr style="background-color: red; color: white;">
                                                                     <th><b>BABAK</b></th>
                                                                     <th><b>SKOR</b></th>
                                                                     <th><b>KET</b></th>
                                                                     <th><b>WAKTU</b></th>
                                                                     <th><b>#</b></th>
-                                                                </tr>
+                                                                </tr> -->
                                                             </thead>
-                                                            <tbody>
+                                                            <!-- <tbody>
 
-                                                            </tbody>
+                                                            </tbody> -->
                                                         </table>
                                                     </div>
                                                 </div>
@@ -170,33 +171,15 @@
                                             <!-- TENGAH -->
                                             <div class="col-md-2">
                                                 <center>
-                                                    <!-- BABAK 1 -->
-                                                    <?php if ($tanding->babak == 1) { ?>
-                                                        <button class="btn btn-primary btn-block"> <span class="mdi mdi-loading mdi-spin"></span> BABAK 1</button>
-                                                    <?php } else {  ?>
-                                                        <button class="btn btn-outline-dark btn-block">BABAK 1</button>
-                                                    <?php }  ?>
-                                                    <br>
-                                                    <!-- BABAK 2 -->
-                                                    <?php if ($tanding->babak == 2) { ?>
-                                                        <button class="btn btn-primary btn-block"> <span class="mdi mdi-loading mdi-spin"></span> BABAK 2</button>
-                                                    <?php } else {  ?>
-                                                        <button class="btn btn-outline-dark btn-block">BABAK 2</button>
-                                                    <?php }  ?>
-                                                    <br>
-                                                    <!-- BABAK 3 -->
-                                                    <?php if ($tanding->babak == 3) { ?>
-                                                        <button class="btn btn-primary btn-block"> <span class="mdi mdi-loading mdi-spin"></span> BABAK 3</button>
-                                                    <?php } else {  ?>
-                                                        <button class="btn btn-outline-dark btn-block">BABAK 3</button>
-                                                    <?php }  ?>
+                                                    <div id="babakShow"></div>
                                                 </center>
                                             </div>
                                             <!-- BIRU -->
                                             <div class="col-md-5">
                                                 <div class="colData">
                                                     <div class="table-responsive">
-                                                        <table class="table text-center table-bordered table-sm table-striped" id="dataBiru">
+                                                        <!-- <table class="table text-center table-bordered table-sm table-striped" id="dataBiru"> -->
+                                                        <table class="table text-center table-bordered table-sm table-striped" id="">
                                                             <thead>
                                                                 <tr>
                                                                     <th style="background-color: blue; color: white;"><b>BABAK</b></th>
@@ -214,20 +197,20 @@
                                                                     <th><b style="font-size: large;">3</b></th>
                                                                     <th colspan="4" style="font-size: medium; font-weight: bold; color: blue;" id="hasilBiru3"></th>
                                                                 </tr>
-                                                                <tr>
+                                                                <!-- <tr>
                                                                     <th></th>
-                                                                </tr>
-                                                                <tr style="background-color: blue; color: white;">
+                                                                </tr> -->
+                                                                <!-- <tr style="background-color: blue; color: white;">
                                                                     <th><b>BABAK</b></th>
                                                                     <th><b>SKOR</b></th>
                                                                     <th><b>KET</b></th>
                                                                     <th><b>WAKTU</b></th>
                                                                     <th><b>#</b></th>
-                                                                </tr>
+                                                                </tr> -->
                                                             </thead>
-                                                            <tbody>
+                                                            <!-- <tbody>
 
-                                                            </tbody>
+                                                            </tbody> -->
                                                         </table>
                                                     </div>
                                                 </div>
@@ -237,55 +220,71 @@
                                 </div>
                                 <?php if ($tanding->babak != 0) : ?>
                                     <div class="row">
-                                        <div class="col-md-2">
+                                        <div class="col-md-5">
                                             <div class="row">
-                                                <form id="pukulMerah">
-                                                    <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
-                                                    <input type="hidden" name="id_wasit" value="<?= $wasit->id_wasit ?>">
-                                                    <input type="hidden" name="id_peserta" value="<?= $partai->merah ?>">
-                                                    <!-- <input type="hidden" name="babak" value="<?= $tanding->babak ?>"> -->
-                                                    <input type="hidden" name="skor" value="1">
-                                                    <input type="hidden" name="ket" value="Pukulan">
-                                                    <br>
-                                                    <button type="button" class="btn btn-outline-danger btn-block btn-lg ml-2"><i class="mdi mdi-boxing-glove "></i> Pukulan </button>
-                                                </form>
-                                                <form id="tendangMerah">
-                                                    <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
-                                                    <input type="hidden" name="id_wasit" value="<?= $wasit->id_wasit ?>">
-                                                    <input type="hidden" name="id_peserta" value="<?= $partai->merah ?>">
-                                                    <!-- <input type="hidden" name="babak" value="<?= $tanding->babak ?>"> -->
-                                                    <input type="hidden" name="skor" value="2">
-                                                    <input type="hidden" name="ket" value="Tendangan">
-                                                    <br>
-                                                    <button type="button" class="btn btn-outline-danger btn-block btn-lg ml-2"><i class="mdi mdi-karate "></i> Tendangan </button>
-                                                </form>
+                                                <div class="col-md-8">
+                                                    <form id="pukulMerah">
+                                                        <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
+                                                        <input type="hidden" name="id_wasit" value="<?= $wasit->id_wasit ?>">
+                                                        <input type="hidden" name="id_peserta" value="<?= $partai->merah ?>">
+                                                        <!-- <input type="hidden" name="babak" value="<?= $tanding->babak ?>"> -->
+                                                        <input type="hidden" name="skor" value="1">
+                                                        <input type="hidden" name="ket" value="Pukulan">
+                                                        <br>
+                                                        <button type="button" class="btn btn-danger btn-block btn-lg ml-2"><i class="mdi mdi-boxing-glove "></i><br> Pukulan </button>
+                                                    </form>
+                                                    <form id="tendangMerah">
+                                                        <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
+                                                        <input type="hidden" name="id_wasit" value="<?= $wasit->id_wasit ?>">
+                                                        <input type="hidden" name="id_peserta" value="<?= $partai->merah ?>">
+                                                        <!-- <input type="hidden" name="babak" value="<?= $tanding->babak ?>"> -->
+                                                        <input type="hidden" name="skor" value="2">
+                                                        <input type="hidden" name="ket" value="Tendangan">
+                                                        <br>
+                                                        <button type="button" class="btn btn-danger btn-block btn-lg ml-2"><i class="mdi mdi-karate "></i> <br> Tendangan </button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <button class="btn btn-block btn-lg btn-danger" onclick="deleteData('<?= $tanding->id_tanding ?>','<?= $wasit->id_wasit ?>','<?= $partai->merah ?>')">DEL &nbsp; SCORE</button>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-2"></div>
-                                        <div class="col-md-4"></div>
-                                        <div class="col-md-2"></div>
                                         <div class="col-md-2">
-                                            <div class="row justify-content-end">
-                                                <form id="pukulBiru">
-                                                    <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
-                                                    <input type="hidden" name="id_wasit" value="<?= $wasit->id_wasit ?>">
-                                                    <input type="hidden" name="id_peserta" value="<?= $partai->biru ?>">
-                                                    <!-- <input type="hidden" name="babak" value="<?= $tanding->babak ?>"> -->
-                                                    <input type="hidden" name="skor" value="1">
-                                                    <input type="hidden" name="ket" value="Pukulan">
-                                                    <br>
-                                                    <button type="button" class="btn btn-outline-primary btn-block btn-lg ml-2"> <i class="mdi mdi-boxing-glove"></i> Pukulan </button>
-                                                </form>
-                                                <form id="tendangBiru">
-                                                    <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
-                                                    <input type="hidden" name="id_wasit" value="<?= $wasit->id_wasit ?>">
-                                                    <input type="hidden" name="id_peserta" value="<?= $partai->biru ?>">
-                                                    <!-- <input type="hidden" name="babak" value="<?= $tanding->babak ?>"> -->
-                                                    <input type="hidden" name="skor" value="2">
-                                                    <input type="hidden" name="ket" value="Tendangan">
-                                                    <br>
-                                                    <button type="button" class="btn btn-outline-primary btn-block btn-lg ml-2"> <i class="mdi mdi-karate"></i> Tendangan </button>
-                                                </form>
+                                            <div class="form-group">
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="" /> Default </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <!-- <div class="row justify-content-end"> -->
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <button class="btn btn-block btn-lg btn-primary" onclick="deleteData('<?= $tanding->id_tanding ?>','<?= $wasit->id_wasit ?>','<?= $partai->biru ?>')">DEL &nbsp; SCORE</button>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <form id="pukulBiru">
+                                                        <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
+                                                        <input type="hidden" name="id_wasit" value="<?= $wasit->id_wasit ?>">
+                                                        <input type="hidden" name="id_peserta" value="<?= $partai->biru ?>">
+                                                        <!-- <input type="hidden" name="babak" value="<?= $tanding->babak ?>"> -->
+                                                        <input type="hidden" name="skor" value="1">
+                                                        <input type="hidden" name="ket" value="Pukulan">
+                                                        <br>
+                                                        <button type="button" class="btn btn-primary btn-block btn-lg ml-2"> <i class="mdi mdi-boxing-glove"></i><br> Pukulan </button>
+                                                    </form>
+                                                    <form id="tendangBiru">
+                                                        <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
+                                                        <input type="hidden" name="id_wasit" value="<?= $wasit->id_wasit ?>">
+                                                        <input type="hidden" name="id_peserta" value="<?= $partai->biru ?>">
+                                                        <!-- <input type="hidden" name="babak" value="<?= $tanding->babak ?>"> -->
+                                                        <input type="hidden" name="skor" value="2">
+                                                        <input type="hidden" name="ket" value="Tendangan">
+                                                        <br>
+                                                        <button type="button" class="btn btn-primary btn-block btn-lg ml-2"> <i class="mdi mdi-karate"></i> <br> Tendangan </button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -302,6 +301,48 @@
         <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
+    <div class="modal fade" id="upModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Verifikasi Wasit Juri</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label for="">Pilih Vote Pesilat</label><br>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <form action="<?= base_url('wasittanding/addVerf') ?>" method="post">
+                                <input type="hidden" id="idVr" name="id_verifikasi">
+                                <input type="hidden" name="id_wasit" value="<?= $wasit->id_wasit ?>">
+                                <input type="hidden" name="pilihan" value="merah">
+                                <button type="submit" class='btn btn-danger btn-lg btn-block'>Pesilat Sudut Merah</button>
+                            </form>
+                        </div>
+                        <div class="col-md-4">
+                            <form action="<?= base_url('wasittanding/addVerf') ?>" method="post">
+                                <input type="hidden" id="idVr2" name="id_verifikasi">
+                                <input type="hidden" name="id_wasit" value="<?= $wasit->id_wasit ?>">
+                                <input type="hidden" name="pilihan" value="netral">
+                                <button type="submit" class='btn btn-warning btn-lg btn-block'>Pesilat Sudut Netral</button>
+                            </form>
+                        </div>
+                        <div class="col-md-4">
+                            <form action="<?= base_url('wasittanding/addVerf') ?>" method="post">
+                                <input type="hidden" id="idVr3" name="id_verifikasi">
+                                <input type="hidden" name="id_wasit" value="<?= $wasit->id_wasit ?>">
+                                <input type="hidden" name="pilihan" value="biru">
+                                <button type="submit" class='btn btn-primary btn-lg btn-block'>Pesilat Sudut Biru</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- plugins:js -->
     <script src="<?= base_url() ?>assets/vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->
@@ -323,9 +364,11 @@
             hasilBiru1();
             hasilBiru2();
             hasilBiru3();
+            cekVerifikasi();
         }
 
         setInterval(mainLoad, 1000);
+        setInterval(babakAktif, 2000);
 
         setInterval(function() {
             $.ajax({
@@ -348,7 +391,7 @@
             mainLoad();
         });
 
-        function saveData(formData, callback) {
+        function saveData(formData) {
             $.ajax({
                 type: 'POST',
                 url: '<?= base_url('wasittanding/addNilai'); ?>',
@@ -358,7 +401,8 @@
                     // alert(response);
 
                     if (response.status === 'success') {
-                        callback(response.new_data);
+                        // callback(response.new_data);
+                        mainLoad();
 
                         setTimeout(function() {
                             updateStatusNilai(response.id_nilai);
@@ -372,7 +416,7 @@
             });
         }
 
-        function saveData2(formData, callback) {
+        function saveData2(formData) {
             $.ajax({
                 type: 'POST',
                 url: '<?= base_url('wasittanding/addNilai'); ?>',
@@ -382,8 +426,8 @@
                     // alert(response);
 
                     if (response.status === 'success') {
-                        callback(response.new_data2);
-
+                        // callback(response.new_data2);
+                        mainLoad();
                         setTimeout(function() {
                             updateStatusNilai(response.id_nilai);
                         }, 2000);
@@ -405,30 +449,13 @@
                 },
                 success: function(response) {
                     // console.log('Response dari server:', response);
-                    updateTable(response.new_data);
-                    updateTableBiru(response.new_data2);
+                    // updateTable(response.new_data);
+                    // updateTableBiru(response.new_data2);
                     mainLoad();
                 },
                 error: function(error) {
                     console.error('Gagal memperbarui data di server:', error);
                 }
-            });
-        }
-
-        function updateTable(newData) {
-            // Hapus semua baris dari tabel
-            $('#dataMerah tbody').empty();
-
-            // Tambahkan baris baru ke tabel
-            $.each(newData, function(index, row) {
-                var newRow = '<tr>' +
-                    '<td>' + row.babak + '</td>' +
-                    '<td>' + row.skor + '</td>' +
-                    '<td>' + row.ket + '</td>' +
-                    '<td>' + row.waktu + '</td>' +
-                    '<td><button type="button" onclick="deleteData(\'' + row.id_tanding + '\', \'' + row.id_wasit + '\', \'' + row.id_nilai + '\')">del</button></td>' +
-                    '</tr>';
-                $('#dataMerah tbody').append(newRow);
             });
         }
 
@@ -642,31 +669,15 @@
             });
         }
 
-        function updateTableBiru(newData) {
-            // Hapus semua baris dari tabel
-            $('#dataBiru tbody').empty();
 
-            // Tambahkan baris baru ke tabel
-            $.each(newData, function(index, row) {
-                var newRow = '<tr>' +
-                    '<td>' + row.babak + '</td>' +
-                    '<td>' + row.skor + '</td>' +
-                    '<td>' + row.ket + '</td>' +
-                    '<td>' + row.waktu + '</td>' +
-                    '<td><button type="button" onclick="deleteData(\'' + row.id_tanding + '\', \'' + row.id_wasit + '\', \'' + row.id_nilai + '\')">del</button></td>' +
-                    '</tr>';
-                $('#dataBiru tbody').append(newRow);
-            });
-        }
-
-        function deleteData(idTanding, idWasit, idNilai) {
+        function deleteData(idTanding, idWasit, idPeserta) {
             $.ajax({
                 type: 'POST',
                 url: '<?= base_url('wasittanding/delNilai'); ?>',
                 data: {
                     idTanding: idTanding,
                     idWasit: idWasit,
-                    idNilai: idNilai,
+                    idPeserta: idPeserta,
                 },
                 dataType: 'json',
                 success: function(response) {
@@ -674,11 +685,9 @@
 
                     if (response.status === 'success') {
                         // Panggil fungsi callback untuk menangani respons
-                        updateTable(response.new_data);
-                        updateTableBiru(response.new_data2);
-
+                        // updateTable(response.new_data);
+                        // updateTableBiru(response.new_data2);
                         mainLoad();
-
                     }
                 },
                 error: function(xhr, status, error) {
@@ -687,102 +696,86 @@
             });
         }
 
+        function babakAktif() {
+            $.ajax({
+                type: 'GET',
+                url: '<?= base_url('tampil/cekTanding/' . $tanding->id_tanding); ?>',
+                dataType: 'json',
+                success: function(response) {
+
+                    if (response == 1) {
+                        $('#babakShow').empty();
+                        $('#babakShow').append("<button class='btn btn-block btn-primary'> <span class='mdi mdi-loading mdi-spin'></span> BABAK 1</button><button class='btn btn-block btn-outline-dark'>BABAK 2</button><button class='btn btn-block btn-outline-dark'>BABAK 3</button>");
+                    }
+
+                    if (response == 2) {
+                        $('#babakShow').empty();
+                        $('#babakShow').append("<button class='btn btn-block btn-outline-dark'>BABAK 1</button><button class='btn btn-block btn-primary'> <span class='mdi mdi-loading mdi-spin'></span> BABAK 2</button><button class='btn btn-block btn-outline-dark'>BABAK 3</button>");
+                    }
+
+                    if (response == 3) {
+                        $('#babakShow').empty();
+                        $('#babakShow').append("<button class='btn btn-block btn-outline-dark'>BABAK 1</button><button class='btn btn-block btn-outline-dark'>BABAK 2</button><button class='btn btn-block btn-primary'> <span class='mdi mdi-loading mdi-spin'></span> BABAK 3</button>");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // alert('Gagal menyimpan data. Kesalahan: ' + status + ' - ' + error);
+                    console.error('AJAX error:', status, error);
+                }
+            });
+        }
+
+        function cekVerifikasi() {
+            $.ajax({
+                type: 'GET',
+                url: '<?= base_url('wasittanding/cekVerifikasi/' . $tanding->id_tanding); ?>',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status == 'benar') {
+                        $("#upModal").modal('show');
+                        $('#idVr').val(response.idVr);
+                        $('#idVr2').val(response.idVr);
+                        $('#idVr3').val(response.idVr);
+                    } else {
+                        $("#upModal").modal('hide');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('Gagal cek Veridikasi data. Kesalahan: ' + status + ' - ' + error);
+                    // console.log('Error cek verifikasi Kesalahan: ' + status + ' - ' + error);
+                }
+            });
+        }
+
+
         // Contoh penggunaan
         $('#pukulMerah button').on('click', function() {
             var formData = $('#pukulMerah').serialize();
-            saveData(formData, updateTable);
+            saveData(formData);
 
             // console.log('Puklan');
         });
+
         $('#tendangMerah button').on('click', function() {
             var formData = $('#tendangMerah').serialize();
-            saveData(formData, updateTable);
+            saveData(formData);
 
             // console.log('formData');
         });
 
         $('#pukulBiru button').on('click', function() {
             var formData = $('#pukulBiru').serialize();
-            saveData2(formData, updateTableBiru);
+            saveData2(formData);
 
             // console.log('Puklan');
         });
+
         $('#tendangBiru button').on('click', function() {
             var formData = $('#tendangBiru').serialize();
-            saveData2(formData, updateTableBiru);
+            saveData2(formData);
 
             // console.log('formData');
         });
-
-        // function merahTotal() {
-        //     $.ajax({
-        //         type: 'GET',
-        //         url: '<?= base_url('wasittanding/nilaiTotal/merah/' . $tanding->id_tanding . '/' . $wasit->id_wasit); ?>',
-        //         dataType: 'json',
-        //         success: function(data) {
-        //             $('#skorTotalMerah').text(data);
-        //         },
-        //         error: function(xhr, status, error) {
-        //             alert('Gagal memuat data awal: ' + error);
-        //         }
-        //     });
-        // }
-
-        // function biruTotal() {
-        //     $.ajax({
-        //         type: 'GET',
-        //         url: '<?= base_url('wasittanding/nilaiTotal/biru/' . $tanding->id_tanding . '/' . $wasit->id_wasit); ?>',
-        //         dataType: 'json',
-        //         success: function(data) {
-        //             $('#skorTotalBiru').text(data);
-        //         },
-        //         error: function(xhr, status, error) {
-        //             alert('Gagal memuat data awal: ' + error);
-        //         }
-        //     });
-        // }
-
-        // function skorBabak1() {
-        //     $.ajax({
-        //         type: 'GET',
-        //         url: '<?= base_url('wasittanding/skorBabak/1/' . $tanding->id_tanding . '/' . $wasit->id_wasit); ?>',
-        //         dataType: 'html',
-        //         success: function(data) {
-        //             $('#babak1').html(data);
-        //         },
-        //         error: function(xhr, status, error) {
-        //             alert('Gagal memuat data awal: ' + error);
-        //         }
-        //     });
-        // }
-
-        // function skorBabak2() {
-        //     $.ajax({
-        //         type: 'GET',
-        //         url: '<?= base_url('wasittanding/skorBabak/2/' . $tanding->id_tanding . '/' . $wasit->id_wasit); ?>',
-        //         dataType: 'html',
-        //         success: function(data) {
-        //             $('#babak2').html(data);
-        //         },
-        //         error: function(xhr, status, error) {
-        //             alert('Gagal memuat data awal: ' + error);
-        //         }
-        //     });
-        // }
-
-        // function skorBabak3() {
-        //     $.ajax({
-        //         type: 'GET',
-        //         url: '<?= base_url('wasittanding/skorBabak/3/' . $tanding->id_tanding . '/' . $wasit->id_wasit); ?>',
-        //         dataType: 'html',
-        //         success: function(data) {
-        //             $('#babak3').html(data);
-        //         },
-        //         error: function(xhr, status, error) {
-        //             alert('Gagal memuat data awal: ' + error);
-        //         }
-        //     });
-        // }
     </script>
 
 </body>
