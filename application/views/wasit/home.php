@@ -94,11 +94,11 @@
                                             <div class="form-group">
                                                 <select name="id_wasit" id="" class="form-control" required>
                                                     <option value=""> -pilih wasit- </option>
-                                                    <option value="<?= $juri1 ? $juri1->id_wasit : '' ?>">Juri 1 ?></option>
-                                                    <option value="<?= $juri2 ? $juri2->id_wasit : '' ?>">Juri 2 ?></option>
-                                                    <option value="<?= $juri3 ? $juri3->id_wasit : '' ?>">Juri 3 ?></option>
-                                                    <option value="<?= $juri4 ? $juri4->id_wasit : '' ?>">Juri 4 ?></option>
-                                                    <option value="<?= $juri5 ? $juri5->id_wasit : '' ?>">Juri 5 ?></option>
+                                                    <option value="<?= $juri1 ? $juri1->id_wasit : '' ?>">Juri 1 </option>
+                                                    <option value="<?= $juri2 ? $juri2->id_wasit : '' ?>">Juri 2 </option>
+                                                    <option value="<?= $juri3 ? $juri3->id_wasit : '' ?>">Juri 3 </option>
+                                                    <!-- <option value="<?= $juri4 ? $juri4->id_wasit : '' ?>">Juri 4 ?></option> -->
+                                                    <!-- <option value="<?= $juri5 ? $juri5->id_wasit : '' ?>">Juri 5 ?></option> -->
                                                 </select>
                                             </div>
                                             <!-- <div class="form-group">

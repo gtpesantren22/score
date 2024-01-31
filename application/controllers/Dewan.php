@@ -181,10 +181,12 @@ class Dewan extends CI_Controller
         $id_tanding = $this->input->post('id_tanding', true);
         $id_peserta = $this->input->post('id_peserta', true);
         $id_user = $this->input->post('id_user', true);
-        $babak = $this->input->post('babak', true);
+        // $babak = $this->input->post('babak', true);
         $skor = $this->input->post('skor', true);
         $ket = $this->input->post('ket', true);
         $sudut = $this->input->post('sudut', true);
+
+        $babk = $this->db->query("SELECT babak FROM tanding WHERE id_tanding = '$id_tanding' ")->row();
 
         if ($ket == 'jatuhan' || $ket == 'binaan') {
             $data = [
@@ -194,7 +196,7 @@ class Dewan extends CI_Controller
                 'id_user' => $id_user,
                 'ket' => $ket,
                 'skor' => $skor,
-                'babak' => $babak,
+                'babak' => $babk->babak,
                 'waktu' => date('Y-m-d H:i:s'),
             ];
 
@@ -205,7 +207,7 @@ class Dewan extends CI_Controller
                 echo json_encode(['status' => 'gagal']);
             }
         } elseif ($ket == 'teguran') {
-            $cek = $this->db->query("SELECT * FROM hukuman WHERE id_tanding = '$id_tanding' AND id_peserta = '$id_peserta' AND babak = $babak AND ket = 'teguran' ")->row();
+            $cek = $this->db->query("SELECT * FROM hukuman WHERE id_tanding = '$id_tanding' AND id_peserta = '$id_peserta' AND babak = $babk->babak AND ket = 'teguran' ")->row();
             $skorPakai = $cek ? -2 : -1;
 
             $data = [
@@ -215,7 +217,7 @@ class Dewan extends CI_Controller
                 'id_user' => $id_user,
                 'ket' => $ket,
                 'skor' => $skorPakai,
-                'babak' => $babak,
+                'babak' => $babk->babak,
                 'waktu' => date('Y-m-d H:i:s'),
             ];
 
@@ -236,7 +238,7 @@ class Dewan extends CI_Controller
                 'id_user' => $id_user,
                 'ket' => $ket,
                 'skor' => $skorPakai,
-                'babak' => $babak,
+                'babak' => $babk->babak,
                 'waktu' => date('Y-m-d H:i:s'),
             ];
 

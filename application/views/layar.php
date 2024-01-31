@@ -477,10 +477,6 @@
                         peringatan2Biru.style.background = 'white';
                     }
 
-                    // console.log(response.datamerah)
-                    // console.log(response.databiru)
-
-
                 },
                 error: function(xhr, status, error) {
                     // alert('Gagal menyimpan data. Kesalahan: ' + status + ' - ' + error);

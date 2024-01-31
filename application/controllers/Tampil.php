@@ -69,8 +69,8 @@ class Tampil extends CI_Controller
         $tanding = $this->model->getBy('tanding', 'id_tanding', $id_tanding)->row();
         $partai = $this->model->getBy('partai', 'id_partai', $tanding->id_partai)->row();
 
-        $datamerah = $this->model->getBy4('hukuman', 'ket', 'peringatan', 'id_tanding', $id_tanding, 'id_peserta', $partai->merah, 'babak', $tanding->babak)->num_rows();
-        $databiru = $this->model->getBy4('hukuman', 'ket', 'peringatan', 'id_tanding', $id_tanding, 'id_peserta', $partai->biru, 'babak', $tanding->babak)->num_rows();
+        $datamerah = $this->model->getBy3('hukuman', 'ket', 'peringatan', 'id_tanding', $id_tanding, 'id_peserta', $partai->merah)->num_rows();
+        $databiru = $this->model->getBy3('hukuman', 'ket', 'peringatan', 'id_tanding', $id_tanding, 'id_peserta', $partai->biru)->num_rows();
 
         echo json_encode(array('datamerah' => $datamerah, 'databiru' => $databiru));
     }
