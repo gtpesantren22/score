@@ -44,6 +44,14 @@ class Modeldata extends CI_Model
         $this->db->order_by($ordr, $ls);
         return $this->db->get($table);
     }
+    function getBy3Ord($table, $where, $dtwhere, $where1, $dtwhere1, $where3, $dtwhere3, $ordr, $ls)
+    {
+        $this->db->where($where, $dtwhere);
+        $this->db->where($where1, $dtwhere1);
+        $this->db->where($where3, $dtwhere3);
+        $this->db->order_by($ordr, $ls);
+        return $this->db->get($table);
+    }
     function getOrd($table, $ordr, $ls)
     {
         $this->db->order_by($ordr, $ls);

@@ -42,71 +42,6 @@ function translateDay($englishDay, $language)
     return $translations[$englishDay][$language] ?? $englishDay;
 }
 
-function kirim_person($no_hp, $pesan)
-{
-    $curl2 = curl_init();
-    curl_setopt_array(
-        $curl2,
-        array(
-            CURLOPT_URL => 'http://191.101.3.115:3000/api/sendMessage',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => 'apiKey=66f67201ef1de1c48d5bba3257e46839&phone=' . $no_hp . '&message=' . $pesan,
-        )
-    );
-    $response = curl_exec($curl2);
-    curl_close($curl2);
-}
-
-function kirim_group($id_group, $pesan)
-{
-    $curl2 = curl_init();
-    curl_setopt_array(
-        $curl2,
-        array(
-            CURLOPT_URL => 'http://191.101.3.115:3000/api/sendMessageGroup',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => 'apiKey=66f67201ef1de1c48d5bba3257e46839&id_group=' . $id_group . '&message=' . $pesan,
-        )
-    );
-    $response = curl_exec($curl2);
-    curl_close($curl2);
-}
-
-function cek_nomor($no_hp)
-{
-    $curl2 = curl_init();
-    curl_setopt_array(
-        $curl2,
-        array(
-            CURLOPT_URL => 'http://191.101.3.115:3000/api/isRegisteredNumber',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 60,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => 'apiKey=66f67201ef1de1c48d5bba3257e46839&phone=' . $no_hp,
-        )
-    );
-    $response = curl_exec($curl2);
-    return $response;
-
-    curl_close($curl2);
-}
-
 function bulan($bulan)
 {
     switch ($bulan) {
@@ -194,4 +129,61 @@ function random($panjang)
         $string .= $karakter[$pos];
     }
     return $string;
+}
+
+
+function calculate_standard_deviation($numbers)
+{
+    $n = count($numbers);
+    if ($n == 0) {
+        return 0;
+    }
+
+    // Hitung rata-rata
+    $mean = array_sum($numbers) / $n;
+
+    // Hitung variansi
+    $variance = 0.0;
+    foreach ($numbers as $number) {
+        $variance += pow($number - $mean, 2);
+    }
+    $variance /= ($n - 1); // Menggunakan n-1 untuk sampel
+
+    // Hitung standar deviasi
+    $standard_deviation = sqrt($variance);
+
+    return $standard_deviation;
+}
+
+function pembulatan($angka)
+{
+    return number_format(round($angka, 2), 2);
+}
+
+
+function kalkulasiWaktu_detik($mulai, $selesai)
+{
+    // Konversi string datetime menjadi objek DateTime
+    $date1 = new DateTime($mulai);
+    $date2 = new DateTime($selesai);
+
+    // Hitung selisih waktu
+    $interval = $date1->diff($date2);
+
+    // Konversi selisih waktu ke detik
+    $secondsDifference = ($interval->days * 24 * 60 * 60) +
+        ($interval->h * 60 * 60) +
+        ($interval->i * 60) +
+        $interval->s;
+
+    return $secondsDifference;
+}
+
+function convertDetiksKeMenit($seconds)
+{
+    $minutes = floor($seconds / 60);
+    $remainingSeconds = $seconds % 60;
+
+    // Format hasil dalam mm:ss
+    return sprintf('%02d:%02d', $minutes, $remainingSeconds);
 }

@@ -228,7 +228,7 @@ FROM nilai WHERE id_tanding = '$idTanding' AND id_wasit = '$id_wasit' AND babak 
         if ($cek) {
             $cek2 = $this->model->getBy2('verifikasi_detail', 'id_verifikasi', $cek->id_verifikasi, 'id_wasit', $this->idWasit)->row();
             if (!$cek2) {
-                echo json_encode(array('status' => 'benar', 'idVr' => $cek->id_verifikasi));
+                echo json_encode(array('status' => 'benar', 'idVr' => $cek->id_verifikasi, 'jenis' => $cek->jenis));
             } else {
                 echo json_encode(array('status' => 'salah'));
             }

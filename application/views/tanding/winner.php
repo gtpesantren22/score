@@ -56,7 +56,7 @@
                                                 <form action="<?= base_url('tanding/saveWin') ?>" method="post">
                                                     <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
                                                     <input type="hidden" name="id_peserta" value="<?= $merah->id_peserta ?>">
-                                                    <button type="submit" class="btn btn-danger">Simpan Hasil</button>
+                                                    <button type="submit" class="btn btn-danger simpan-hasil">Simpan Hasil</button>
                                                 </form>
                                             </th>
                                         </tr>
@@ -97,5 +97,30 @@
         $(".slect2").select2({
             theme: "bootstrap"
         });
+
+
+    })
+
+    $('.simpan-hasil').on('click', function() {
+        let socket;
+
+        // Membuka koneksi WebSocket
+        function connectWebSocket() {
+            socket = new WebSocket('<?= $socket ?>');
+
+            socket.onopen = () => {
+                sendMessage('reloadPage');
+                console.log('Connected to WebSocket server');
+            };
+        }
+
+        function sendMessage(action) {
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                socket.send(JSON.stringify({
+                    action: action
+                }));
+            }
+        }
+        connectWebSocket();
     })
 </script>

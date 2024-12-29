@@ -1,0 +1,8 @@
+server:
+  listen: ":8080"
+  static_files: ./public
+  php_files: [index.php]
+
+workers:
+  - command: php application/workers/MyWorker.php
+    pool_size: 4

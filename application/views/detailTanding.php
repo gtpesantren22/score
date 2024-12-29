@@ -111,13 +111,13 @@
                             <div class="card-title mb-2">Status Pertandingan</div>
                             <?php if ($tanding->aktif == 'N') { ?>
                                 <span class="badge badge-danger">Belum Aktif</span>
-                                <a href="<?= base_url('tanding/aktifkan/' . $tanding->id_tanding) ?>" class="btn btn-success btn-sm btn-rounded tbl-confirm" value="Pertandingan ini akan diaktifkan">Aktifkan</a>
+                                <a href="<?= base_url('tanding/aktifkan/' . $tanding->id_tanding) ?>" class="btn btn-success btn-sm btn-rounded konfirmasi" value="Pertandingan ini akan diaktifkan">Aktifkan</a>
                                 <hr>
                                 <div class="card-title mb-2">Proses Pertandingan</div>
                                 <span class="badge badge-danger"><?= $tanding->status ?></span>
                             <?php } else { ?>
                                 <span class="badge badge-success">Aktif</span>
-                                <a href="<?= base_url('tanding/selesaikan/' . $tanding->id_tanding) ?>" class="btn btn-primary btn-sm btn-rounded tbl-confirm" value="Pertandingan ini akan diselesaikan">Selesaikan</a>
+                                <a href="<?= base_url('tanding/selesaikan/' . $tanding->id_tanding) ?>" class="btn btn-primary btn-sm btn-rounded konfirmasi" value="Pertandingan ini akan diselesaikan">Selesaikan</a>
                                 <hr>
                                 <div class="card-title mb-2">Proses Pertandingan</div>
                             <?php } ?>
@@ -186,64 +186,7 @@
                                 </table>
                             </div>
                         </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <!-- BABAK 1 -->
-                                    <div class="col-md-4">
-                                        <table class="table text-center table-bordered table-sm table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th colspan="4" style="background-color: greenyellow;"><b>BABAK 1</b></th>
-                                                </tr>
-                                                <tr style="background-color: greenyellow;">
-                                                    <th><b>JURI</b></th>
-                                                    <th><b>POINT</b></th>
-                                                    <th><b>FOULS</b></th>
-                                                    <th><b>TOTAL</b></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="listSkor1"></tbody>
-                                        </table>
-                                    </div>
-                                    <!-- BABAK 2 -->
-                                    <div class="col-md-4">
-                                        <table class="table text-center table-bordered table-sm table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th colspan="4" style="background-color: greenyellow;"><b>BABAK 2</b></th>
-                                                </tr>
-                                                <tr style="background-color: greenyellow;">
-                                                    <th><b>JURI</b></th>
-                                                    <th><b>POINT</b></th>
-                                                    <th><b>FOULS</b></th>
-                                                    <th><b>TOTAL</b></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="listSkor2"></tbody>
-                                        </table>
-                                    </div>
-                                    <!-- BABAK 3 -->
-                                    <div class="col-md-4">
-                                        <table class="table text-center table-bordered table-sm table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th colspan="4" style="background-color: greenyellow;"><b>BABAK 3</b></th>
-                                                </tr>
-                                                <tr style="background-color: greenyellow;">
-                                                    <th><b>JURI</b></th>
-                                                    <th><b>POINT</b></th>
-                                                    <th><b>FOULS</b></th>
-                                                    <th><b>TOTAL</b></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="listSkor3"></tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -355,27 +298,69 @@
         $(".slect2").select2({
             theme: "bootstrap"
         });
-    })
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var button = document.getElementById('myButton');
 
-        // Simulasi proses yang memerlukan waktu
-        setTimeout(function() {
-            // Hentikan loading setelah proses selesai
-            button.classList.remove('loading');
-        }, 1000); // Contoh: loading selama 3 detik
-    });
+        $('.konfirmasi').on('click', function(e) {
+
+            e.preventDefault();
+            const hreh = $(this).attr('href');
+            const isi = $(this).attr('value');
+
+            iziToast.question({
+                timeout: 20000,
+                close: false,
+                overlay: true,
+                displayMode: 'once',
+                id: 'question',
+                zindex: 999,
+                title: 'Yakin kan ?',
+                message: isi,
+                position: 'center',
+                buttons: [
+                    ['<button><b>YES</b></button>', function(instance, toast) {
+                        document.location.href = hreh
+                        reloadPage()
+                    }, true],
+                    ['<button>NO</button>', function(instance, toast) {
+                        instance.hide({
+                            transitionOut: 'fadeOut'
+                        }, toast, 'button');
+                    }],
+                ],
+            });
+
+        });
+    })
+
+    function reloadPage() {
+        let socket;
+
+        // Membuka koneksi WebSocket
+        function connectWebSocket() {
+            socket = new WebSocket('<?= $socket ?>');
+
+            socket.onopen = () => {
+                sendMessage('reloadPage');
+                console.log('Connected to WebSocket server');
+            };
+        }
+
+        function sendMessage(action) {
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                socket.send(JSON.stringify({
+                    action: action
+                }));
+            }
+        }
+
+        connectWebSocket();
+    }
 </script>
+
 
 <script>
     function mainFunction() {
         merahTotal();
         biruTotal();
-        skorBabak1();
-        skorBabak2();
-        skorBabak3();
     };
 
 
@@ -407,47 +392,51 @@
         });
     }
 
-    function skorBabak1() {
-        $.ajax({
-            type: 'GET',
-            url: '<?= base_url('tanding/skorBabak/1/' . $tanding->id_tanding); ?>',
-            dataType: 'html',
-            success: function(data) {
-                $('#listSkor1').html(data);
-            },
-            error: function(xhr, status, error) {
-                alert('Gagal memuat data awal: ' + error);
-            }
-        });
-    }
 
-    function skorBabak2() {
-        $.ajax({
-            type: 'GET',
-            url: '<?= base_url('tanding/skorBabak/2/' . $tanding->id_tanding); ?>',
-            dataType: 'html',
-            success: function(data) {
-                $('#listSkor2').html(data);
-            },
-            error: function(xhr, status, error) {
-                alert('Gagal memuat data awal: ' + error);
-            }
-        });
-    }
 
-    function skorBabak3() {
-        $.ajax({
-            type: 'GET',
-            url: '<?= base_url('tanding/skorBabak/3/' . $tanding->id_tanding); ?>',
-            dataType: 'html',
-            success: function(data) {
-                $('#listSkor3').html(data);
-            },
-            error: function(xhr, status, error) {
-                alert('Gagal memuat data awal: ' + error);
-            }
-        });
-    }
 
-    setInterval(mainFunction, 1000);
+
+    // function skorBabak1() {
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: '<?= base_url('tanding/skorBabak/1/' . $tanding->id_tanding); ?>',
+    //         dataType: 'html',
+    //         success: function(data) {
+    //             $('#listSkor1').html(data);
+    //         },
+    //         error: function(xhr, status, error) {
+    //             alert('Gagal memuat data awal: ' + error);
+    //         }
+    //     });
+    // }
+
+    // function skorBabak2() {
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: '<?= base_url('tanding/skorBabak/2/' . $tanding->id_tanding); ?>',
+    //         dataType: 'html',
+    //         success: function(data) {
+    //             $('#listSkor2').html(data);
+    //         },
+    //         error: function(xhr, status, error) {
+    //             alert('Gagal memuat data awal: ' + error);
+    //         }
+    //     });
+    // }
+
+    // function skorBabak3() {
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: '<?= base_url('tanding/skorBabak/3/' . $tanding->id_tanding); ?>',
+    //         dataType: 'html',
+    //         success: function(data) {
+    //             $('#listSkor3').html(data);
+    //         },
+    //         error: function(xhr, status, error) {
+    //             alert('Gagal memuat data awal: ' + error);
+    //         }
+    //     });
+    // }
+
+    // setInterval(mainFunction, 1000);
 </script>

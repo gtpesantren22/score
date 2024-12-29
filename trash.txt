@@ -209,3 +209,63 @@ function updateTableBiru(newData) {
                 $('#dataMerah tbody').append(newRow);
             });
         }
+
+        Hapusan Halaman tanding Admin
+<hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <!-- BABAK 1 -->
+                                    <div class="col-md-4">
+                                        <table class="table text-center table-bordered table-sm table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="4" style="background-color: greenyellow;"><b>BABAK 1</b></th>
+                                                </tr>
+                                                <tr style="background-color: greenyellow;">
+                                                    <th><b>JURI</b></th>
+                                                    <th><b>POINT</b></th>
+                                                    <th><b>FOULS</b></th>
+                                                    <th><b>TOTAL</b></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="listSkor1"></tbody>
+                                        </table>
+                                    </div>
+                                    <!-- BABAK 2 -->
+                                    <div class="col-md-4">
+                                        <table class="table text-center table-bordered table-sm table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="4" style="background-color: greenyellow;"><b>BABAK 2</b></th>
+                                                </tr>
+                                                <tr style="background-color: greenyellow;">
+                                                    <th><b>JURI</b></th>
+                                                    <th><b>POINT</b></th>
+                                                    <th><b>FOULS</b></th>
+                                                    <th><b>TOTAL</b></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="listSkor2"></tbody>
+                                        </table>
+                                    </div>
+                                    <!-- BABAK 3 -->
+                                    <div class="col-md-4">
+                                        <table class="table text-center table-bordered table-sm table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="4" style="background-color: greenyellow;"><b>BABAK 3</b></th>
+                                                </tr>
+                                                <tr style="background-color: greenyellow;">
+                                                    <th><b>JURI</b></th>
+                                                    <th><b>POINT</b></th>
+                                                    <th><b>FOULS</b></th>
+                                                    <th><b>TOTAL</b></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="listSkor3"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>

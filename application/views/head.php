@@ -94,7 +94,10 @@
                             <div class="submenu">
                                 <ul class="submenu-item">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="<?= base_url('master/peserta') ?>">Data Peserta</a>
+                                        <a class="nav-link" href="<?= base_url('master/peserta') ?>">Data Peserta Tanding</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="<?= base_url('seni/peserta') ?>">Data Peserta Seni</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="<?= base_url('master/wasit') ?>">Data Wasit Juri</a>
@@ -106,17 +109,51 @@
                             </div>
                         </li>
                         <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="mdi mdi-clipboard-text menu-icon"></i>
+                                <span class="menu-title">Partai Pertandingan</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="submenu">
+                                <ul class="submenu-item">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="<?= base_url('partai') ?>">Tanding</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="<?= base_url('partaiTgr') ?>">Seni Tunggal</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- <li class="nav-item">
                             <a class="nav-link" href="<?= base_url('partai') ?>">
                                 <i class="mdi mdi-clipboard-text menu-icon"></i>
                                 <span class="menu-title">Partai Pertandingan</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="mdi mdi-contacts menu-icon"></i>
+                                <span class="menu-title">Pertandingan</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="submenu">
+                                <ul class="submenu-item">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="<?= base_url('tanding') ?>">Tanding</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="<?= base_url('tandingTgr1') ?>">Seni Tunggal</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- <li class="nav-item">
                             <a class="nav-link" href="<?= base_url('tanding') ?>">
                                 <i class="mdi mdi-contacts menu-icon"></i>
                                 <span class="menu-title">Pertandingan</span>
                             </a>
-                        </li>
+                        </li> -->
 
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -142,22 +179,9 @@
                             <div class="nav-link d-flex">
                                 <button class="btn btn-sm bg-danger text-white"> Trailing </button>
                                 <div class="nav-item dropdown">
-                                    <a class="nav-link count-indicator dropdown-toggle text-white font-weight-semibold" id="notificationDropdown" href="#" data-toggle="dropdown"> English </a>
-                                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                                        <a class="dropdown-item" href="#">
-                                            <i class="flag-icon flag-icon-bl mr-3"></i> French </a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="flag-icon flag-icon-cn mr-3"></i> Chinese </a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="flag-icon flag-icon-de mr-3"></i> German </a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="flag-icon flag-icon-ru mr-3"></i>Russian </a>
-                                    </div>
+                                    
                                 </div>
-                                <a class="text-white" href="<?= base_url() ?>"><i class="mdi mdi-home-circle"></i></a>
+                                <!-- <a class="text-white" href="<?= base_url() ?>"><i class="mdi mdi-home-circle"></i></a> -->
                             </div>
                         </li>
                     </ul>

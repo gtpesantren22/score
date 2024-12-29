@@ -13,6 +13,7 @@ class Tanding extends CI_Controller
         if (!$this->Auth_model->current_user() && $user->level != 'admin') {
             redirect('login/logout');
         }
+        $this->socket = $this->model->getBy('settings', 'name', 'socket')->row('value');
     }
 
     public function index()
@@ -82,6 +83,7 @@ class Tanding extends CI_Controller
         $data['juri3'] = $this->model->getBy('wasit', 'id_wasit', $data['tanding']->juri3)->row();
         $data['juri4'] = $this->model->getBy('wasit', 'id_wasit', $data['tanding']->juri4)->row();
         $data['juri5'] = $this->model->getBy('wasit', 'id_wasit', $data['tanding']->juri5)->row();
+        $data['socket'] = $this->socket;
 
         $this->load->view('detailTanding', $data);
     }
@@ -210,6 +212,7 @@ class Tanding extends CI_Controller
 
         $data['skorMerah'] = $pointJuriMerah->point + $pointMerah->point;
         $data['skorBiru'] = $pointJuriBiru->point + $pointBiru->point;
+        $data['socket'] = $this->socket;
 
         $this->load->view('tanding/winner', $data);
     }

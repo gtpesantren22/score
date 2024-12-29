@@ -347,12 +347,13 @@ class Dewan extends CI_Controller
         echo json_encode($data->babak);
     }
 
-    public function addVerf($idTanding)
+    public function addVerf($jenis, $idTanding)
     {
         $id_verifikasi = $this->uuid->v4();
         $data = [
             'id_verifikasi' => $id_verifikasi,
             'id_tanding' => $idTanding,
+            'jenis' => $jenis,
             'status' => 'proses',
         ];
 

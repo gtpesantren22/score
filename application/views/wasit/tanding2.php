@@ -311,7 +311,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <label for="">Pilih Vote Pesilat</label><br>
+                    <!-- <label for="">Pilih Vote Pesilat</label><br> -->
+                    <div class="text-center mb-3">
+                        <h4 id="jenisVerifkasi"></h4>
+                    </div>
                     <div class="row">
                         <div class="col-md-4">
                             <form action="<?= base_url('wasittanding/addVerf') ?>" method="post">
@@ -733,9 +736,12 @@
                 success: function(response) {
                     if (response.status == 'benar') {
                         $("#upModal").modal('show');
+                        $('#jenisVerifkasi').empty();
+                        
                         $('#idVr').val(response.idVr);
                         $('#idVr2').val(response.idVr);
                         $('#idVr3').val(response.idVr);
+                        $('#jenisVerifkasi').text('VERIFIKASI ' + response.jenis.toUpperCase());
                     } else {
                         $("#upModal").modal('hide');
                     }

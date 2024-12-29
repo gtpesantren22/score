@@ -81,7 +81,8 @@
                             <div class="auth-form-light text-left p-5">
                                 <h4>Selamat Datang <u><?= $user->nama ?></u>, Dewan Pertandingan</h4>
                                 <h6 class="font-weight-light">Anda login sebagai dewan pertandingan</h6>
-                                <button class="btn btn-success" onclick="window.location='<?= base_url('dewan/tanding') ?>' ">Menuju Pertandingan <i class="mdi mdi-arrow-right"></i></button>
+                                <button class="btn btn-primary mb-2" onclick="window.location='<?= base_url('dewan/tanding') ?>' ">Menuju Pertandingan (Tanding) <i class="mdi mdi-arrow-right"></i></button><br>
+                                <button class="btn btn-primary" onclick="window.location='<?= base_url('dewantgr1/tanding') ?>' ">Menuju Pertandingan (Seni Tunggal)<i class="mdi mdi-arrow-right"></i></button>
                             </div>
                         </div>
                     </div>

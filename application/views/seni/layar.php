@@ -21,6 +21,49 @@
     <link rel="shortcut icon" href="<?= base_url() ?>assets/images/favicon.png" />
     <link rel="stylesheet" href="<?= base_url() ?>assets/DataTables/datatables.min.css" />
     <link rel="stylesheet" href="<?= base_url() ?>assets/iziToast/dist/css/iziToast.min.css" />
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            /* Menggunakan font dari Google Fonts */
+        }
+
+        .bg-red {
+            background: linear-gradient(to bottom, #8c0000, #ff0000b3);
+        }
+
+        .bg-blue {
+            background: linear-gradient(to bottom, #0000b3, #56c7ff);
+        }
+
+        .table-fixed {
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        .table-fixed th,
+        .table-fixed td {
+            overflow: hidden;
+        }
+
+        .button-red {
+            background-color: red;
+            color: white;
+            border: 1px solid #000000;
+        }
+
+        .button-blue {
+            background-color: blue;
+            color: white;
+            border: 1px solid #000000;
+        }
+
+        .button-netral {
+            background-color: yellow;
+            color: black;
+            border: 1px solid #000000;
+        }
+    </style>
 </head>
 
 <body>
@@ -74,17 +117,15 @@
                 <div class="flash-data-error" data-flashdata="<?= $this->session->flashdata('error') ?>"></div>
 
                 <!-- ISI  -->
-                <div class="content-wrapper d-flex align-items-center auth">
-                    <div class="row flex-grow">
-                        <?php foreach ($jadwal as $jdwl) : ?>
-                            <div class="col-lg-6 mx-auto">
-                                <div class="auth-form-light text-left p-5">
-                                    <h4>Gelanggang <?= $jdwl->gel ?></h4>
-                                    <h6 class="font-weight-light">Klik tombol untuk menampilkan detail pertandingan</h6>
-                                    <button class="btn btn-primary" onclick="window.location='<?= base_url('tampil/gel/' . $jdwl->gel) ?>' ">Tampilakan</button>
+                <div class="content-wrapper">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body" style="border: 1px solid #000000;">
+                                    <div id="hasilView"></div>
                                 </div>
                             </div>
-                        <?php endforeach ?>
+                        </div>
                     </div>
                 </div>
 
@@ -94,13 +135,10 @@
         </div>
         <!-- page-body-wrapper ends -->
     </div>
-    <!-- container-scroller -->
+
     <!-- plugins:js -->
     <script src="<?= base_url() ?>assets/vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
+
     <script src="<?= base_url() ?>assets/js/off-canvas.js"></script>
     <script src="<?= base_url() ?>assets/js/hoverable-collapse.js"></script>
     <script src="<?= base_url() ?>assets/js/misc.js"></script>
@@ -109,10 +147,67 @@
     <script src="<?= base_url() ?>assets/DataTables/datatables.min.js"></script>
     <script src="<?= base_url() ?>assets/iziToast/dist/js/iziToast.min.js"></script>
     <script src="<?= base_url() ?>assets/iziToast/my-notif.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page -->
-    <!-- End custom js for this page -->
 
 </body>
 
 </html>
+
+<script>
+    $(document).ready(function() {
+        // cekSesi()
+    })
+    // setInterval(mainFunction, 1000);
+    // setInterval(cekSesi, 2000);
+
+    // function mainFunction() {
+    //     cekSesi()
+    // };
+
+
+    // function cekSesi() {
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: '<?= base_url('tampilseni1/cek/' . $tanding->id_tanding); ?>',
+    //         dataType: 'json',
+    //         success: function(response) {
+    //             location.reload();
+    //             if (response.aktif == 'Y' && response.detailtgr == 'tidak') {
+    //                 $('#hasilView').load('<?= base_url("tampilseni1/load_tampilawal/" . $tanding->id_tanding) ?> #content', function(response, status, xhr) {
+    //                     if (status == "error") {
+    //                         var msg = "Error menampilkan awal : ";
+    //                         $("#hasilView").html(msg + xhr.status + " " + xhr.statusText);
+    //                     }
+    //                 });
+    //             } else if (response.aktif == 'Y' && response.detailtgr == 'ada' && response.status_tanding != 'selesai' && response.status_detail == 'proses' && response.tutup == 'belum') {
+    //                 $('#hasilView').load('<?= base_url("tampilseni1/load_tampiprosesnilai/" . $tanding->id_tanding . '/') ?>' + response.id_detail + ' #content', function(response, status, xhr) {
+    //                     if (status == "error") {
+    //                         var msg = "Error tampil proses penilaian : ";
+    //                         $("#hasilView").html(msg + xhr.status + " " + xhr.statusText);
+    //                     }
+    //                 });
+    //             } else if (response.aktif == 'Y' && response.detailtgr == 'ada' && response.status_tanding != 'selesai' && response.status_detail == 'selesai' && response.tutup == 'belum') {
+    //                 $('#hasilView').load('<?= base_url("tampilseni1/load_tampilrekapnilai/" . $tanding->id_tanding . '/') ?>' + response.id_detail + ' #content', function(response, status, xhr) {
+    //                     if (status == "error") {
+    //                         var msg = "Error tampil proses penilaian : ";
+    //                         $("#hasilView").html(msg + xhr.status + " " + xhr.statusText);
+    //                     }
+    //                 });
+    //             } else if (response.aktif == 'Y' && response.detailtgr == 'ada' && response.status_tanding == 'selesai') {
+    //                 $('#hasilView').load('<?= base_url("tampilseni1/load_tampilpenentuan/" . $tanding->id_tanding . '/') ?>' + response.id_detail + ' #content', function(response, status, xhr) {
+    //                     if (status == "error") {
+    //                         var msg = "Error tampil proses penilaian : ";
+    //                         $("#hasilView").html(msg + xhr.status + " " + xhr.statusText);
+    //                     }
+    //                 });
+    //             } else if (response.aktif != 'Y') {
+    //                 window.location.href = '<?= base_url('tampilseni1') ?>'
+    //             }
+    //             console.log(response)
+    //         },
+    //         error: function(xhr, status, error) {
+    //             alert('Gagal load halaman. Kesalahan: ' + status + ' - ' + error);
+    //             console.log('Gagal load halaman. Kesalahan: ' + status + ' - ' + error);
+    //         }
+    //     });
+    // }
+</script>

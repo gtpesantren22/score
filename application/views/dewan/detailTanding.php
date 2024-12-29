@@ -244,7 +244,8 @@
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            <a href="<?= base_url('dewan/addVerf/' . $tanding->id_tanding) ?>" type="button" class="btn btn-warning btn-block btn-lg">REQUEST ?</a>
+                                            <a href="<?= base_url('dewan/addVerf/jatuhan/' . $tanding->id_tanding) ?>" type="button" class="btn btn-warning btn-block ">VERFIKASI JATUHAN ?</a>
+                                            <a href="<?= base_url('dewan/addVerf/pelanggaran/' . $tanding->id_tanding) ?>" type="button" class="btn btn-warning btn-block ">VERFIKASI PELANGGARAN ?</a>
                                             <!-- <button type="button" class="btn btn-primary btn-block btn-lg">REQUEST ?</button> -->
                                         </div>
                                         <div class="col-md-5">

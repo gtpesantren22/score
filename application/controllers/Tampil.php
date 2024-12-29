@@ -7,13 +7,20 @@ class Tampil extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Modeldata', 'model');
+
+        $this->socket = $this->model->getBy('settings', 'name', 'socket')->row('value');
     }
 
     public function index()
     {
-        $data['jadwal'] = $this->db->query("SELECT * FROM tanding WHERE aktif = 'Y' ")->result();
+        $data['jadwal'] = $this->db->query("SELECT * FROM tanding WHERE aktif = 'Y' ");
+        $data['socket'] = $this->socket;
 
-        $this->load->view('tampil', $data);
+        if ($data['jadwal']->row()) {
+            redirect('tampil/gel/' . $data['jadwal']->row('gel'));
+        } else {
+            $this->load->view('tanding/layar/tampil', $data);
+        }
     }
 
     public function gel($gel)
@@ -22,8 +29,37 @@ class Tampil extends CI_Controller
         $data['partai'] = $this->model->getBy('partai', 'id_partai', $data['tanding']->id_partai)->row();
         $data['merah'] = $this->model->getBy('peserta', 'id_peserta', $data['partai']->merah)->row();
         $data['biru'] = $this->model->getBy('peserta', 'id_peserta', $data['partai']->biru)->row();
+        $data['socket'] = $this->socket;
 
-        $this->load->view('layar', $data);
+        if ($data['tanding']) {
+            $this->load->view('tanding/layar/layar', $data);
+        } else {
+            redirect('tampil/index');
+        }
+    }
+
+    public function winner($id)
+    {
+        // $data['user'] = $this->Auth_model->current_user();
+        $data['tanding'] = $this->model->getBy('tanding', 'id_tanding', $id)->row();
+        $data['partai'] = $this->model->getBy('partai', 'id_partai', $data['tanding']->id_partai)->row();
+        $merah = $data['partai']->merah;
+        $biru = $data['partai']->biru;
+
+        $data['merah'] = $this->model->getBy('peserta', 'id_peserta', $merah)->row();
+        $data['biru'] = $this->model->getBy('peserta', 'id_peserta', $biru)->row();
+
+        $pointJuriMerah = $this->db->query("SELECT SUM(skor) AS point FROM nilai_fix WHERE id_tanding = '$id' AND id_peserta = '$merah' ")->row();
+        $pointMerah = $this->db->query("SELECT SUM(skor) AS point FROM hukuman WHERE id_tanding = '$id' AND id_peserta = '$merah' ")->row();
+
+        $pointJuriBiru = $this->db->query("SELECT SUM(skor) AS point FROM nilai_fix WHERE id_tanding = '$id' AND id_peserta = '$biru' ")->row();
+        $pointBiru = $this->db->query("SELECT SUM(skor) AS point FROM hukuman WHERE id_tanding = '$id' AND id_peserta = '$biru' ")->row();
+
+        $data['skorMerah'] = $pointJuriMerah->point + $pointMerah->point;
+        $data['skorBiru'] = $pointJuriBiru->point + $pointBiru->point;
+        $data['socket'] = $this->socket;
+
+        $this->load->view('tanding/layar/winner', $data);
     }
 
     public function point($id_tanding, $id_peserta)
@@ -121,9 +157,20 @@ class Tampil extends CI_Controller
 
         if ($cek->num_rows() == 1) {
             $data = $this->model->getBy('verifikasi_detail', 'id_verifikasi', $cek->row('id_verifikasi'))->result();
-            echo json_encode(array('status' => $cek->num_rows(), 'data' => $data));
+            echo json_encode(array('status' => $cek->num_rows(), 'data' => $data, 'jenis' => $cek->row('jenis')));
         } else {
             echo json_encode(['status' => 0]);
         }
+    }
+
+    public function jatuhan($id_tanding)
+    {
+        $tanding = $this->model->getBy('tanding', 'id_tanding', $id_tanding)->row();
+        $partai = $this->model->getBy('partai', 'id_partai', $tanding->id_partai)->row();
+
+        $datamerah = $this->model->getBy3('hukuman', 'ket', 'jatuhan', 'id_tanding', $id_tanding, 'id_peserta', $partai->merah)->num_rows();
+        $databiru = $this->model->getBy3('hukuman', 'ket', 'jatuhan', 'id_tanding', $id_tanding, 'id_peserta', $partai->biru)->num_rows();
+
+        echo json_encode(array('datamerah' => $datamerah, 'databiru' => $databiru));
     }
 }

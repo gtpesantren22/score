@@ -23,6 +23,11 @@
     <link rel="stylesheet" href="<?= base_url() ?>assets/iziToast/dist/css/iziToast.min.css" />
 
     <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            /* Menggunakan font dari Google Fonts */
+        }
+
         .bg-red {
             background: linear-gradient(to bottom, #8c0000, #ff0000b3);
         }
@@ -117,92 +122,170 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <?php
-                                    $imgMerah = $merah->jkl == 'Laki-laki' ? 'male.png' : 'female.png';
-                                    $imgBiru = $biru->jkl == 'Laki-laki' ? 'male.png' : 'female.png';
+                                    <div id="content">
+                                        <?php
+                                        $imgMerah = $merah->jkl == 'Laki-laki' ? 'male.png' : 'female.png';
+                                        $imgBiru = $biru->jkl == 'Laki-laki' ? 'male.png' : 'female.png';
 
-                                    $jkl = $merah->jkl == 'Laki-laki' ? 'Putra' : 'Putri';
-                                    ?>
-                                    <table class="table table-borderless text-center">
-                                        <tr>
-                                            <th style="font-weight: bolder; font-size: xx-large; background-color: skyblue;"><?= $tanding->gel . ' - ' . $partai->urut ?></th>
-                                            <th style="font-weight: bolder; font-size: xx-large; background-color: skyblue;"><?= $partai->babak . ' - ' . $jkl ?></th>
-                                            <th style="font-weight: bolder; font-size: xx-large; background-color: skyblue;"><?= $merah->kelas . ' - ' . $merah->kategori ?></th>
-                                        </tr>
-                                    </table>
-                                    <!-- <hr> -->
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-1 text-center">
-                                            <img src="<?= base_url('assets/images/' . $imgMerah) ?>" width="50px">
+                                        $jkl = $merah->jkl == 'Laki-laki' ? 'PUTRA' : 'PUTRI';
+                                        ?>
+                                        <table class="table table-borderless text-center">
+                                            <tr>
+                                                <th colspan="5" style="font-weight: bold; font-size: large; background-color: #43536c; color: white;  padding: 10px; border: 1px solid #fff;border-radius: 30px 30px 0 0;">TANDING</th>
+                                            </tr>
+                                            <tr>
+                                                <th style="font-weight: bolder; font-size: xx-large; background-color: #9baec4; color: white;"><img src="<?= base_url('assets/images/logoIPSI.png') ?>" alt="" srcset=""></th>
+                                                <!-- <th style="font-weight: bolder; font-size: xx-large; background-color: #9baec4; color: white;">G<?= strtoupper($tanding->gel . ' - ' . $partai->urut) ?></th> -->
+                                                <th style="font-weight: bolder; font-size: xx-large; background-color: #9baec4; color: white;">PARTAI <?= strtoupper($partai->urut) ?></th>
+                                                <!-- <th style="font-weight: bolder; font-size: xx-large; background-color: #9baec4; color: white;"><?= strtoupper($partai->babak) ?></th> -->
+                                                <th style="font-weight: bolder; font-size: xx-large; background-color: #9baec4; color: white;"><?= strtoupper($merah->kelas .  ' ' . $merah->kategori .  ' ' . $jkl) ?></th>
+                                                <th style="font-weight: bolder; font-size: xx-large; background-color: #9baec4; color: white;"><img src="<?= base_url('assets/images/logoKab.png') ?>" alt="" srcset=""></th>
+                                            </tr>
+                                        </table>
+                                        <!-- <hr> -->
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-2 text-center">
+                                                <img src="<?= base_url('assets/images/merah.png') ?>" width="70px">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <h3 class="font-weight-bold" style="color: #eb493a;"><?= strtoupper($merah->nama) ?></h3>
+                                                <h5 class="font-weight-bold"><?= strtoupper($merah->kontingen) ?></h5>
+                                            </div>
+                                            <div class="col-md-2 text-center">
+                                                <b style="font-size: 55px;" id="timer">00:00</b>
+                                            </div>
+                                            <div class="col-md-3" style="text-align: right;">
+                                                <h3 class="font-weight-bold" style="color: #047df2;"><?= strtoupper($biru->nama) ?></h3>
+                                                <h5 class="font-weight-bold"><?= strtoupper($biru->kontingen) ?></h5>
+                                            </div>
+                                            <div class="col-md-2 text-center">
+                                                <img src="<?= base_url('assets/images/biru.png') ?>" width="70px">
+                                            </div>
                                         </div>
-                                        <div class="col-md-5">
-                                            <h1 style="color: red;"><?= $merah->nama ?></h1>
-                                            <h4 style="color: red;"><?= $merah->kontingen ?></h4>
-                                        </div>
-                                        <div class="col-md-1 text-center">
-                                            <img src="<?= base_url('assets/images/' . $imgBiru) ?>" width="50px">
-                                        </div>
-                                        <div class="col-md-5">
-                                            <h1 style="color: blue;"><?= $biru->nama ?></h1>
-                                            <h4 style="color: blue;"><?= $biru->kontingen ?></h4>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <table class="table table-bordered text-center table-fixed">
-                                                <tr>
-                                                    <!-- <th style="background: linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)"><img src="<?= base_url('assets/images/binaan1.png') ?>"></th> -->
-                                                    <th id="binaan1Merah"><img src="<?= base_url('assets/images/binaan1.png') ?>"></th>
-                                                    <th id="binaan2Merah"><img src="<?= base_url('assets/images/binaan2.png') ?>"></th>
-                                                    <th style="width: 1px;" rowspan="3"></th>
-                                                    <th rowspan="3" class="bg-red" style="font-size: 200px; color: white; width: 300px;" id="pointMerah">0</th>
-                                                    <th style="width: 1px;" rowspan="3"></th>
-                                                    <th style="width: 90px;" id="babak1">BABAK 1</th>
-                                                    <th style="width: 1px;" rowspan="3"></th>
-                                                    <th rowspan="3" class="bg-blue" style="font-size: 200px; color: white; width: 300px;" id="pointBiru">0</th>
-                                                    <th style="width: 1px;" rowspan="3"></th>
-                                                    <th id="binaan1Biru"><img src="<?= base_url('assets/images/binaan1.png') ?>"></th>
-                                                    <th id="binaan2Biru"><img src="<?= base_url('assets/images/binaan2.png') ?>"></th>
-                                                </tr>
-                                                <tr>
-                                                    <th id="teguran1Merah"><img src="<?= base_url('assets/images/teguran1.png') ?>"></th>
-                                                    <th id="teguran2Merah"><img src="<?= base_url('assets/images/teguran2.png') ?>"></th>
-                                                    <th style="width: 90px;" id="babak2">BABAK 2</th>
+                                    </div>
 
-                                                    <th id="teguran1Biru"><img src="<?= base_url('assets/images/teguran1.png') ?>"></th>
-                                                    <th id="teguran2Biru"><img src="<?= base_url('assets/images/teguran2.png') ?>"></th>
-                                                </tr>
-                                                <tr>
-                                                    <th id="peringatan1Merah"><img src="<?= base_url('assets/images/P11.png') ?>"></th>
-                                                    <th id="peringatan2Merah"><img src="<?= base_url('assets/images/P22.png') ?>"></th>
+                                    <div class="row mt-4">
+                                        <div class="col-md-2">
+                                            <div class="card">
+                                                <div class="card-body p-2">
+                                                    <div class="mb-1"><img src="<?= base_url('assets/images/binaan1.png') ?>" height="20"> <b>Binaan</b></div>
+                                                    <div class="mb-3 btn-group btn-xl btn-block" role="group" aria-label="Basic example">
+                                                        <button id="binaan1Merah" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">1</button>
+                                                        <button id="binaan2Merah" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">2</button>
+                                                    </div>
+                                                    <div class="mb-1"><img src="<?= base_url('assets/images/teguran1.png') ?>" height="20"> <b>Teguran</b></div>
+                                                    <div class="mb-3 btn-group btn-xl btn-block" role="group" aria-label="Basic example">
+                                                        <button id="teguran1Merah" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">1</button>
+                                                        <button id="teguran2Merah" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">2</button>
+                                                    </div>
+                                                    <div class="mb-1"><img src="<?= base_url('assets/images/P11.png') ?>" height="20"> <b>Peringatan</b></div>
+                                                    <div class="mb-3 btn-group btn-xl btn-block" role="group" aria-label="Basic example">
+                                                        <button id="peringatan1Merah" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">1</button>
+                                                        <button id="peringatan2Merah" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">2</button>
+                                                    </div>
+                                                    <div class="mb-1"><b>Jatuhan</b></div>
+                                                    <div class="text-center">
+                                                        <b class="text-primary" style="font-size: 55px;"><i id="jatuhanMerah">0</i></b>
+                                                        <b class="text-secondary" style="font-size: 25px;"><i>x</i></b>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                                    <th style="width: 90px;" id="babak3">BABAK 3</th>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="card bg-red">
+                                                <div class="card-body text-center">
+                                                    <b style="font-size: 150px; color: white;" id="pointMerah">0</b>
+                                                </div>
+                                            </div>
+                                            <div class="mt-4">
+                                                <div class="btn-group btn-xl btn-block" role="group" aria-label="Basic example">
+                                                    <button id="j1MerahPukul" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">J1</button>
+                                                    <button id="j2MerahPukul" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">J2</button>
+                                                    <button id="j3MerahPukul" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">J3</button>
+                                                </div>
+                                                <hr>
+                                                <div class="btn-group btn-xl btn-block" role="group" aria-label="Basic example">
+                                                    <button id="j1MerahTendang" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">J1</button>
+                                                    <button id="j2MerahTendang" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">J2</button>
+                                                    <button id="j3MerahTendang" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">J3</button>
+                                                </div>
+                                            </div>
 
-                                                    <th id="peringatan1Biru"><img src="<?= base_url('assets/images/P11.png') ?>"></th>
-                                                    <th id="peringatan2Biru"><img src="<?= base_url('assets/images/P22.png') ?>"></th>
-                                                </tr>
-                                            </table>
+                                        </div>
+                                        <div class="col-md-2 text-center">
+
+                                            <button class="btn btn-xl btn-block btn-light" style="font-size: 40px; font-weight: bolder;" id="babak1">1</button>
+                                            <button class="btn btn-xl btn-block btn-light" style="font-size: 40px; font-weight: bolder;" id="babak2">2</button>
+                                            <button class="btn btn-xl btn-block btn-light" style="font-size: 40px; font-weight: bolder;" id="babak3">3</button>
                                             <br>
-                                            <table class="table table-bordered text-center">
-                                                <tr>
-                                                    <th id="j1MerahPukul">JURI 1</th>
-                                                    <th id="j2MerahPukul">JURI 2</th>
-                                                    <th id="j3MerahPukul">JURI 3</th>
-                                                    <th><img src="<?= base_url() ?>assets/images/pukulan.png"></th>
-                                                    <th id="j1BiruPukul">JURI 1</th>
-                                                    <th id="j2BiruPukul">JURI 2</th>
-                                                    <th id="j3BiruPukul">JURI 3</th>
-                                                </tr>
-                                                <tr>
-                                                    <th id="j1MerahTendang">JURI 1</th>
-                                                    <th id="j2MerahTendang">JURI 2</th>
-                                                    <th id="j3MerahTendang">JURI 3</th>
-                                                    <th><img src="<?= base_url() ?>assets/images/tendangan.png"></th>
-                                                    <th id="j1BiruTendang">JURI 1</th>
-                                                    <th id="j2BiruTendang">JURI 2</th>
-                                                    <th id="j3BiruTendang">JURI 3</th>
-                                                </tr>
-                                            </table>
+                                            <b class="text-primary" style="font-size: larger;">ROUND</b>
+                                            <div class="mt-3">
+                                                <button class="btn btn-xl btn-block btn-light" style="font-size: 40px; font-weight: bolder;"><img height="50" src="<?= base_url() ?>assets/images/pukulan.png"></button>
+                                                <button class="btn btn-xl btn-block btn-light" style="font-size: 40px; font-weight: bolder;"><img height="50" src="<?= base_url() ?>assets/images/tendangan.png"></button>
+                                            </div>
                                         </div>
+                                        <div class="col-md-3">
+                                            <div class="card bg-blue">
+                                                <div class="card-body text-center">
+                                                    <b style="font-size: 150px; color: white;" id="pointBiru">0</b>
+                                                </div>
+                                            </div>
+                                            <div class="mt-4">
+                                                <div class="btn-group btn-xl btn-block" role="group" aria-label="Basic example">
+                                                    <button id="j1BiruPukul" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">J1</button>
+                                                    <button id="j2BiruPukul" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">J2</button>
+                                                    <button id="j3BiruPukul" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">J3</button>
+                                                </div>
+                                                <hr>
+                                                <div class="btn-group btn-xl btn-block" role="group" aria-label="Basic example">
+                                                    <button id="j1BiruTendang" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">J1</button>
+                                                    <button id="j2BiruTendang" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">J2</button>
+                                                    <button id="j3BiruTendang" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">J3</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="card">
+                                                <div class="card-body p-2">
+                                                    <div class="mb-1"><img src="<?= base_url('assets/images/binaan1.png') ?>" height="20"> <b>Binaan</b></div>
+                                                    <div class="mb-3 btn-group btn-xl btn-block" role="group" aria-label="Basic example">
+                                                        <button id="binaan1Biru" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">1</button>
+                                                        <button id="binaan2Biru" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">2</button>
+                                                    </div>
+                                                    <div class="mb-1"><img src="<?= base_url('assets/images/teguran1.png') ?>" height="20"> <b>Teguran</b></div>
+                                                    <div class="mb-3 btn-group btn-xl btn-block" role="group" aria-label="Basic example">
+                                                        <button id="teguran1Biru" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">1</button>
+                                                        <button id="teguran2Biru" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">2</button>
+                                                    </div>
+                                                    <div class="mb-1"><img src="<?= base_url('assets/images/P11.png') ?>" height="20"> <b>Peringatan</b></div>
+                                                    <div class="mb-3 btn-group btn-xl btn-block" role="group" aria-label="Basic example">
+                                                        <button id="peringatan1Biru" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">1</button>
+                                                        <button id="peringatan2Biru" type="button" class="btn btn-light" style="font-size: 35px; font-weight: bolder;">2</button>
+                                                    </div>
+                                                    <div class="mb-1"><b>Jatuhan</b></div>
+                                                    <div class="text-center">
+                                                        <b class="text-primary" style="font-size: 55px;"><i id="jatuhanBiru">0</i></b>
+                                                        <b class="text-secondary" style="font-size: 25px;"><i>x</i></b>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-3 text-center">
+
+                                        </div>
+                                        <div class="col-md-2">
+
+                                        </div>
+                                        <div class="col-md-3">
+
+                                        </div>
+                                        <div class="col-md-2"></div>
                                     </div>
                                 </div>
                             </div>
@@ -218,16 +301,28 @@
     </div>
     <!-- container-scroller -->
     <div class="modal fade" id="upModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Verifikasi Wasit Juri</h5>
+                    <!-- <h5 class="modal-title" id="staticBackdropLabel">Verifikasi Wasit Juri</h5> -->
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
+                    <div class="text-center">
+                        <h2 id="jenisVerifkasi"></h2>
+                        <img src="" id="v-img" alt="" srcset="">
+                    </div>
+                    <!-- <hr> -->
+                    <br>
                     <div id="hasilVote"></div>
+                    <div class="row">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-8">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -261,8 +356,8 @@
             cekBinaan();
             cekTeguran();
             cekPeringatan();
-            // cekInputan();
             cekVerifikasi();
+            cekJatuhan();
         };
 
         function pointMerah() {
@@ -309,6 +404,31 @@
             });
         }
 
+        function cekJatuhan() {
+            $.ajax({
+                type: 'GET',
+                url: '<?= base_url('tampil/jatuhan/' . $tanding->id_tanding); ?>',
+                dataType: 'json',
+                success: function(response) {
+                    $('#jatuhanMerah').empty();
+                    $('#jatuhanBiru').empty();
+                    if (response === null) {
+                        $('#jatuhanMerah').append(0);
+                        $('#jatuhanBiru').append(0);
+                    } else {
+                        $('#jatuhanMerah').append(response.datamerah);
+                        $('#jatuhanBiru').append(response.databiru);
+                    }
+
+                    // console.log(response)
+                },
+                error: function(xhr, status, error) {
+                    alert('Gagal menyimpan data. Kesalahan: ' + status + ' - ' + error);
+                    // console.error('AJAX error:', status, error);
+                }
+            });
+        }
+
         function babakAktif() {
             $.ajax({
                 type: 'GET',
@@ -324,7 +444,7 @@
                         bgBabak1.style.backgroundColor = 'green';
                         bgBabak1.style.color = 'white';
                     } else {
-                        bgBabak1.style.backgroundColor = 'white';
+                        bgBabak1.style.backgroundColor = '';
                         bgBabak1.style.color = 'black';
                     }
 
@@ -332,7 +452,7 @@
                         bgBabak2.style.backgroundColor = 'green';
                         bgBabak2.style.color = 'white';
                     } else {
-                        bgBabak2.style.backgroundColor = 'white';
+                        bgBabak2.style.backgroundColor = '';
                         bgBabak2.style.color = 'black';
                     }
 
@@ -340,7 +460,7 @@
                         bgBabak3.style.backgroundColor = 'green';
                         bgBabak3.style.color = 'white';
                     } else {
-                        bgBabak3.style.backgroundColor = 'white';
+                        bgBabak3.style.backgroundColor = '';
                         bgBabak3.style.color = 'black';
                     }
                 },
@@ -365,24 +485,24 @@
 
                     if (response.datamerah == 1) {
                         binaan1Merah.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
-                        binaan2Merah.style.background = 'white';
+                        binaan2Merah.style.background = '';
                     } else if (response.datamerah == 2) {
                         binaan1Merah.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                         binaan2Merah.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                     } else if (response.datamerah == 0) {
-                        binaan1Merah.style.background = 'white';
-                        binaan2Merah.style.background = 'white';
+                        binaan1Merah.style.background = '';
+                        binaan2Merah.style.background = '';
                     }
 
                     if (response.databiru == 1) {
                         binaan1Biru.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
-                        binaan2Biru.style.background = 'white';
+                        binaan2Biru.style.background = '';
                     } else if (response.databiru == 2) {
                         binaan1Biru.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                         binaan2Biru.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                     } else if (response.databiru == 0) {
-                        binaan1Biru.style.background = 'white';
-                        binaan2Biru.style.background = 'white';
+                        binaan1Biru.style.background = '';
+                        binaan2Biru.style.background = '';
                     }
 
                     // console.log(response.datamerah)
@@ -411,24 +531,24 @@
 
                     if (response.datamerah == 1) {
                         teguran1Merah.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
-                        teguran2Merah.style.background = 'white';
+                        teguran2Merah.style.background = '';
                     } else if (response.datamerah == 2) {
                         teguran1Merah.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                         teguran2Merah.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                     } else if (response.datamerah == 0) {
-                        teguran1Merah.style.background = 'white';
-                        teguran2Merah.style.background = 'white';
+                        teguran1Merah.style.background = '';
+                        teguran2Merah.style.background = '';
                     }
 
                     if (response.databiru == 1) {
                         teguran1Biru.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
-                        teguran2Biru.style.background = 'white';
+                        teguran2Biru.style.background = '';
                     } else if (response.databiru == 2) {
                         teguran1Biru.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                         teguran2Biru.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                     } else if (response.databiru == 0) {
-                        teguran1Biru.style.background = 'white';
-                        teguran2Biru.style.background = 'white';
+                        teguran1Biru.style.background = '';
+                        teguran2Biru.style.background = '';
                     }
 
                     // console.log(response.datamerah)
@@ -457,24 +577,24 @@
 
                     if (response.datamerah == 1) {
                         peringatan1Merah.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
-                        peringatan2Merah.style.background = 'white';
+                        peringatan2Merah.style.background = '';
                     } else if (response.datamerah == 2) {
                         peringatan1Merah.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                         peringatan2Merah.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                     } else if (response.datamerah == 0) {
-                        peringatan1Merah.style.background = 'white';
-                        peringatan2Merah.style.background = 'white';
+                        peringatan1Merah.style.background = '';
+                        peringatan2Merah.style.background = '';
                     }
 
                     if (response.databiru == 1) {
                         peringatan1Biru.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
-                        peringatan2Biru.style.background = 'white';
+                        peringatan2Biru.style.background = '';
                     } else if (response.databiru == 2) {
                         peringatan1Biru.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                         peringatan2Biru.style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                     } else if (response.databiru == 0) {
-                        peringatan1Biru.style.background = 'white';
-                        peringatan2Biru.style.background = 'white';
+                        peringatan1Biru.style.background = '';
+                        peringatan2Biru.style.background = '';
                     }
 
                 },
@@ -494,6 +614,9 @@
                     if (response.status == 1) {
                         $("#upModal").modal('show');
                         $('#hasilVote').empty();
+                        $('#jenisVerifkasi').empty();
+                        $('#v-img').empty();
+
 
                         $.each(response.data, function(index, row) {
                             if (row.pilihan == 'merah') {
@@ -505,6 +628,13 @@
                             }
                             $('#hasilVote').append(newRow);
                         });
+
+                        $('#jenisVerifkasi').text('VERIFIKASI ' + response.jenis.toUpperCase());
+                        if (response.jenis == 'jatuhan') {
+                            $('#v-img').attr('src', '<?= base_url('assets/images/v-jatuhan.png') ?>');
+                        } else {
+                            $('#v-img').attr('src', '<?= base_url('assets/images/P11.png') ?>').attr('height', '250px');
+                        }
                     } else {
                         $("#upModal").modal('hide');
                     }
@@ -525,38 +655,38 @@
                     if (response.j1MerahPukul == 1) {
                         document.getElementById('j1MerahPukul').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                         setTimeout(function() {
-                            document.getElementById('j1MerahPukul').style.background = 'white';
+                            document.getElementById('j1MerahPukul').style.background = '';
                         }, 1000);
                     }
                     if (response.j2MerahPukul == 1) {
                         document.getElementById('j2MerahPukul').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                         setTimeout(function() {
-                            document.getElementById('j2MerahPukul').style.background = 'white';
+                            document.getElementById('j2MerahPukul').style.background = '';
                         }, 1000);
                     }
                     if (response.j3MerahPukul == 1) {
                         document.getElementById('j3MerahPukul').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                         setTimeout(function() {
-                            document.getElementById('j3MerahPukul').style.background = 'white';
+                            document.getElementById('j3MerahPukul').style.background = '';
                         }, 1000);
                     }
 
                     if (response.j1BiruPukul == 1) {
                         document.getElementById('j1BiruPukul').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                         setTimeout(function() {
-                            document.getElementById('j1BiruPukul').style.background = 'white';
+                            document.getElementById('j1BiruPukul').style.background = '';
                         }, 1000);
                     }
                     if (response.j2BiruPukul == 1) {
                         document.getElementById('j2BiruPukul').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                         setTimeout(function() {
-                            document.getElementById('j2BiruPukul').style.background = 'white';
+                            document.getElementById('j2BiruPukul').style.background = '';
                         }, 1000);
                     }
                     if (response.j3BiruPukul == 1) {
                         document.getElementById('j3BiruPukul').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                         setTimeout(function() {
-                            document.getElementById('j3BiruPukul').style.background = 'white';
+                            document.getElementById('j3BiruPukul').style.background = '';
                         }, 1000);
                     }
 
@@ -564,38 +694,38 @@
                     if (response.j1MerahTendang == 1) {
                         document.getElementById('j1MerahTendang').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                         setTimeout(function() {
-                            document.getElementById('j1MerahTendang').style.background = 'white';
+                            document.getElementById('j1MerahTendang').style.background = '';
                         }, 1000);
                     }
                     if (response.j2MerahTendang == 1) {
                         document.getElementById('j2MerahTendang').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                         setTimeout(function() {
-                            document.getElementById('j2MerahTendang').style.background = 'white';
+                            document.getElementById('j2MerahTendang').style.background = '';
                         }, 1000);
                     }
                     if (response.j3MerahTendang == 1) {
                         document.getElementById('j3MerahTendang').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                         setTimeout(function() {
-                            document.getElementById('j3MerahTendang').style.background = 'white';
+                            document.getElementById('j3MerahTendang').style.background = '';
                         }, 1000);
                     }
 
                     if (response.j1BiruTendang == 1) {
                         document.getElementById('j1BiruTendang').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                         setTimeout(function() {
-                            document.getElementById('j1BiruTendang').style.background = 'white';
+                            document.getElementById('j1BiruTendang').style.background = '';
                         }, 1000);
                     }
                     if (response.j2BiruTendang == 1) {
                         document.getElementById('j2BiruTendang').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                         setTimeout(function() {
-                            document.getElementById('j2BiruTendang').style.background = 'white';
+                            document.getElementById('j2BiruTendang').style.background = '';
                         }, 1000);
                     }
                     if (response.j3BiruTendang == 1) {
                         document.getElementById('j3BiruTendang').style.background = 'linear-gradient(to bottom, #ba5d00d1, #fdbc4eb0)';
                         setTimeout(function() {
-                            document.getElementById('j3BiruTendang').style.background = 'white';
+                            document.getElementById('j3BiruTendang').style.background = '';
                         }, 1000);
                     }
                 },
@@ -605,6 +735,50 @@
                 }
             });
         }
+    </script>
+
+    <script>
+        let socket;
+
+        // Elemen DOM
+        const timerDisplay = document.getElementById('timer');
+
+        // Membuka koneksi WebSocket
+        function connectWebSocket() {
+            socket = new WebSocket('<?= $socket ?>');
+
+            socket.onopen = () => {
+                console.log('Connected to WebSocket server');
+            };
+
+            socket.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+
+                if (data.action === 'updateTimer') {
+                    const minutes = data.minutes.toString().padStart(2, '0');
+                    const seconds = data.seconds.toString().padStart(2, '0');
+                    timerDisplay.textContent = `${minutes}:${seconds}`;
+                } else if (data.action === 'resetTimer') {
+                    timerDisplay.textContent = '00:00';
+                } else if (data.action === 'reloadPage') {
+                    window.location.href = '<?= base_url('tampil/winner/' . $tanding->id_tanding) ?>';
+                }
+            };
+
+            socket.onclose = () => {
+                console.log('Disconnected from WebSocket server');
+            };
+        }
+
+        function sendMessage(action) {
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                socket.send(JSON.stringify({
+                    action: action
+                }));
+            }
+        }
+
+        connectWebSocket();
     </script>
 </body>
 
