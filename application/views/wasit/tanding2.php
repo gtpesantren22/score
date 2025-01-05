@@ -60,9 +60,15 @@
                 <div class="container">
                     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
                         <a class="navbar-brand brand-logo" href="<?= base_url() ?>">
-                            DIGITAL SCORING
+                            <?php
+                            $judul = $this->db->query("SELECT * FROM settings WHERE name = 'judul' ")->row();
+                            echo $judul->value;
+                            ?>
                             <!-- <span class="font-13 d-block font-weight"> </span> -->
-                            <span class="font-12 d-block font-weight">KH. AHMAD BAIDLOWI CUP 1 - Kejuaraan Pencak Silat Se-Tapal Kuda | PonPes Darul Lughah Wal Karomah </span>
+                            <span class="font-12 d-block font-weight"><?php
+                                                                        $desk = $this->db->query("SELECT * FROM settings WHERE name = 'deskripsi' ")->row();
+                                                                        echo $desk->value;
+                                                                        ?> </span>
                         </a>
                         <a class="navbar-brand brand-logo-mini" href="<?= base_url() ?>"><img src="<?= base_url() ?>assets/images/logo-mini.svg" alt="logo" /></a>
                     </div>
@@ -737,7 +743,7 @@
                     if (response.status == 'benar') {
                         $("#upModal").modal('show');
                         $('#jenisVerifkasi').empty();
-                        
+
                         $('#idVr').val(response.idVr);
                         $('#idVr2').val(response.idVr);
                         $('#idVr3').val(response.idVr);
@@ -783,6 +789,44 @@
             // console.log('formData');
         });
     </script>
+    <script>
+        let socket;
+
+        // Elemen DOM
+        const timerDisplay = document.getElementById('timer');
+
+        // Membuka koneksi WebSocket
+        function connectWebSocket() {
+            socket = new WebSocket('<?= $socket ?>');
+
+            socket.onopen = () => {
+                console.log('Connected to WebSocket server');
+            };
+
+            socket.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+
+                if (data.action === 'reloadPage') {
+                    window.location.href = '<?= base_url('wasit/logout') ?>';
+                }
+            };
+
+            socket.onclose = () => {
+                console.log('Disconnected from WebSocket server');
+            };
+        }
+
+        function sendMessage(action) {
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                socket.send(JSON.stringify({
+                    action: action
+                }));
+            }
+        }
+
+        connectWebSocket();
+    </script>
+
 
 </body>
 

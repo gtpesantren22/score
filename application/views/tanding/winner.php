@@ -71,7 +71,7 @@
                                                 <form action="<?= base_url('tanding/saveWin') ?>" method="post">
                                                     <input type="hidden" name="id_tanding" value="<?= $tanding->id_tanding ?>">
                                                     <input type="hidden" name="id_peserta" value="<?= $biru->id_peserta ?>">
-                                                    <button type="submit" class="btn btn-primary">Simpan Hasil</button>
+                                                    <button type="submit" class="btn btn-primary simpan-hasil">Simpan Hasil</button>
                                                 </form>
                                             </th>
                                         </tr>

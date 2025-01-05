@@ -14,6 +14,7 @@ class Wasittanding extends CI_Controller
 
         $this->idTanding = $this->session->userdata('tandingID');
         $this->idWasit = $this->session->userdata('wasitID');
+        $this->socket = $this->model->getBy('settings', 'name', 'socket')->row('value');
     }
 
     // public function index()
@@ -30,7 +31,7 @@ class Wasittanding extends CI_Controller
         $data['partai'] = $this->model->getBy('partai', 'id_partai', $data['tanding']->id_partai)->row();
         $data['merah'] = $this->model->getBy('peserta', 'id_peserta', $data['partai']->merah)->row();
         $data['biru'] = $this->model->getBy('peserta', 'id_peserta', $data['partai']->biru)->row();
-
+        $data['socket'] = $this->socket;
 
         $this->load->view('wasit/tanding2', $data);
     }

@@ -69,19 +69,19 @@
 <body>
     <div class="container-scroller">
         <!-- partial:../../partials/_horizontal-navbar.html -->
-        <div class="horizontal-menu">
+        <!-- <div class="horizontal-menu">
             <nav class="navbar top-navbar col-lg-12 col-12 p-0">
                 <div class="container">
                     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
                         <a class="navbar-brand brand-logo" href="<?= base_url() ?>">
                             DIGITAL SCORING
-                            <!-- <span class="font-13 d-block font-weight"> </span> -->
+                            <span class="font-13 d-block font-weight"> </span>
                             <span class="font-12 d-block font-weight">KH. AHMAD BAIDLOWI CUP 1 - Kejuaraan Pencak Silat Se-Tapal Kuda | PonPes Darul Lughah Wal Karomah </span>
                         </a>
                         <a class="navbar-brand brand-logo-mini" href="<?= base_url() ?>"><img src="<?= base_url() ?>assets/images/logo-mini.svg" alt="logo" /></a>
                     </div>
                     <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-                        <!-- <ul class="navbar-nav navbar-nav-right">
+                        <ul class="navbar-nav navbar-nav-right">
                             <li class="nav-item nav-profile dropdown">
                                 <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                                     <div class="nav-profile-img">
@@ -103,12 +103,12 @@
                         </ul>
                         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="horizontal-menu-toggle">
                             <span class="mdi mdi-menu"></span>
-                        </button> -->
+                        </button>
                     </div>
                 </div>
             </nav>
 
-        </div>
+        </div> -->
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <div class="main-panel">
@@ -131,7 +131,13 @@
                                         ?>
                                         <table class="table table-borderless text-center">
                                             <tr>
-                                                <th colspan="5" style="font-weight: bold; font-size: large; background-color: #43536c; color: white;  padding: 10px; border: 1px solid #fff;border-radius: 30px 30px 0 0;">TANDING</th>
+                                                <th colspan="5" style="font-weight: bold; font-size: large; background-color: #43536c; color: white;  padding: 10px; border: 1px solid #fff;border-radius: 30px 30px 0 0;">
+                                                    <?php
+                                                    $judul = $this->db->query("SELECT * FROM settings WHERE name = 'judul' ")->row();
+                                                    $desk = $this->db->query("SELECT * FROM settings WHERE name = 'deskripsi' ")->row();
+                                                    echo $judul->value . ' - ' . $desk->value;
+                                                    ?>
+                                                </th>
                                             </tr>
                                             <tr>
                                                 <th style="font-weight: bolder; font-size: xx-large; background-color: #9baec4; color: white;"><img src="<?= base_url('assets/images/logoIPSI.png') ?>" alt="" srcset=""></th>
