@@ -23,6 +23,26 @@
     <link rel="stylesheet" href="<?= base_url() ?>assets/iziToast/dist/css/iziToast.min.css" />
 </head>
 
+<style>
+    @font-face {
+        font-family: 'Roboto';
+        src: url('assets/fonts/Roboto-Regular.woff2') format('woff2'),
+            /* Format lebih modern */
+            url('assets/fonts/Roboto-Regular.woff') format('woff'),
+            /* Fallback untuk browser lama */
+            url('assets/fonts/Roboto-Regular.ttf') format('truetype');
+        /* Fallback */
+        font-weight: 400;
+        /* Regular */
+        font-style: normal;
+    }
+
+    body {
+        font-family: 'Roboto', sans-serif;
+        /* Menggunakan font dari Google Fonts */
+    }
+</style>
+
 <body>
     <div class="container-scroller">
         <!-- partial:../../partials/_horizontal-navbar.html -->

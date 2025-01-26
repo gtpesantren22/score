@@ -13,6 +13,15 @@
         /* Tambahkan konten agar <br> dapat menerima properti margin */
     }
 
+    .btn-custom {
+        background-color: #ffff00;
+        /* Warna latar kustom */
+        color: #000000;
+        /* Warna teks */
+        border: 1px solid #000000;
+        /* Border kustom */
+    }
+
     #myButton .mdi-loading {
         display: inline-block;
         margin-right: 5px;
@@ -698,7 +707,7 @@
                         } else if (row.pilihan == 'biru') {
                             var newRow = "<button class='btn btn-primary btn-lg btn-block'>Pesilat Sudut Biru</button>";
                         } else if (row.pilihan == 'netral') {
-                            var newRow = "<button class='btn btn-warning btn-lg btn-block'>Pesilat Sudut NETRAL</button>";
+                            var newRow = "<button class='btn btn-custom btn-lg btn-block'>Pesilat Sudut NETRAL</button>";
                         }
                         $('#hasilVote').append(newRow);
                     });

@@ -335,7 +335,7 @@
                                 <input type="hidden" id="idVr2" name="id_verifikasi">
                                 <input type="hidden" name="id_wasit" value="<?= $wasit->id_wasit ?>">
                                 <input type="hidden" name="pilihan" value="netral">
-                                <button type="submit" class='btn btn-warning btn-lg btn-block'>Pesilat Sudut Netral</button>
+                                <button type="submit" style="background-color: yellow; border: 1px solid #000000;" class='btn btn-lg btn-block'>Pesilat Sudut Netral</button>
                             </form>
                         </div>
                         <div class="col-md-4">

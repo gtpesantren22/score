@@ -48,6 +48,7 @@
                                         <td>
                                             <a href="<?= base_url('tanding/delTanding/' . $row->id_tanding) ?>" class="btn btn-sm btn-danger tombol-hapus">Hapus</a>
                                             <a href="<?= base_url('tanding/detail/' . $row->id_tanding) ?>" class="btn btn-sm btn-info">Detail</a>
+                                            <a href="<?= base_url('tanding/rincian/' . $row->id_tanding) ?>" class="btn btn-sm btn-dark">Rincian Nilai</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

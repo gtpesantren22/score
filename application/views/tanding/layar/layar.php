@@ -21,8 +21,22 @@
     <link rel="shortcut icon" href="<?= base_url() ?>assets/images/favicon.png" />
     <link rel="stylesheet" href="<?= base_url() ?>assets/DataTables/datatables.min.css" />
     <link rel="stylesheet" href="<?= base_url() ?>assets/iziToast/dist/css/iziToast.min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
     <style>
+        @font-face {
+            font-family: 'Roboto';
+            src: url('assets/fonts/Roboto-Regular.woff2') format('woff2'),
+                /* Format lebih modern */
+                url('assets/fonts/Roboto-Regular.woff') format('woff'),
+                /* Fallback untuk browser lama */
+                url('assets/fonts/Roboto-Regular.ttf') format('truetype');
+            /* Fallback */
+            font-weight: 400;
+            /* Regular */
+            font-style: normal;
+        }
+
         body {
             font-family: 'Roboto', sans-serif;
             /* Menggunakan font dari Google Fonts */
@@ -50,18 +64,60 @@
             background-color: red;
             color: white;
             border: 1px solid #000000;
+            font-size: 70px;
+            font-family: 'Roboto', sans-serif;
+            height: 150px;
         }
 
         .button-blue {
             background-color: blue;
             color: white;
             border: 1px solid #000000;
+            font-size: 70px;
+            font-family: 'Roboto', sans-serif;
+            height: 150px;
         }
 
         .button-netral {
             background-color: yellow;
             color: black;
             border: 1px solid #000000;
+            font-size: 70px;
+            font-family: 'Roboto', sans-serif;
+            height: 150px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .w-15 {
+            width: 15%;
+        }
+
+        .w-30 {
+            width: 30%;
+        }
+
+        .w-10 {
+            width: 10%;
+        }
+
+        .w-20 {
+            width: 20%;
+        }
+
+        /* Responsif untuk layar kecil */
+        @media (max-width: 768px) {
+
+            .w-15,
+            .w-20,
+            .w-30,
+            .w-10 {
+                width: 100%;
+                /* Setiap elemen menjadi satu baris */
+            }
         }
     </style>
 </head>
@@ -151,28 +207,28 @@
                                         <!-- <hr> -->
                                         <br>
                                         <div class="row">
-                                            <div class="col-md-2 text-center">
+                                            <div class="w-10 p-2 text-center">
                                                 <img src="<?= base_url('assets/images/merah.png') ?>" width="70px">
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="w-30 p-2">
                                                 <h3 class="font-weight-bold" style="color: #eb493a;"><?= strtoupper($merah->nama) ?></h3>
                                                 <h5 class="font-weight-bold"><?= strtoupper($merah->kontingen) ?></h5>
                                             </div>
-                                            <div class="col-md-2 text-center">
+                                            <div class="w-20 p-2 text-center">
                                                 <b style="font-size: 55px;" id="timer">00:00</b>
                                             </div>
-                                            <div class="col-md-3" style="text-align: right;">
+                                            <div class="w-30 p-2" style="text-align: right;">
                                                 <h3 class="font-weight-bold" style="color: #047df2;"><?= strtoupper($biru->nama) ?></h3>
                                                 <h5 class="font-weight-bold"><?= strtoupper($biru->kontingen) ?></h5>
                                             </div>
-                                            <div class="col-md-2 text-center">
+                                            <div class="w-10 p-2 text-center">
                                                 <img src="<?= base_url('assets/images/biru.png') ?>" width="70px">
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="row mt-4">
-                                        <div class="col-md-2">
+                                        <div class="w-15 p-2">
                                             <div class="card">
                                                 <div class="card-body p-2">
                                                     <div class="mb-1"><img src="<?= base_url('assets/images/binaan1.png') ?>" height="20"> <b>Binaan</b></div>
@@ -199,9 +255,9 @@
                                             </div>
 
                                         </div>
-                                        <div class="col-md-3">
-                                            <div class="card bg-red">
-                                                <div class="card-body text-center">
+                                        <div class="w-30 p-2">
+                                            <div class="card bg-red" style="min-height: 235px; max-height: 235px;">
+                                                <div class="card-body d-flex justify-content-center align-items-center">
                                                     <b style="font-size: 150px; color: white;" id="pointMerah">0</b>
                                                 </div>
                                             </div>
@@ -220,7 +276,7 @@
                                             </div>
 
                                         </div>
-                                        <div class="col-md-2 text-center">
+                                        <div class="w-10 p-2 text-center">
 
                                             <button class="btn btn-xl btn-block btn-light" style="font-size: 40px; font-weight: bolder;" id="babak1">1</button>
                                             <button class="btn btn-xl btn-block btn-light" style="font-size: 40px; font-weight: bolder;" id="babak2">2</button>
@@ -232,9 +288,9 @@
                                                 <button class="btn btn-xl btn-block btn-light" style="font-size: 40px; font-weight: bolder;"><img height="50" src="<?= base_url() ?>assets/images/tendangan.png"></button>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <div class="card bg-blue">
-                                                <div class="card-body text-center">
+                                        <div class="w-30 p-2">
+                                            <div class="card bg-blue" style="min-height: 235px; max-height: 235px;">
+                                                <div class="card-body d-flex justify-content-center align-items-center">
                                                     <b style="font-size: 150px; color: white;" id="pointBiru">0</b>
                                                 </div>
                                             </div>
@@ -252,7 +308,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="w-15 p-2">
                                             <div class="card">
                                                 <div class="card-body p-2">
                                                     <div class="mb-1"><img src="<?= base_url('assets/images/binaan1.png') ?>" height="20"> <b>Binaan</b></div>
@@ -280,19 +336,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="row mt-3">
-                                        <div class="col-md-2"></div>
-                                        <div class="col-md-3 text-center">
-
-                                        </div>
-                                        <div class="col-md-2">
-
-                                        </div>
-                                        <div class="col-md-3">
-
-                                        </div>
-                                        <div class="col-md-2"></div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -372,14 +415,16 @@
                 url: '<?= base_url('tampil/point/' . $tanding->id_tanding . '/' . $merah->id_peserta); ?>',
                 dataType: 'json',
                 success: function(response) {
-                    $('#pointMerah').empty();
-                    if (response === null) {
-                        $('#pointMerah').append(0);
-                    } else {
-                        $('#pointMerah').append(response);
-                    }
+                    const value = response === null ? 0 : response;
 
-                    // console.log(response)
+                    $('#pointMerah').text(value);
+
+                    // const baseFontSize = 150; // Ukuran font dasar
+                    // const length = value.toString().length;
+                    // const fontSize = baseFontSize - (length - 2) * 25; // Kurangi 10px per karakter tambahan
+                    // $('#pointMerah').css('font-size', `${Math.max(baseFontSize, 50)}px`); // Ukuran minimum adalah 50px
+
+                    console.log(fontSize)
                 },
                 error: function(xhr, status, error) {
                     alert('Gagal menyimpan data. Kesalahan: ' + status + ' - ' + error);
@@ -394,14 +439,15 @@
                 url: '<?= base_url('tampil/point/' . $tanding->id_tanding . '/' . $biru->id_peserta); ?>',
                 dataType: 'json',
                 success: function(response) {
-                    $('#pointBiru').empty();
-                    if (response === null) {
-                        $('#pointBiru').append(0);
-                    } else {
-                        $('#pointBiru').append(response);
-                    }
+                    const value = response === null ? 0 : response;
 
-                    // console.log(response)
+                    $('#pointBiru').text(value);
+
+                    // const baseFontSize = 150; // Ukuran font dasar
+                    // const length = value.toString().length;
+                    // const fontSize = baseFontSize - (length - 2) * 25; // Kurangi 10px per karakter tambahan
+                    // $('#pointBiru').css('font-size', `${Math.max(baseFontSize, 50)}px`); // Ukuran minimum adalah 50px
+
                 },
                 error: function(xhr, status, error) {
                     alert('Gagal menyimpan data. Kesalahan: ' + status + ' - ' + error);
@@ -623,24 +669,54 @@
                         $('#jenisVerifkasi').empty();
                         $('#v-img').empty();
 
+                        let counts = {
+                            merah: 0,
+                            biru: 0,
+                            netral: 0
+                        };
 
+                        // Hitung jumlah setiap pilihan
                         $.each(response.data, function(index, row) {
-                            if (row.pilihan == 'merah') {
-                                var newRow = "<button class='btn button-red btn-lg btn-block'>Pesilat Sudut Merah</button>";
-                            } else if (row.pilihan == 'biru') {
-                                var newRow = "<button class='btn button-blue btn-lg btn-block'>Pesilat Sudut Biru</button>";
-                            } else if (row.pilihan == 'netral') {
-                                var newRow = "<button class='btn button-netral btn-lg btn-block'>Pesilat Sudut NETRAL</button>";
+                            if (row.pilihan === 'merah') {
+                                counts.merah++;
+                            } else if (row.pilihan === 'biru') {
+                                counts.biru++;
+                            } else if (row.pilihan === 'netral') {
+                                counts.netral++;
                             }
-                            $('#hasilVote').append(newRow);
                         });
 
-                        $('#jenisVerifkasi').text('VERIFIKASI ' + response.jenis.toUpperCase());
-                        if (response.jenis == 'jatuhan') {
-                            $('#v-img').attr('src', '<?= base_url('assets/images/v-jatuhan.png') ?>');
+                        // Logika untuk memeriksa apakah data sudah mencapai minimal 3
+                        if (response.data.length >= 3) {
+                            // Temukan pilihan dengan jumlah terbanyak
+                            let maxChoice = Object.keys(counts).reduce(function(a, b) {
+                                return counts[a] > counts[b] ? a : b;
+                            });
+
+                            // Tampilkan button untuk pilihan terbanyak
+                            let newRow = "";
+                            if (maxChoice === 'merah') {
+                                newRow = "<button class='btn button-red  btn-block'>PESILAT SUDUT MERAH</button>";
+                            } else if (maxChoice === 'biru') {
+                                newRow = "<button class='btn button-blue btn-block'>PESILAT SUDUT BIRU</button>";
+                            } else if (maxChoice === 'netral') {
+                                newRow = "<button class='btn button-netral btn-block'>PESILAT SUDUT NETRAL</button>";
+                            }
+
+                            // Tambahkan button ke elemen #hasilVote
+                            $('#hasilVote').html(newRow);
                         } else {
-                            $('#v-img').attr('src', '<?= base_url('assets/images/P11.png') ?>').attr('height', '250px');
+                            // Jika data belum mencapai 3, tampilkan tulisan "Proses"
+                            $('#hasilVote').html("<h1 class='text-center text-primary'>Verifikasi sedang diproses...</h1>");
                         }
+
+
+                        $('#jenisVerifkasi').text('VERIFIKASI ' + response.jenis.toUpperCase());
+                        // if (response.jenis == 'jatuhan') {
+                        //     $('#v-img').attr('src', '<?= base_url('assets/images/v-jatuhan.png') ?>');
+                        // } else {
+                        //     $('#v-img').attr('src', '<?= base_url('assets/images/P11.png') ?>').attr('height', '250px');
+                        // }
                     } else {
                         $("#upModal").modal('hide');
                     }

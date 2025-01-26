@@ -32,6 +32,9 @@
                     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
                         <a class="navbar-brand brand-logo" href="<?= base_url() ?>">
                             <?php
+
+                            use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Base;
+
                             $judul = $this->db->query("SELECT * FROM settings WHERE name = 'judul' ")->row();
                             echo $judul->value;
                             ?>
@@ -82,15 +85,24 @@
                 <!-- ISI  -->
                 <div class="content-wrapper d-flex align-items-center auth">
                     <div class="row flex-grow">
-                        <?php foreach ($jadwal->result() as $jdwl) : ?>
-                            <div class="col-lg-6 mx-auto">
-                                <div class="auth-form-light text-left p-5">
-                                    <h4>Gelanggang <?= $jdwl->gel ?></h4>
-                                    <h6 class="font-weight-light">Klik tombol untuk menampilkan detail pertandingan</h6>
-                                    <button class="btn btn-primary" onclick="window.location='<?= base_url('tampil/gel/' . $jdwl->gel) ?>' ">Tampilakan</button>
+                        <?php
+                        if ($jadwal->row()) {
+                            foreach ($jadwal->result() as $jdwl) : ?>
+                                <div class="col-lg-6 mx-auto">
+                                    <div class="auth-form-light text-left p-5">
+                                        <h4>Gelanggang <?= $jdwl->gel ?></h4>
+                                        <h6 class="font-weight-light">Klik tombol untuk menampilkan detail pertandingan</h6>
+                                        <button class="btn btn-primary" onclick="window.location='<?= base_url('tampil/gel/' . $jdwl->gel) ?>' ">Tampilakan</button>
+                                    </div>
+                                </div>
+                            <?php endforeach;
+                        } else { ?>
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                    <img src="<?= base_url('assets/images/layar2.png') ?>" alt="" height="600px" srcset="">
                                 </div>
                             </div>
-                        <?php endforeach ?>
+                        <?php } ?>
                     </div>
                 </div>
 
