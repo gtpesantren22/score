@@ -20,7 +20,7 @@ class TandingTgr1 extends CI_Controller
     {
         $data['user'] = $this->Auth_model->current_user();
 
-        $data['tanding'] = $this->db->query("SELECT urut, nama, tandingtgr.status AS status, aktif, id_tanding, gel FROM tandingtgr JOIN partaitgr ON tandingtgr.id_partai=partaitgr.id_partai JOIN wasit ON tandingtgr.wasit=wasit.id_wasit WHERE partaitgr.jenis = 'Tunggal' ORDER BY urut DESC")->result();
+        $data['tanding'] = $this->db->query("SELECT urut, nama, tandingtgr.status AS status, aktif, id_tanding, gel FROM tandingtgr JOIN partaitgr ON tandingtgr.id_partai=partaitgr.id_partai JOIN wasit ON tandingtgr.wasit=wasit.id_wasit ORDER BY urut DESC")->result();
         $data['partai'] = $this->model->getAll('partaitgr')->result();
         $data['wasit'] = $this->model->getAll('wasit')->result();
 

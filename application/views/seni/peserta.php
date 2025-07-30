@@ -109,9 +109,12 @@
                                 <label for="">Jenis Tanding</label>
                                 <select name="kelas" id="" class="form-control form-control-sm" required>
                                     <option value=""> -pilih kelas-</option>
-                                    <option value="Tunggal">Tunggal</option>
-                                    <option value="Ganda">Ganda</option>
-                                    <option value="Regu">Regu</option>
+                                    <option value="TUNGGAL TANGAN KOSONG">TUNGGAL TANGAN KOSONG</option>
+                                    <option value="BEREGU JURUS 1-6">BEREGU JURUS 1-6</option>
+                                    <option value="TUNGGAL BERSENJATA">TUNGGAL BERSENJATA</option>
+                                    <option value="PAKET SD A-B">PAKET SD A-B</option>
+                                    <option value="SOLO KREATIF">SOLO KREATIF</option>
+                                    <option value="TUNGGAL IPSI">TUNGGAL IPSI</option>
                                 </select>
                             </div>
                             <div class="form-group">
