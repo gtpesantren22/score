@@ -99,7 +99,7 @@
                         } else { ?>
                             <div class="col-md-12">
                                 <div class="text-center">
-                                    <img src="<?= base_url('assets/images/layar2.png') ?>" alt="" height="600px" srcset="">
+                                    <img src="<?= base_url('assets/images/') ?>" alt="" height="600px" srcset="">
                                 </div>
                             </div>
                         <?php } ?>

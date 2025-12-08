@@ -24,7 +24,7 @@ class DewanTgr1 extends CI_Controller
 
     public function tanding()
     {
-        $tanding = $this->db->query("SELECT urut, nama, tandingtgr.status AS status, aktif, id_tanding, gel, merah, biru FROM tandingtgr JOIN partaitgr ON tandingtgr.id_partai=partaitgr.id_partai JOIN wasit ON tandingtgr.wasit=wasit.id_wasit WHERE tandingtgr.aktif = 'Y'  ORDER BY partaitgr.urut DESC");
+        $tanding = $this->db->query("SELECT urut, nama, tandingtgr.status AS status, aktif, id_tanding, gel, merah, biru FROM tandingtgr JOIN partaitgr ON tandingtgr.id_partai=partaitgr.id_partai JOIN wasit ON tandingtgr.wasit=wasit.id_wasit WHERE tandingtgr.aktif = 'Y' AND partaitgr.jenis = 'Tunggal' ORDER BY partaitgr.urut DESC");
         $data['tanding'] = $tanding->result();
         $data['id_tanding'] = $tanding->row('id_tanding');
         $data['dtltanding'] = $tanding->row();
