@@ -14,15 +14,10 @@ class Wasittanding extends CI_Controller
 
         $this->idTanding = $this->session->userdata('tandingID');
         $this->idWasit = $this->session->userdata('wasitID');
+        $this->nomor = $this->session->userdata('nomor');
         $this->socket = $this->model->getBy('settings', 'name', 'socket')->row('value');
     }
 
-    // public function index()
-    // {
-    //     $data['jadwal'] = $this->model->getBy('tanding', 'aktif', 'Y')->result();
-
-    //     $this->load->view('wasit/tading', $data);
-    // }
     public function index()
     {
         $data['wasit'] = $this->model->getBy('wasit', 'id_wasit', $this->idWasit)->row();
@@ -32,6 +27,9 @@ class Wasittanding extends CI_Controller
         $data['merah'] = $this->model->getBy('peserta', 'id_peserta', $data['partai']->merah)->row();
         $data['biru'] = $this->model->getBy('peserta', 'id_peserta', $data['partai']->biru)->row();
         $data['socket'] = $this->socket;
+        $data['nomor'] = $this->nomor;
+        $data['judul'] = $this->model->getBy('settings', 'name', 'judul')->row('value');
+        $data['deskripsi'] = $this->model->getBy('settings', 'name', 'deskripsi')->row('value');
 
         $this->load->view('wasit/tanding2', $data);
     }

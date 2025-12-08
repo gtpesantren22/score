@@ -18,7 +18,7 @@
     <!-- Layout styles -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/demo_2/style.css" />
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="<?= base_url() ?>assets/images/favicon.png" />
+    <!-- <link rel="shortcut icon" href="<?= base_url() ?>assets/images/favicon.png" /> -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/DataTables/datatables.min.css" />
     <link rel="stylesheet" href="<?= base_url() ?>assets/iziToast/dist/css/iziToast.min.css" />
 </head>
@@ -143,14 +143,14 @@
                             <div class="submenu">
                                 <ul class="submenu-item">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="<?= base_url('partai') ?>">Tanding</a>
+                                        <a class="nav-link" href="<?= base_url('partai') ?>">Partai Tanding</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="<?= base_url('partaiTgr') ?>">Seni Tunggal</a>
+                                        <a class="nav-link" href="<?= base_url('partaiTgr') ?>">Partai Seni Tunggal</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="<?= base_url('drawing') ?>">Drawing</a>
-                                    </li>
+                                    <!-- <li class="nav-item">
+                                        <a class="nav-link" href="<?= base_url('partai/winner') ?>">Winner</a>
+                                    </li> -->
                                 </ul>
                             </div>
                         </li>
@@ -193,7 +193,7 @@
                             <div class="submenu">
                                 <ul class="submenu-item">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Rekap Pemenang</a>
+                                        <a class="nav-link" href="<?= base_url('winner') ?>">Rekap Pemenang</a>
                                     </li>
                                 </ul>
                             </div>

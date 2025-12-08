@@ -11,6 +11,8 @@ class Dewan extends CI_Controller
         $this->load->model('Auth_model');
         $user = $this->Auth_model->current_user();
 
+        $this->socket = $this->model->getBy('settings', 'name', 'socket')->row('value');
+
         if (!$this->Auth_model->current_user() && $user->level != 'admin') {
             redirect('login/logout');
         }
@@ -25,11 +27,20 @@ class Dewan extends CI_Controller
 
     public function tanding()
     {
-        $data['tanding'] = $this->db->query("SELECT urut, nama, tanding.status AS status, aktif, id_tanding, gel FROM tanding JOIN partai ON tanding.id_partai=partai.id_partai JOIN wasit ON tanding.wasit=wasit.id_wasit WHERE tanding.aktif = 'Y' ORDER BY partai.urut DESC")->result();
+        $data['tanding'] = $this->db->query("SELECT urut, nama, tanding.status AS status, aktif, id_tanding, gel FROM tanding JOIN partai ON tanding.id_partai=partai.id_partai JOIN wasit ON tanding.wasit=wasit.id_wasit WHERE tanding.aktif = 'Y' ORDER BY partai.urut DESC");
+
         $data['partai'] = $this->model->getAll('partai')->result();
         $data['wasit'] = $this->model->getAll('wasit')->result();
+        $data['socket'] = $this->socket;
+        $data['judul'] = $this->model->getBy('settings', 'name', 'judul')->row('value');
+        $data['deskripsi'] = $this->model->getBy('settings', 'name', 'deskripsi')->row('value');
 
-        $this->load->view('dewan/tanding', $data);
+        if ($data['tanding']->num_rows() > 0) {
+            redirect('dewan/detail/' . $data['tanding']->row('id_tanding'));
+            // echo 'ada';
+        } else {
+            $this->load->view('dewan/tanding', $data);
+        }
     }
 
     public function tandingAdd()
@@ -63,6 +74,7 @@ class Dewan extends CI_Controller
     {
         $data['wasit'] = $this->model->getAll('wasit')->result();
         $data['user'] = $this->Auth_model->current_user();
+        $data['socket'] = $this->socket;
 
         $data['tanding'] = $this->model->getBy('tanding', 'id_tanding', $id)->row();
         $data['partai'] = $this->model->getBy('partai', 'id_partai', $data['tanding']->id_partai)->row();
@@ -75,6 +87,9 @@ class Dewan extends CI_Controller
         $data['juri3'] = $this->model->getBy('wasit', 'id_wasit', $data['tanding']->juri3)->row();
         $data['juri4'] = $this->model->getBy('wasit', 'id_wasit', $data['tanding']->juri4)->row();
         $data['juri5'] = $this->model->getBy('wasit', 'id_wasit', $data['tanding']->juri5)->row();
+
+        $data['judul'] = $this->model->getBy('settings', 'name', 'judul')->row('value');
+        $data['deskripsi'] = $this->model->getBy('settings', 'name', 'deskripsi')->row('value');
 
         $this->load->view('dewan/detailTanding', $data);
     }

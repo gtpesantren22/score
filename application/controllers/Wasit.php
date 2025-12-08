@@ -7,27 +7,38 @@ class Wasit extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Modeldata', 'model');
+        $this->socket = $this->model->getBy('settings', 'name', 'socket')->row('value');
     }
 
-    public function index()
+    public function index($nojuri = null)
     {
-        $data['jadwal'] = $this->model->getBy('tanding', 'aktif', 'Y')->result();
-
-        $this->load->view('wasit/home', $data);
+        $qrJadwal = $this->model->getBy('tanding', 'aktif', 'Y');
+        $data['jadwal'] = $qrJadwal->result();
+        $data['nomor'] = $nojuri;
+        $data['socket'] = $this->socket;
+        if ($qrJadwal->row() && $nojuri != null) {
+            $nojr =  'juri' . $nojuri;
+            $id_wasit = $qrJadwal->row($nojr);
+            $id_tanding = $qrJadwal->row('id_tanding');
+            redirect('wasit/gogogo/' . $id_wasit . '/' . $id_tanding . '/' . $nojuri);
+        } else {
+            $this->load->view('wasit/home', $data);
+        }
     }
 
-    public function gogogo()
+    public function gogogo($id_wasit, $id, $no)
     {
-        $id_wasit = $this->input->post('id_wasit', true);
+        // $id_wasit = $this->input->post('id_wasit', true);
         // $pin = $this->input->post('pin', true);
-        $id = $this->input->post('id', true);
+        // $id = $this->input->post('id', true);
 
         $cek = $this->model->getBy('wasit', 'id_wasit', $id_wasit)->row();
         if ($cek) {
             if ($cek->status === 'N') {
                 $session_data = array(
                     'tandingID' => $id,
-                    'wasitID' => $cek->id_wasit
+                    'wasitID' => $cek->id_wasit,
+                    'nomor' => $no
                 );
 
                 $this->model->ubah('wasit', 'id_wasit', $cek->id_wasit, ['status' => 'Y']);
@@ -43,7 +54,7 @@ class Wasit extends CI_Controller
         }
     }
 
-    public function logout()
+    public function logout($nomor)
     {
         $id = $this->session->userdata('wasitID');
         $this->model->ubah('wasit', 'id_wasit', $id, ['status' => 'N']);
@@ -52,6 +63,6 @@ class Wasit extends CI_Controller
         $this->session->unset_userdata('wasitID');
         $this->session->sess_destroy();
 
-        redirect('wasit');
+        redirect('wasit/' . $nomor);
     }
 }

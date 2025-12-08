@@ -29,45 +29,7 @@
         <div class="horizontal-menu">
             <nav class="navbar top-navbar col-lg-12 col-12 p-0">
                 <div class="container">
-                    <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                        <a class="navbar-brand brand-logo" href="<?= base_url() ?>">
-                            <?php
-                            $judul = $this->db->query("SELECT * FROM settings WHERE name = 'judul' ")->row();
-                            echo $judul->value;
-                            ?>
-                            <!-- <span class="font-13 d-block font-weight"> </span> -->
-                            <span class="font-12 d-block font-weight"><?php
-                                                                        $desk = $this->db->query("SELECT * FROM settings WHERE name = 'deskripsi' ")->row();
-                                                                        echo $desk->value;
-                                                                        ?> </span>
-                        </a>
-                        <a class="navbar-brand brand-logo-mini" href="<?= base_url() ?>"><img src="<?= base_url() ?>assets/images/logo-mini.svg" alt="logo" /></a>
-                    </div>
-                    <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-                        <!-- <ul class="navbar-nav navbar-nav-right">
-                            <li class="nav-item nav-profile dropdown">
-                                <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                                    <div class="nav-profile-img">
-                                        <img src="<?= base_url() ?>assets/images/faces/face1.jpg" alt="image" />
-                                    </div>
-                                    <div class="nav-profile-text">
-                                        <p class="text-black font-weight-semibold m-0"> Olson jass </p>
-                                        <span class="font-13 online-color">online <i class="mdi mdi-chevron-down"></i></span>
-                                    </div>
-                                </a>
-                                <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                                    <a class="dropdown-item" href="#">
-                                        <i class="mdi mdi-cached mr-2 text-success"></i> Activity Log </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="mdi mdi-logout mr-2 text-primary"></i> Signout </a>
-                                </div>
-                            </li>
-                        </ul>
-                        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="horizontal-menu-toggle">
-                            <span class="mdi mdi-menu"></span>
-                        </button> -->
-                    </div>
+
                 </div>
             </nav>
 
@@ -122,7 +84,7 @@
                             <div class="col-md-4"></div>
                             <div class="col-md-4 text-center">
                                 <p>Tekan tombol dibawah jika tidak ada pertandingan yang muncul</p>
-                                <button class="btn btn-primary" onclick="window.location='<?= base_url('wasit') ?>'">REFRESH HAL AMAN</button>
+                                <button class="btn btn-primary" onclick="window.location='<?= base_url('wasit/' . $nomor) ?>'">REFRESH HALAMAN</button>
                             </div>
                             <div class="col-md-4"></div>
                         <?php } ?>
@@ -153,6 +115,41 @@
     <!-- endinject -->
     <!-- Custom js for this page -->
     <!-- End custom js for this page -->
+
+    <script>
+        let socket;
+
+        // Membuka koneksi WebSocket
+        function connectWebSocket() {
+            socket = new WebSocket('<?= $socket ?>');
+
+            socket.onopen = () => {
+                console.log('Connected to WebSocket server');
+            };
+
+            socket.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+
+                if (data.action === 'reloadPage') {
+                    window.location.href = '<?= base_url('wasit/' . $nomor) ?>';
+                }
+            };
+
+            socket.onclose = () => {
+                console.log('Disconnected from WebSocket server');
+            };
+        }
+
+        function sendMessage(action) {
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                socket.send(JSON.stringify({
+                    action: action
+                }));
+            }
+        }
+
+        connectWebSocket();
+    </script>
 </body>
 
 </html>

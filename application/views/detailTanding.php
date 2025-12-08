@@ -109,18 +109,22 @@
                         </div>
                         <div class="col-md-2">
                             <div class="card-title mb-2">Status Pertandingan</div>
-                            <?php if ($tanding->aktif == 'N') { ?>
-                                <span class="badge badge-danger">Belum Aktif</span>
-                                <a href="<?= base_url('tanding/aktifkan/' . $tanding->id_tanding) ?>" class="btn btn-success btn-sm btn-rounded konfirmasi" value="Pertandingan ini akan diaktifkan">Aktifkan</a>
-                                <hr>
-                                <div class="card-title mb-2">Proses Pertandingan</div>
-                                <span class="badge badge-danger"><?= $tanding->status ?></span>
-                            <?php } else { ?>
-                                <span class="badge badge-success">Aktif</span>
-                                <a href="<?= base_url('tanding/selesaikan/' . $tanding->id_tanding) ?>" class="btn btn-primary btn-sm btn-rounded konfirmasi" value="Pertandingan ini akan diselesaikan">Selesaikan</a>
-                                <hr>
-                                <div class="card-title mb-2">Proses Pertandingan</div>
-                            <?php } ?>
+                            <?php if ($juri1 && $juri2 && $juri3) { ?>
+                                <?php if ($tanding->aktif == 'N') { ?>
+                                    <span class="badge badge-danger">Belum Aktif</span>
+                                    <a href="<?= base_url('tanding/aktifkan/' . $tanding->id_tanding) ?>" class="btn btn-success btn-sm btn-rounded konfirmasi" value="Pertandingan ini akan diaktifkan">Aktifkan</a>
+                                    <hr>
+                                    <div class="card-title mb-2">Proses Pertandingan</div>
+                                    <span class="badge badge-danger"><?= $tanding->status ?></span>
+                                <?php } else { ?>
+                                    <span class="badge badge-success">Aktif</span>
+                                    <a href="<?= base_url('tanding/selesaikan/' . $tanding->id_tanding) ?>" class="btn btn-primary btn-sm btn-rounded konfirmasi" value="Pertandingan ini akan diselesaikan">Selesaikan</a>
+                                    <hr>
+                                    <div class="card-title mb-2">Proses Pertandingan</div>
+                                <?php } ?>
+                            <?php } else {
+                                echo "Wasit juri belum lengkap";
+                            } ?>
                         </div>
                     </div>
                 </div>

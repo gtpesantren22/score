@@ -60,8 +60,16 @@
                                         <td><?= $no++ ?></td>
                                         <td>Ke - <?= $row->urut ?></td>
                                         <td><?= $row->babak ?></td>
-                                        <td class="text-center"><b><u><?= $merah->nama ?></u></b><br>Kelas <?= $merah->kelas . ' - ' . $merah->kategori . ' - ' . jenkel($merah->jkl) ?><br> Kontingen : <?= $merah->kontingen ?></td>
-                                        <td class="text-center"><b><u><?= $biru->nama ?></u></b><br>Kelas <?= $biru->kelas . ' - ' . $biru->kategori . ' - ' . jenkel($biru->jkl) ?><br> Kontingen : <?= $biru->kontingen ?></td>
+                                        <?php if ($merah) { ?>
+                                            <td class="text-center"><b><u><?= $merah->nama ?></u></b><br>Kelas <?= $merah->kelas . ' - ' . $merah->kategori . ' - ' . jenkel($merah->jkl) ?><br> Kontingen : <?= $merah->kontingen ?></td>
+                                        <?php } else {
+                                            echo "<td class='text-center'>Bye</td>";
+                                        } ?>
+                                        <?php if ($biru) { ?>
+                                            <td class="text-center"><b><u><?= $biru->nama ?></u></b><br>Kelas <?= $biru->kelas . ' - ' . $biru->kategori . ' - ' . jenkel($biru->jkl) ?><br> Kontingen : <?= $biru->kontingen ?></td>
+                                        <?php } else {
+                                            echo "<td class='text-center'>Bye</td>";
+                                        } ?>
                                         <td><?= $row->tanggal ?></td>
                                         <td>
                                             <a href="<?= base_url('partai/delPartai/' . $row->id_partai) ?>" class="btn btn-sm btn-danger tombol-hapus">Hapus</a>

@@ -225,7 +225,14 @@ class Tanding extends CI_Controller
         $cek = $this->model->getBy2('winner', 'id_tanding', $id_tanding, 'id_peserta',  $id_peserta)->row();
 
         if ($cek) {
-            redirect('tanding');
+            $this->model->ubah('winner', 'id_tanding', $$id_tanding, ['id_peserta' => $id_peserta]);
+            if ($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata('ok', 'Pertandingan Selesai');
+                redirect('tanding');
+            } else {
+                $this->session->set_flashdata('error', 'Update pertandingan gagal');
+                redirect('tanding');
+            }
         } else {
             $data = [
                 'id_winner' => $this->uuid->v4(),
@@ -284,9 +291,9 @@ class Tanding extends CI_Controller
         $listPointMerahJ1 = $this->db->query("SELECT skor, status FROM nilai WHERE id_tanding = '$id_tanding' AND id_peserta = '$partai->merah' AND babak = $babak AND id_wasit = '$tanding->juri1' ORDER BY timer ASC ")->result();
         $listPointMerahJ2 = $this->db->query("SELECT skor, status FROM nilai WHERE id_tanding = '$id_tanding' AND id_peserta = '$partai->merah' AND babak = $babak AND id_wasit = '$tanding->juri2' ORDER BY timer ASC ")->result();
         $listPointMerahJ3 = $this->db->query("SELECT skor, status FROM nilai WHERE id_tanding = '$id_tanding' AND id_peserta = '$partai->merah' AND babak = $babak AND id_wasit = '$tanding->juri3' ORDER BY timer ASC ")->result();
-        // List Data Merah
-        $listJatuhanBiru = $this->db->query("SELECT skor FROM hukuman WHERE id_tanding = '$id_tanding' AND id_peserta = '$partai->merah' AND babak = $babak AND ket = 'jatuhan'")->result();
-        $listHukumanBiru = $this->db->query("SELECT skor FROM hukuman WHERE id_tanding = '$id_tanding' AND id_peserta = '$partai->merah' AND babak = $babak AND ket != 'jatuhan'")->result();
+        // List Data Biru
+        $listJatuhanBiru = $this->db->query("SELECT skor FROM hukuman WHERE id_tanding = '$id_tanding' AND id_peserta = '$partai->biru' AND babak = $babak AND ket = 'jatuhan'")->result();
+        $listHukumanBiru = $this->db->query("SELECT skor FROM hukuman WHERE id_tanding = '$id_tanding' AND id_peserta = '$partai->biru' AND babak = $babak AND ket != 'jatuhan'")->result();
         $listPointBiru = $this->db->query("SELECT skor FROM nilai_fix WHERE id_tanding = '$id_tanding' AND id_peserta = '$partai->biru' AND babak = $babak ")->result();
         $listPointBiruJ1 = $this->db->query("SELECT skor, status FROM nilai WHERE id_tanding = '$id_tanding' AND id_peserta = '$partai->biru' AND babak = $babak AND id_wasit = '$tanding->juri1' ORDER BY timer ASC ")->result();
         $listPointBiruJ2 = $this->db->query("SELECT skor, status FROM nilai WHERE id_tanding = '$id_tanding' AND id_peserta = '$partai->biru' AND babak = $babak AND id_wasit = '$tanding->juri2' ORDER BY timer ASC ")->result();
